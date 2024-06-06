@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaCaretDown, FaCaretUp} from "react-icons/fa";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import cardImage from "../../assets/images/cardimage.png";
 
 export const BridalLehenga = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +9,7 @@ export const BridalLehenga = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="max-w-[1200px] py-5 font-poppins flex flex-col gap-5 mx-auto bg-[#f5f5f5] overflow-hidden">
+    <div className="py-5 px-10 font-poppins flex flex-col gap-5 mx-auto bg-[#f5f5f5] overflow-hidden">
       <div>
         <div className="p-5">
           <p className="font-[500] text-2xl md:text-3xl">Bridal Lehenga</p>
@@ -160,10 +161,10 @@ export const BridalLehenga = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="px-4 lg:py-2 lg:px-10 grid grid-cols-2 gap-5 lg:grid-cols-4 w-fit lg:gap-16">
+      <div className="flex justify-center w-full">
+        <div className="px-4 lg:py-2 justify-center lg:px-10 flex flex-wrap gap-5 w-fit lg:gap-10">
           <Card
-            src="/cardimage.png"
+            src={cardImage}
             price="38,000"
             name="Bhasin Brothers"
             type="Zarodhi Lehenga"
@@ -238,21 +239,25 @@ export const BridalLehenga = () => {
   );
 };
 
-const Card = ({ src, name, type, location, price}) => {
+const Card = ({ src, name, type, location, price }) => {
   return (
-    <div className="font-poppins relative shadow-md flex-shrink-0 w-[150px] h-[300px] md:w-[220px] md:h-[380px] overflow-hidden rounded-3xl ">
-
+    <div className="font-poppins flex-grow relative shadow-md flex-shrink-0 min-w-[150px] max-w-[150px] h-[300px] md:min-w-[220px] md:max-w-[220px] md:h-[380px] overflow-hidden rounded-3xl">
       <div
-        className={`absolute inset-0 bg-[url('${src}')] bg-cover bg-center bottom-1/4`}
-        
+        className="absolute inset-0 bg-cover bg-center bottom-1/4"
+        style={{ backgroundImage: `url(${src})` }}
       ></div>
       <div className="absolute bg-white w-full bottom-0 h-fit p-3 flex flex-col gap-1 md:gap-2 text-wrap">
         <p className="font-[400] text-xs md:text-sm">{type}</p>
-        <p className="font-[600] text-sm md:text-xl leading-none ">{name}</p>
-        <p className="font-[500] text-[#626262] text-xs md:text-sm">{location}</p>
-        <p className="text-right font-[500] text-base md:text-lg text-[#CF166F]">₹{price}</p>
+        <p className="font-[600] text-sm md:text-xl leading-none">{name}</p>
+        <p className="font-[500] text-[#626262] text-xs md:text-sm">
+          {location}
+        </p>
+        <p className="text-right font-[500] text-base md:text-lg text-[#CF166F]">
+          ₹{price}
+        </p>
       </div>
     </div>
   );
 };
-export default Card;
+
+export default BridalLehenga;

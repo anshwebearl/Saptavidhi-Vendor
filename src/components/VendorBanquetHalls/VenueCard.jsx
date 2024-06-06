@@ -2,7 +2,7 @@ import React from 'react';
 
 const VenueCard = ({ src, title, subtitle, location, detailsArray, priceVeg, priceNonVeg }) => {
     return (
-        <div className="mx-[10px] my-[20px] bg-white rounded-[20px] border-gray-300 flex border items-center font-poppins">
+        <div className="mx-[8px] my-[20px] bg-white rounded-[20px] border-gray-300 flex border items-center font-poppins">
           <div className="relative px-[8px]">
             <img className="object-cover w-[100px] h-[100px] rounded-[10px] " src={src} alt="Venue" />
             <div className="absolute top-1 left-3 bg-[#ffffff80] rounded-lg py-[2px] px-[5px] shadow-md flex items-center space-x-1 text-[6px]">

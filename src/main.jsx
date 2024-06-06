@@ -1,68 +1,36 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import App from './App.jsx'
-import './index.css'
-import DetailsForm from './components/SmallFuncDecor/DetailsForm.jsx'
-import Footer from './components/Footer.jsx'
-import Navbar from './components/Navbar.jsx'
-import PaymentGateway from './components/PaymentGateway.jsx'
-import OrderConfirmation from './components/OrderConfirmation.jsx'
-import GoogleMyBusiness from './components/GoogleMyBusiness.jsx'
-import Grid from './components/SmallFuncDecor/Grid.jsx'
-import VenueCard from './components/VendorBanquetHalls/VenueCard.jsx'
-import MainVenue from './components/VendorBanquetHalls/MainVenue.jsx'
-import HotelCard from './components/VendorBanquetHalls/HotelCard.jsx'
-import Pagination from './components/VendorBanquetHalls/Pagination.jsx'
-import ReviewCard from './components/SmallFuncDecor/ReviewCard.jsx'
-import BridalLehenga from './components/BridalLehenga/BridalLehenga.jsx'
-import BridalMakeup from './components/BridalMakeup/BridalMakeupMain.jsx'
-import MainChecklist from './components/Checklist/MainChecklist.jsx'
-import MainNavigation from './components/Vendor/MainNavigation.jsx'
-import ChangePassword from './components/ChangePassword.jsx'
-import Home from './components/Home.jsx'
-import CreateWedding from './components/CreateWedding.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import DetailsForm from "./components/SmallFuncDecor/DetailsForm.jsx";
+import Footer from "./components/Footer.jsx";
+import Navbar from "./components/Navbar.jsx";
+import PaymentGateway from "./components/PaymentGateway.jsx";
+import OrderConfirmation from "./components/OrderConfirmation.jsx";
+import GoogleMyBusiness from "./components/GoogleMyBusiness.jsx";
+import Grid from "./components/SmallFuncDecor/Grid.jsx";
+import VenueCard from "./components/VendorBanquetHalls/VenueCard.jsx";
+import MainVenue from "./components/VendorBanquetHalls/MainVenue.jsx";
+import HotelCard from "./components/VendorBanquetHalls/HotelCard.jsx";
+import Pagination from "./components/VendorBanquetHalls/Pagination.jsx";
+import ReviewCard from "./components/SmallFuncDecor/ReviewCard.jsx";
+import BridalLehenga from "./components/BridalLehenga/BridalLehenga.jsx";
+import BridalMakeup from "./components/BridalMakeup/BridalMakeupMain.jsx";
+import MainChecklist from "./components/Checklist/MainChecklist.jsx";
+import MainNavigation from "./components/Vendor/MainNavigation.jsx";
+import ChangePassword from "./components/ChangePassword.jsx";
+import Home from "./components/Home.jsx";
+import CreateWedding from "./components/CreateWedding.jsx";
+import VendorLogin from "./components/VendorLogin/VendorLogin.jsx";
+import VendorSignup from "./components/VendorSignup/VendorSignup.jsx";
+import ForgotPassword from "./components/VendorForgotPassword/ForgotPassword.jsx";
+import VendorOtp from "./components/VendorForgotPassword/VendorOtp.jsx";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Router>
-     <Navbar />
-      <Routes>
-        <Route path="/venues" element={<MainVenue />} />
-        <Route path="/photographers" element={<DetailsForm />} />
-        <Route path="/wear" element={<BridalLehenga />} />
-        <Route path="/wear" element={<BridalLehenga />} />
-        <Route path="/makeup" element={<BridalMakeup />} />
-        <Route path="/decorators" element={<MainVenue />} />
-        <Route path="/smalldecoration" element={<DetailsForm />} />
-        <Route path="/einvites" element={<DetailsForm />} />
-
-        <Route path="/joinwedding" element={<MainChecklist />} />
-        <Route path="/profile" element={<MainNavigation />} />
-        <Route path="/inbox" element={<MainNavigation />} />
-        <Route path="/bookings" element={<MainNavigation />} />
-        <Route path="/settings" element={<MainNavigation />} />
-        <Route path="/downloadapp" element={<MainNavigation />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/logout" element={<MainNavigation />} />
-
-        {/* <Route path="/home" element={<Home />} /> */}
-        <Route path="/home" element={<Home />} />
-
-        <Route path="/createwedding" element={<CreateWedding />} />
-      </Routes>
-      </Router>
-      <Footer />
-    
-     
-  </React.StrictMode>,
-)
-
-
-
-
-
-
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+            <App />
+    </React.StrictMode>
+);
 
 // import './App.css'
 // import { Route, Routes, Navigate } from 'react-router-dom'

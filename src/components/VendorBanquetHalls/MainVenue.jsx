@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 
 const MainVenue = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; 
+  const itemsPerPage = 8; 
   const totalVenueCards = 42; 
   const totalPages = Math.ceil(totalVenueCards / itemsPerPage);
 
@@ -142,7 +142,7 @@ const MainVenue = () => {
         <Filter />
       </div>
 
-      <div className="flex flex-wrap ">
+      <div className="flex flex-wrap justify-center">
         {currentVenueCards}
       </div>
 

@@ -3,7 +3,7 @@ import Container from '../../assets/images/BridalMakeup/Container.png';
 
 const Text = () => {
   return (
-    <div className="bg-white max-w-[1200px] mx-auto flex flex-col lg:flex-row font-poppins my-8 px-0 lg:px-0 justify-between">
+    <div className="bg-white mx-auto flex flex-col lg:flex-row font-poppins my-8 px-0 lg:px-0 justify-between">
       <div className="w-full lg:w-1/2 p-4 text-left">
         <h1 className="text-[20px] font-medium mb-2">Bridal Makeup</h1>
         <hr className="border-red-700 mb-2" />

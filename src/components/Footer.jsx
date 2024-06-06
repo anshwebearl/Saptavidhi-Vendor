@@ -1,6 +1,6 @@
 function Footer() {
     return (
-      <div className="mx-auto max-w-[1200px] font-poppins bg-gradient-to-b from-[#FF8DA680] to-[#FD070780] px-8 py-8 flex flex-wrap lg:flex-row gap-8 lg:gap-0 lg:justify-around md:justify-around sm:justify-between">
+      <div className="mx-auto font-poppins bg-gradient-to-b from-[#FF8DA680] to-[#FD070780] px-8 py-8 flex flex-wrap lg:flex-row gap-8 lg:gap-0 lg:justify-around md:justify-around sm:justify-between">
         <div className="flex flex-col gap-5">
           <img src="/logo.png" className="h-10 w-40" alt="" />
           <div className="font-[500] text-lg space-y-2">

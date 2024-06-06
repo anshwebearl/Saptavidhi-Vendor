@@ -14,7 +14,7 @@ function CardWrapper() {
   ];
 
   return (
-    <div className="max-w-[1200px] mx-auto my-8 p-8 font-poppins">
+    <div className=" mx-auto my-8 p-8 font-poppins">
       <Header header="Browse Our Guides" />
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {images.map((image, index) => (

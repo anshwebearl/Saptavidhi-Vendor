@@ -74,6 +74,11 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
               icon: gmbIcon,
               selectedIcon: gmbIconSelected,
             },
+            {
+              name: "Profile",
+              icon: inquiriesIcon,
+              selectedIcon: inquiriesIconSelected,
+            },
           ].map((item) => (
             <div
               key={item.name}

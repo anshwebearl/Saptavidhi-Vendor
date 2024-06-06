@@ -12,7 +12,7 @@ const GridContainer = () => {
   const totalVenueCards = 42; 
   const totalPages = Math.ceil(totalVenueCards / itemsPerPage);
   return (
-    <div className="max-w-[1200px] mx-auto mt-10 w-full bg-purple-50 p-4">
+    <div className=" mx-auto mt-10 w-full bg-purple-50 p-4">
       <GridHeader />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
         <div className="col-span-1">

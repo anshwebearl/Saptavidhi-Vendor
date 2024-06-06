@@ -14,7 +14,7 @@ const Banner = () => {
             </div>
             <div className="absolute text-white text-center">
                 <div>
-                    <h1 className="text-[600px] md:text-4xl font-bold mb-4">Your <span className='font-satisfy'>Wedding</span>, Your <span className='font-satisfy'>Way</span></h1>
+                    <h1 className="text-3xl md:text-4xl font-bold mb-4">Your <span className='font-satisfy'>Wedding</span>, Your <span className='font-satisfy'>Way</span></h1>
                     <p className="text-sm md:text-xl mb-8 mx-3">
                         Find the best wedding vendors with thousands of trusted reviews
                     </p>
