@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { State, City } from "country-state-city";
-import { vendorTypeData } from "../../data/vendorTypeData.js";
 
 const VendorSignup = () => {
     const navigate = useNavigate();
@@ -24,6 +23,8 @@ const VendorSignup = () => {
 
     const allStates = State.getStatesOfCountry("IN");
     const [allCities, setAllCities] = useState([]);
+
+    const [vendorTypeData, setVendorTypeData] = useState([]);
 
     const handleStateChange = (e) => {
         const selectedState = e.target.value;
@@ -50,6 +51,24 @@ const VendorSignup = () => {
         const re = /^[0-9\b]+$/;
         if (re.test(value)) {
             setPincode(value);
+        }
+    };
+
+    const getAllCategories = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:8000/api/vendor-category/getall",
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
+            const jsonData = await response.json();
+            if (jsonData.success) {
+                setVendorTypeData(jsonData.vendorCategories);
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -84,10 +103,10 @@ const VendorSignup = () => {
             setErrors(newErrors);
             return;
         }
-
         try {
             const response = await fetch(
-                "https://saptavidhi-vendor-api.onrender.com/api/vendor/signup",
+                // "https://saptavidhi-vendor-api.onrender.com/api/vendor/signup",
+                "http://localhost:8000/api/vendor/signup",
                 {
                     method: "POST",
                     headers: {
@@ -125,6 +144,10 @@ const VendorSignup = () => {
             navigate("/");
         }
     }, [user, navigate]);
+
+    useEffect(() => {
+        getAllCategories();
+    }, []);
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">

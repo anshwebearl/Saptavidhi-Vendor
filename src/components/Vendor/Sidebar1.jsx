@@ -18,89 +18,93 @@ import gmbIconSelected from "../../assets/images/Vector8.png";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleItemClick = (itemName) => {
-    setSelectedItem(itemName);
-  };
+    const handleItemClick = (itemName) => {
+        setSelectedItem(itemName);
+    };
 
-  return (
-    <div className="flex flex-col md:flex-row h-fit w-fit">
-      <button
-        className="md:hidden p-2 bg-pink-500 text-white rounded-md m-2 w-fit"
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      >
-        {isSidebarOpen ? <FaCaretLeft /> : <FaCaretRight />}
-      </button>
-      <div
-        className={`bg-white text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[250px] rounded-xl transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "block" : "hidden"
-        } md:block`}
-      >
-        <div className="space-y-3">
-          {[
-            {
-              name: "Information",
-              icon: infoIcon,
-              selectedIcon: infoIconSelected,
-            },
-            {
-              name: "My Catalog",
-              icon: catalogIcon,
-              selectedIcon: catalogIconSelected,
-            },
-            {
-              name: "Inquiries",
-              icon: inquiriesIcon,
-              selectedIcon: inquiriesIconSelected,
-            },
-            {
-              name: "Projects",
-              icon: projectsIcon,
-              selectedIcon: projectsIconSelected,
-            },
-            {
-              name: "Membership Plans",
-              icon: membershipIcon,
-              selectedIcon: membershipIconSelected,
-            },
-            {
-              name: "Reviews",
-              icon: reviewsIcon,
-              selectedIcon: reviewsIconSelected,
-            },
-            {
-              name: "Google My Business",
-              icon: gmbIcon,
-              selectedIcon: gmbIconSelected,
-            },
-            {
-              name: "Profile",
-              icon: inquiriesIcon,
-              selectedIcon: inquiriesIconSelected,
-            },
-          ].map((item) => (
-            <div
-              key={item.name}
-              className={`flex items-center space-x-2 p-2 rounded-md text-sm md:text-xl font-medium transition-colors duration-300 ease-in-out ${
-                selectedItem === item.name
-                  ? "bg-[#CF166F0D] text-[#CF166F]"
-                  : "hover:bg-pink-100"
-              }`}
-              onClick={() => handleItemClick(item.name)}
+    return (
+        <div className="flex flex-col md:flex-row h-fit w-fit">
+            <button
+                className="md:hidden p-2 bg-pink-500 text-white rounded-md m-2 w-fit"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
-              <img
-                src={selectedItem === item.name ? item.selectedIcon : item.icon}
-                alt={`${item.name} Icon`}
-                className="w-4 h-4"
-              />
-              <span>{item.name}</span>
+                {isSidebarOpen ? <FaCaretLeft /> : <FaCaretRight />}
+            </button>
+            <div
+                className={`bg-white text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[250px] rounded-xl transition-all duration-300 ease-in-out ${
+                    isSidebarOpen ? "block" : "hidden"
+                } md:block`}
+            >
+                <div className="space-y-3">
+                    {[
+                        {
+                            name: "Personal Information",
+                            icon: infoIcon,
+                            selectedIcon: infoIconSelected,
+                        },
+                        {
+                            name: "Additional Info",
+                            icon: infoIcon,
+                            selectedIcon: infoIconSelected,
+                        },
+                        {
+                            name: "My Catalog",
+                            icon: catalogIcon,
+                            selectedIcon: catalogIconSelected,
+                        },
+                        {
+                            name: "Inquiries",
+                            icon: inquiriesIcon,
+                            selectedIcon: inquiriesIconSelected,
+                        },
+                        {
+                            name: "Projects",
+                            icon: projectsIcon,
+                            selectedIcon: projectsIconSelected,
+                        },
+                        {
+                            name: "Membership Plans",
+                            icon: membershipIcon,
+                            selectedIcon: membershipIconSelected,
+                        },
+                        {
+                            name: "Reviews",
+                            icon: reviewsIcon,
+                            selectedIcon: reviewsIconSelected,
+                        },
+                        {
+                            name: "Google My Business",
+                            icon: gmbIcon,
+                            selectedIcon: gmbIconSelected,
+                        },
+                    ].map((item) => (
+                        <div
+                            key={item.name}
+                            className={`flex items-center space-x-2 p-2 rounded-md text-sm md:text-xl font-medium transition-colors duration-300 ease-in-out ${
+                                selectedItem === item.name
+                                    ? "bg-[#CF166F0D] text-[#CF166F]"
+                                    : "hover:bg-pink-100"
+                            }`}
+                            onClick={() => handleItemClick(item.name)}
+                        >
+                            <img
+                                src={
+                                    selectedItem === item.name
+                                        ? item.selectedIcon
+                                        : item.icon
+                                }
+                                alt={`${item.name} Icon`}
+                                className="w-4 h-4"
+                            />
+                            <span>{item.name}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
-          ))}
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Sidebar1;
