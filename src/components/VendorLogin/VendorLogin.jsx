@@ -13,6 +13,8 @@ const VendorLogin = () => {
         const newErrors = {};
 
         if (!mobile) newErrors.mobile = "Mobile Number is required";
+        else if (mobile.length !== 10)
+            newErrors.mobile = "Mobile Number must be 10 digits";
         if (!password) newErrors.password = "Password is required";
 
         if (Object.keys(newErrors).length > 0) {
@@ -53,6 +55,14 @@ const VendorLogin = () => {
         }
     }, [user, navigate]);
 
+    const handleMobileChange = (e) => {
+        const value = e.target.value;
+        const re = /^[0-9\b]+$/;
+        if (re.test(value)) {
+            setMobile(value);
+        }
+    };
+
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
             <div className="px-0">
@@ -63,11 +73,10 @@ const VendorLogin = () => {
                     <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8 md:gap-9 items-center md:w-full sm:w-auto">
                         <div className="w-full">
                             <input
-                                type="number"
                                 className="remove-arrow border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
                                 placeholder="Mobile Number"
                                 value={mobile}
-                                onChange={(e) => setMobile(e.target.value)}
+                                onChange={handleMobileChange}
                             />
                             {errors.mobile && (
                                 <p className="text-red-500 text-xs">

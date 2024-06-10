@@ -37,19 +37,42 @@ const VendorSignup = () => {
         }
     };
 
+    const handleMobileChange = (e) => {
+        const value = e.target.value;
+        const re = /^[0-9\b]+$/;
+        if (re.test(value)) {
+            setMobile(value);
+        }
+    };
+
+    const handlePincodeChange = (e) => {
+        const value = e.target.value;
+        const re = /^[0-9\b]+$/;
+        if (re.test(value)) {
+            setPincode(value);
+        }
+    };
+
     const handleSignup = async () => {
         const newErrors = {};
-
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
         if (!brandName) newErrors.brandName = "Brand Name is required";
         if (!state) newErrors.state = "State is required";
         if (!city) newErrors.city = "City is required";
         if (!pincode) newErrors.pincode = "Pincode is required";
+        else if (pincode.length !== 6)
+            newErrors.pincode = "Pincode must be 6 digits";
         if (!mobile) newErrors.mobile = "Mobile Number is required";
+        else if (mobile.length !== 10)
+            newErrors.mobile = "Mobile Number must be 10 digits";
         if (!contactPersonName)
             newErrors.contactPersonName = "Contact Person Name is required";
         if (vendorType === "Select Vendor Type")
             newErrors.vendorType = "Vendor Type is required";
         if (!email) newErrors.email = "Email is required";
+        else if (!emailRegex.test(email))
+            newErrors.email = "Enter a valid email";
         if (!password) newErrors.password = "Password is required";
         if (!confirmPassword)
             newErrors.confirmPassword = "Confirm Password is required";
@@ -192,9 +215,7 @@ const VendorSignup = () => {
                                         className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
                                         placeholder="Pincode"
                                         value={pincode}
-                                        onChange={(e) =>
-                                            setPincode(e.target.value)
-                                        }
+                                        onChange={handlePincodeChange}
                                     />
                                     {errors.pincode && (
                                         <p className="text-red-500 text-xs">
@@ -208,9 +229,7 @@ const VendorSignup = () => {
                                         className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
                                         placeholder="Mobile Number"
                                         value={mobile}
-                                        onChange={(e) =>
-                                            setMobile(e.target.value)
-                                        }
+                                        onChange={handleMobileChange}
                                     />
                                     {errors.mobile && (
                                         <p className="text-red-500 text-xs">
