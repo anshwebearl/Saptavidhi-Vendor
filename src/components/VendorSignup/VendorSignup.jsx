@@ -1,30 +1,70 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { State, City } from "country-state-city";
+import { vendorTypeData } from "../../data/vendorTypeData.js";
 
 const VendorSignup = () => {
     const navigate = useNavigate();
+
     const { user } = useContext(UserContext);
+
     const [brandName, setBrandName] = useState("");
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pincode, setPincode] = useState("");
     const [mobile, setMobile] = useState("");
     const [contactPersonName, setContactPersonName] = useState("");
-    const [vendorType, setVendorType] = useState("");
+    const [vendorType, setVendorType] = useState("Select Vendor Type");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [address, setAddress] = useState("");
+    const [errors, setErrors] = useState({});
+
+    const allStates = State.getStatesOfCountry("IN");
+    const [allCities, setAllCities] = useState([]);
+
+    const handleStateChange = (e) => {
+        const selectedState = e.target.value;
+        setState(selectedState);
+        const stateCode = allStates.find(
+            (s) => s.name === selectedState
+        )?.isoCode;
+        if (stateCode) {
+            const cities = City.getCitiesOfState("IN", stateCode);
+            setAllCities(cities);
+        }
+    };
 
     const handleSignup = async () => {
-        if (password !== confirmPassword) {
-            console.log("passwords dont match");
+        const newErrors = {};
+
+        if (!brandName) newErrors.brandName = "Brand Name is required";
+        if (!state) newErrors.state = "State is required";
+        if (!city) newErrors.city = "City is required";
+        if (!pincode) newErrors.pincode = "Pincode is required";
+        if (!mobile) newErrors.mobile = "Mobile Number is required";
+        if (!contactPersonName)
+            newErrors.contactPersonName = "Contact Person Name is required";
+        if (vendorType === "Select Vendor Type")
+            newErrors.vendorType = "Vendor Type is required";
+        if (!email) newErrors.email = "Email is required";
+        if (!password) newErrors.password = "Password is required";
+        if (!confirmPassword)
+            newErrors.confirmPassword = "Confirm Password is required";
+        if (!address) newErrors.address = "Address is required";
+        if (password !== confirmPassword)
+            newErrors.passwordMatch = "Passwords do not match";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
             return;
         }
+
         try {
             const response = await fetch(
-                "http://localhost:8000/api/vendor/signup",
+                "https://saptavidhi-vendor-api.onrender.com/api/vendor/signup",
                 {
                     method: "POST",
                     headers: {
@@ -46,7 +86,7 @@ const VendorSignup = () => {
             );
             const data = await response.json();
             if (data.success) {
-                document.cookie = `token=${data.token};max-age=86400`;
+                localStorage.setItem("token", data.token);
                 navigate("/", { replace: true });
                 window.location.reload();
             } else {
@@ -61,7 +101,7 @@ const VendorSignup = () => {
         if (user) {
             navigate("/");
         }
-    }, [user]);
+    }, [user, navigate]);
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
@@ -72,124 +112,215 @@ const VendorSignup = () => {
                     </p>
                     <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8 md:gap-9 md:w-full sm:w-auto">
                         <div className="flex flex-col md:flex-row justify-between gap-12 flex-wrap">
-                            <div className="flex flex-col gap-12 flex-grow">
-                                <input
-                                    type="text"
-                                    className="border-b-[1px]  focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Brand Name"
-                                    value={brandName}
-                                    onChange={(e) =>
-                                        setBrandName(e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    className="border-b-[1px]  focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="State"
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
-                                />
-                                <input
-                                    type="text"
-                                    className="border-b-[1px]  focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="City"
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                />
-                                {/* <select className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto">
-                                    <option
-                                        className="text-slate-400"
-                                        disabled
-                                        selected
+                            <div className="flex flex-col gap-12 flex-grow md:max-w-[50%]">
+                                <div>
+                                    <input
+                                        type="text"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Brand Name"
+                                        value={brandName}
+                                        onChange={(e) =>
+                                            setBrandName(e.target.value)
+                                        }
+                                    />
+                                    {errors.brandName && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.brandName}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <select
+                                        onChange={handleStateChange}
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
                                     >
-                                        State
-                                    </option>
-                                </select> */}
-                                {/* <select className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto">
-                                    <option
-                                        className="text-slate-400"
-                                        disabled
-                                        selected
+                                        <option
+                                            className="text-slate-400"
+                                            disabled
+                                            selected
+                                        >
+                                            State
+                                        </option>
+                                        {allStates.map((state) => (
+                                            <option
+                                                key={state.isoCode}
+                                                value={state.name}
+                                            >
+                                                {state.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.state && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.state}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <select
+                                        disabled={!state}
+                                        onChange={(e) =>
+                                            setCity(e.target.value)
+                                        }
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
                                     >
-                                        City
-                                    </option>
-                                </select> */}
-                                <input
-                                    type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Pincode"
-                                    value={pincode}
-                                    onChange={(e) => setPincode(e.target.value)}
-                                />
-                                <input
-                                    type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Mobile Number"
-                                    value={mobile}
-                                    onChange={(e) => setMobile(e.target.value)}
-                                />
+                                        <option
+                                            className="text-slate-400"
+                                            disabled
+                                            selected
+                                        >
+                                            City
+                                        </option>
+                                        {allCities.map((city) => (
+                                            <option
+                                                key={city.name}
+                                                value={city.name}
+                                            >
+                                                {city.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.city && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.city}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Pincode"
+                                        value={pincode}
+                                        onChange={(e) =>
+                                            setPincode(e.target.value)
+                                        }
+                                    />
+                                    {errors.pincode && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.pincode}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Mobile Number"
+                                        value={mobile}
+                                        onChange={(e) =>
+                                            setMobile(e.target.value)
+                                        }
+                                    />
+                                    {errors.mobile && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.mobile}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-12 flex-grow">
-                                <input
-                                    type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Contact Person Name"
-                                    value={contactPersonName}
-                                    onChange={(e) =>
-                                        setContactPersonName(e.target.value)
-                                    }
-                                />
-                                <select
-                                    value={vendorType}
-                                    onChange={(e) =>
-                                        setVendorType(e.target.value)
-                                    }
-                                    name="vendor_type"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                >
-                                    <option className="" disabled selected>
-                                        Select Vendor Type
-                                    </option>
-                                    <option
-                                        className=""
-                                        id="vendor_type_1"
-                                        value="vendor_type_1"
+                            <div className="flex flex-col gap-12 flex-grow md:max-w-[50%]">
+                                <div>
+                                    <input
+                                        type="text"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Contact Person Name"
+                                        value={contactPersonName}
+                                        onChange={(e) =>
+                                            setContactPersonName(e.target.value)
+                                        }
+                                    />
+                                    {errors.contactPersonName && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.contactPersonName}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <select
+                                        value={vendorType}
+                                        onChange={(e) =>
+                                            setVendorType(e.target.value)
+                                        }
+                                        name="vendor_type"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
                                     >
-                                        vendor type 1
-                                    </option>
-                                    <option
-                                        className=""
-                                        id="vendor_type_2"
-                                        value="vendor_type_2"
-                                    >
-                                        vendor type 2
-                                    </option>
-                                </select>
-                                <input
-                                    type="email"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <input
-                                    type="password"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="password"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                                    placeholder="Confirm Password"
-                                    value={confirmPassword}
-                                    onChange={(e) =>
-                                        setConfirmPassword(e.target.value)
-                                    }
-                                />
+                                        <option
+                                            className=""
+                                            disabled
+                                            value="Select Vendor Type"
+                                            selected
+                                        >
+                                            Select Vendor Type
+                                        </option>
+                                        {vendorTypeData.map((vendor, idx) => (
+                                            <option
+                                                key={idx}
+                                                value={vendor.name}
+                                            >
+                                                {vendor.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.vendorType && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.vendorType}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="email"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                    />
+                                    {errors.email && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.email}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="password"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
+                                    />
+                                    {errors.password && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.password}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="password"
+                                        className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
+                                        placeholder="Confirm Password"
+                                        value={confirmPassword}
+                                        onChange={(e) =>
+                                            setConfirmPassword(e.target.value)
+                                        }
+                                    />
+                                    {errors.confirmPassword && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.confirmPassword}
+                                        </p>
+                                    )}
+                                    {errors.passwordMatch && (
+                                        <p className="text-red-500 text-xs">
+                                            {errors.passwordMatch}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -200,8 +331,16 @@ const VendorSignup = () => {
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                             />
+                            {errors.address && (
+                                <p className="text-red-500 text-xs">
+                                    {errors.address}
+                                </p>
+                            )}
                         </div>
-                        <div onClick={handleSignup} className="font-[700] text-sm sm:text-xl py-2 sm:py-3 px-4 w-fit self-center sm:px-8 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer">
+                        <div
+                            onClick={handleSignup}
+                            className="font-[700] text-sm sm:text-xl py-2 sm:py-3 px-4 w-fit self-center sm:px-8 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"
+                        >
                             Register
                         </div>
                         <div className="font-[600] text-xs md:text-base cursor-pointer w-fit self-center">

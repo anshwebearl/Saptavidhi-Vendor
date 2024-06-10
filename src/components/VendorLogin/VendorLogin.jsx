@@ -6,12 +6,23 @@ const VendorLogin = () => {
     const navigate = useNavigate();
     const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
     const { user } = useContext(UserContext);
 
     const handleLogin = async () => {
+        const newErrors = {};
+
+        if (!mobile) newErrors.mobile = "Mobile Number is required";
+        if (!password) newErrors.password = "Password is required";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         try {
             const response = await fetch(
-                "http://localhost:8000/api/vendor/login",
+                "https://saptavidhi-vendor-api.onrender.com/api/vendor/login",
                 {
                     method: "POST",
                     headers: {
@@ -25,7 +36,7 @@ const VendorLogin = () => {
             );
             const data = await response.json();
             if (data.success) {
-                document.cookie = `token=${data.token};max-age=86400`;
+                localStorage.setItem("token", data.token);
                 navigate("/", { replace: true });
                 window.location.reload();
             } else {
@@ -40,7 +51,7 @@ const VendorLogin = () => {
         if (user) {
             navigate("/");
         }
-    }, [user]);
+    }, [user, navigate]);
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
@@ -50,20 +61,34 @@ const VendorLogin = () => {
                         Login to your account
                     </p>
                     <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8 md:gap-9 items-center md:w-full sm:w-auto">
-                        <input
-                            type="number"
-                            className="remove-arrow border-b-[1px]  focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                            placeholder="Mobile Number"
-                            value={mobile}
-                            onChange={(e) => setMobile(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 md:w-full sm:w-auto"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <div className="w-full">
+                            <input
+                                type="number"
+                                className="remove-arrow border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
+                                placeholder="Mobile Number"
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
+                            />
+                            {errors.mobile && (
+                                <p className="text-red-500 text-xs">
+                                    {errors.mobile}
+                                </p>
+                            )}
+                        </div>
+                        <div className="w-full">
+                            <input
+                                type="password"
+                                className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {errors.password && (
+                                <p className="text-red-500 text-xs">
+                                    {errors.password}
+                                </p>
+                            )}
+                        </div>
                         <div
                             onClick={handleLogin}
                             className="font-[700] text-sm sm:text-xl py-2 sm:py-3 px-4 sm:px-8 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"

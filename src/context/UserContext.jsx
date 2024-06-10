@@ -10,10 +10,14 @@ export const UserProvider = ({ children }) => {
     const location = useLocation();
 
     const getUser = async () => {
-        const token = document.cookie.split("=")[1];
+        // const token = document.cookie.split("=")[1];
+        const token = localStorage.getItem("token");
+        // if (!token) {
+        //     navigate("/");
+        // }
         try {
             const response = await fetch(
-                "http://localhost:8000/api/vendor/getvendors",
+                "https://saptavidhi-vendor-api.onrender.com/api/vendor/getvendors",
                 {
                     method: "GET",
                     headers: {

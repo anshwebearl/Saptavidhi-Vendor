@@ -54,8 +54,9 @@ const Navbar = () => {
 
     const handleLogout = () => {
         setUser(null);
-        document.cookie = "token=;";
-        navigate("/")
+        // document.cookie = "token=;";
+        localStorage.clear();
+        navigate("/");
     };
 
     const handleNavigation = (path) => {

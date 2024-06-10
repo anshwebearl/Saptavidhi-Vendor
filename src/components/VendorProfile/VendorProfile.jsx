@@ -6,7 +6,8 @@ import { UserContext } from "../../context/UserContext";
 const VendorProfile = () => {
     const { user, getUser } = useContext(UserContext);
 
-    const token = document.cookie.split("=")[1];
+    // const token = document.cookie.split("=")[1];
+    const token = localStorage.getItem("token");
 
     const [loginEmail, setLoginEmail] = useState("");
     const [brandName, setBrandName] = useState("");
@@ -77,7 +78,7 @@ const VendorProfile = () => {
         if (!isChanged) return;
         try {
             const response = await fetch(
-                `http://localhost:8000/api/vendor/updatevendor/${user._id}`,
+                `https://saptavidhi-vendor-api.onrender.com/api/vendor/updatevendor/${user._id}`,
                 {
                     method: "PATCH",
                     headers: {

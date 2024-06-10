@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
 import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
+import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
 
 function App() {
     return (
@@ -50,6 +51,10 @@ function App() {
                     />
                     <Route path="/logout" element={<MainNavigation />} />
                     <Route path="/createwedding" element={<CreateWedding />} />
+                    <Route
+                        path="/real-wedding-details"
+                        element={<RealWeddingDetails />}
+                    />
                 </Routes>
             </UserProvider>
             <Footer />
