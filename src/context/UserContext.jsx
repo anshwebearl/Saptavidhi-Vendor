@@ -5,6 +5,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+    const BASE_URL = import.meta.env.DEV
+        ? import.meta.env.VITE_API_BASE_URL_DEV
+        : import.meta.env.VITE_API_BASE_URL_PROD;
+
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,7 +21,7 @@ export const UserProvider = ({ children }) => {
         // }
         try {
             const response = await fetch(
-                "https://saptavidhi-vendor-api.onrender.com/api/vendor/getvendors",
+                `${BASE_URL}/vendor/getvendors`,
                 {
                     method: "GET",
                     headers: {

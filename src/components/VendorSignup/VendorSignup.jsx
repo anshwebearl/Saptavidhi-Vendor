@@ -6,6 +6,10 @@ import { State, City } from "country-state-city";
 const VendorSignup = () => {
     const navigate = useNavigate();
 
+    const BASE_URL = import.meta.env.DEV
+        ? import.meta.env.VITE_API_BASE_URL_DEV
+        : import.meta.env.VITE_API_BASE_URL_PROD;
+
     const { user } = useContext(UserContext);
 
     const [brandName, setBrandName] = useState("");
@@ -56,13 +60,10 @@ const VendorSignup = () => {
 
     const getAllCategories = async () => {
         try {
-            const response = await fetch(
-                "http://localhost:8000/api/vendor-category/getall",
-                {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                }
-            );
+            const response = await fetch(`${BASE_URL}/vendor-category/getall`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
             const jsonData = await response.json();
             if (jsonData.success) {
                 setVendorTypeData(jsonData.vendorCategories);
@@ -75,7 +76,7 @@ const VendorSignup = () => {
     const handleSignup = async () => {
         const newErrors = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
+
         if (!brandName) newErrors.brandName = "Brand Name is required";
         if (!state) newErrors.state = "State is required";
         if (!city) newErrors.city = "City is required";
@@ -104,28 +105,24 @@ const VendorSignup = () => {
             return;
         }
         try {
-            const response = await fetch(
-                // "https://saptavidhi-vendor-api.onrender.com/api/vendor/signup",
-                "http://localhost:8000/api/vendor/signup",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        brand_name: brandName,
-                        contact_person_name: contactPersonName,
-                        email: email,
-                        pincode: pincode,
-                        mobile_number: mobile,
-                        address: address,
-                        password: password,
-                        state: state,
-                        city: city,
-                        vendor_type: vendorType,
-                    }),
-                }
-            );
+            const response = await fetch(`${BASE_URL}/vendor/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    brand_name: brandName,
+                    contact_person_name: contactPersonName,
+                    email: email,
+                    pincode: pincode,
+                    mobile_number: mobile,
+                    address: address,
+                    password: password,
+                    state: state,
+                    city: city,
+                    vendor_type: vendorType,
+                }),
+            });
             const data = await response.json();
             if (data.success) {
                 localStorage.setItem("token", data.token);

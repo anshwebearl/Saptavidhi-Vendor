@@ -6,6 +6,10 @@ import { UserContext } from "../../context/UserContext";
 const VendorInfo2 = () => {
     const token = localStorage.getItem("token");
 
+    const BASE_URL = import.meta.env.DEV
+        ? import.meta.env.VITE_API_BASE_URL_DEV
+        : import.meta.env.VITE_API_BASE_URL_PROD;
+
     const { user, getUser } = useContext(UserContext);
 
     const [additionalDetails, setAdditionalDetails] = useState([]);
@@ -15,7 +19,7 @@ const VendorInfo2 = () => {
     const getAdditionalDetailsSkeleton = async () => {
         try {
             const response = await fetch(
-                `http://localhost:8000/api/vendor-category/get-additional-details/${user.vendor_type}`,
+                `${BASE_URL}/vendor-category/get-additional-details/${user.vendor_type}`,
                 {
                     method: "GET",
                     headers: {
@@ -68,7 +72,7 @@ const VendorInfo2 = () => {
         }));
         try {
             const response = await fetch(
-                `http://localhost:8000/api/vendor/update-additional-details/${user._id}`,
+                `${BASE_URL}/vendor/update-additional-details/${user._id}`,
                 {
                     method: "PUT",
                     headers: {

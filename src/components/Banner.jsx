@@ -1,15 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bannerImage from "../assets/images/banner-image.jpeg";
-import { vendorTypeData } from "../data/vendorTypeData";
 import { State, City } from "country-state-city";
 
 const Banner = () => {
+    const BASE_URL = import.meta.env.DEV
+        ? import.meta.env.VITE_API_BASE_URL_DEV
+        : import.meta.env.VITE_API_BASE_URL_PROD;
+
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [vendorType, setVendorType] = useState("");
 
     const allStates = State.getStatesOfCountry("IN");
     const [allCities, setAllCities] = useState([]);
+    const [vendorTypeData, setVendorTypeData] = useState([]);
+
+    const getAllVendorCategory = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/vendor-category/getall`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const jsonData = await response.json();
+            if (jsonData.success) {
+                setVendorTypeData(jsonData.vendorCategories);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllVendorCategory();
+    }, []);
 
     const handleStateChange = (e) => {
         const selectedState = e.target.value;
@@ -58,10 +83,10 @@ const Banner = () => {
                             >
                                 Select Vendor Type
                             </option>
-                            {vendorTypeData.map((vendor, idx) => (
+                            {vendorTypeData.map((vendor) => (
                                 <option
                                     className="bg-white text-black"
-                                    key={idx}
+                                    key={vendor._id}
                                     value={vendor.name}
                                 >
                                     {vendor.name}

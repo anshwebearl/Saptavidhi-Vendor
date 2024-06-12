@@ -7,7 +7,10 @@ import { UserContext } from "../../context/UserContext";
 const VendorInfo1 = () => {
     const { user, getUser } = useContext(UserContext);
 
-    // const token = document.cookie.split("=")[1];
+    const BASE_URL = import.meta.env.DEV
+        ? import.meta.env.VITE_API_BASE_URL_DEV
+        : import.meta.env.VITE_API_BASE_URL_PROD;
+
     const token = localStorage.getItem("token");
 
     const [loginEmail, setLoginEmail] = useState("");
@@ -82,7 +85,7 @@ const VendorInfo1 = () => {
         setIsUpdating(true);
         try {
             const response = await fetch(
-                `https://saptavidhi-vendor-api.onrender.com/api/vendor/updatevendor/${user._id}`,
+                `${BASE_URL}/vendor/updatevendor/${user._id}`,
                 {
                     method: "PATCH",
                     headers: {
