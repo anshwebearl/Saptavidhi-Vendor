@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VendorLogin = () => {
     const BASE_URL = import.meta.env.DEV
@@ -15,7 +17,6 @@ const VendorLogin = () => {
 
     const handleLogin = async () => {
         const newErrors = {};
-
         if (!mobile) newErrors.mobile = "Mobile Number is required";
         else if (mobile.length !== 10)
             newErrors.mobile = "Mobile Number must be 10 digits";
@@ -25,6 +26,8 @@ const VendorLogin = () => {
             setErrors(newErrors);
             return;
         }
+
+        setErrors({});
 
         try {
             const response = await fetch(`${BASE_URL}/vendor/login`, {
@@ -43,7 +46,7 @@ const VendorLogin = () => {
                 navigate("/", { replace: true });
                 window.location.reload();
             } else {
-                console.log(data.message);
+                return toast.error(data.message);
             }
         } catch (error) {
             console.log(error);
@@ -58,7 +61,7 @@ const VendorLogin = () => {
 
     const handleMobileChange = (e) => {
         const value = e.target.value;
-        const re = /^[0-9\b]+$/;
+        const re = /^[0-9]*$/; // Updated regex to allow empty string and digits only
         if (re.test(value)) {
             setMobile(value);
         }
@@ -66,6 +69,18 @@ const VendorLogin = () => {
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
+            <ToastContainer
+                position="bottom-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="px-0 custom-container">
                 <div className="flex flex-col items-center gap-9 md:mt-6 md:max-w-[450px] md:mx-auto">
                     <p className="font-[600] text-2xl md:text-4xl">

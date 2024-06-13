@@ -70,7 +70,7 @@ function MyCatalog() {
                     <div className="font-[500] text-sm md:text-lg bg-gradient-to-r from-[#FD070780] to-[#5C034080] text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl">Add Catalog</div>
                 </div>
                 <hr className="mb-4" />
-                <div className="flex flex-wrap gap-5 justify-center w-full">
+                <div className="flex flex-wrap justify-around md:gap-10 w-full">
                     {venues.map((venue, index) => (
                         <MyCatalogCard key={index} {...venue} />
                     ))}

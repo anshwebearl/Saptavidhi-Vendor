@@ -3,6 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import infoIcon from "../../assets/images/Vector1.png";
 import { UserContext } from "../../context/UserContext";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const VendorInfo2 = () => {
     const token = localStorage.getItem("token");
 
@@ -82,7 +85,7 @@ const VendorInfo2 = () => {
                 }
             );
             const data = await response.json();
-            console.log(data);
+            toast.success(data.message);
             await getUser();
         } catch (error) {
             console.log(error);
@@ -92,7 +95,19 @@ const VendorInfo2 = () => {
     };
 
     return (
-        <div className="mt-4 md:mt-0 flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
+            <ToastContainer
+                position="bottom-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-4 md:gap-6 ">
                 <div className="flex justify-between">
                     <p className="font-[500] text-lg md:text-2xl">

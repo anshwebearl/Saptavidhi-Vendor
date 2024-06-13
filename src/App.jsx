@@ -6,7 +6,7 @@ import BridalMakeup from "./components/BridalMakeup/BridalMakeupMain.jsx";
 import MainChecklist from "./components/Checklist/MainChecklist.jsx";
 import MainNavigation from "./components/Vendor/MainNavigation.jsx";
 import ChangePassword from "./components/ChangePassword.jsx";
-import Home from "./components/Home.jsx";
+import Home from "./components/HomeComponent/Home.jsx";
 import CreateWedding from "./components/CreateWedding.jsx";
 import VendorLogin from "./components/VendorLogin/VendorLogin.jsx";
 import VendorSignup from "./components/VendorSignup/VendorSignup.jsx";

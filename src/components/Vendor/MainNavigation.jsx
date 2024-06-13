@@ -10,6 +10,7 @@ import VendorProjects from "./VendorProjects";
 import CardGrid from "./Cardgrid";
 import Packages from "./Packages";
 import { UserContext } from "../../context/UserContext";
+import Menu from "../Menu/Menu";
 
 const RenderComponent = ({ selectedItem }) => {
     switch (selectedItem) {
@@ -29,6 +30,8 @@ const RenderComponent = ({ selectedItem }) => {
             return <ReviewsContainer />;
         case "Google My Business":
             return <GoogleMyBusiness />;
+        case "Menu":
+            return <Menu />;
         default:
             return <div></div>;
     }
@@ -50,7 +53,7 @@ const MainNavigation = () => {
                 setSelectedItem={setSelectedItem}
             />
             {/* </div> */}
-            <div>
+            <div className="w-full">
                 <RenderComponent selectedItem={selectedItem} />
             </div>
         </div>

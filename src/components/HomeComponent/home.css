@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Satisfy&display=swap");
+
+.vendor-home-bg {
+    background-image: url("../../../public/vendor_home_background.png");
+    height: 900px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: 200px;
+}
+
+.vendor-homepage-header {
+    color: white;
+}
+.vendor-homepage-header h1 {
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 75px;
+}
+.vendor-homepage-header span {
+    font-family: "Satisfy", cursive;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 75px;
+}
+
+.vendor-homepage-header p {
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 37.5px;
+}
+
+.vendor-homepage-header select {
+    background: linear-gradient(
+        to right,
+        rgba(253, 7, 7, 0.5) 20%,
+        rgba(92, 3, 64, 0.5) 50%
+    );
+    background-color: white;
+    width: 270px;
+    height: 50px;
+    padding: 10px 30px;
+    border-bottom: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+}
+
+.vendor-get-started p {
+    font-size: 18px;
+}
+
+.venue-cards-component {
+    margin-top: 50px;
+}
+
+.venue-cards-component h3 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+}
+
+.slick-slide {
+    padding: 0 10px;
+}
+
+.vendor-wedding-categories {
+    background-color: rgba(220, 5, 255, 0.05);
+    padding: 60px 0px 100px 0px;
+    border-radius: 25px;
+}
+
+.wedding-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.wedding-categorie-bg {
+    background-image: url("../../../public/wedding_categories.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 243px;
+    background-size: cover;
+}
+
+.wedding-categories-heading h3 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+}
+
+.vendor-inhouse-services {
+    padding: 60px 0px 100px 0px;
+    border-radius: 25px;
+}
+
+.inhouse-services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.inhouse-services-bg {
+    background-image: url("../../../public/inhouse-services-1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 640px;
+    background-size: cover;
+}
+
+.inhouse-services-heading h3 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+}
+
+.inhouse-services-bg-2 {
+    background-image: url("../../../public/inhouse-services-2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 310px;
+    background-size: cover;
+}
+
+.inhouse-services-bg-3 {
+    background-image: url("../../../public/inhouse-services-3.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 310px;
+    background-size: cover;
+}
+
+.vendor-wedding-gallary {
+    background-color: rgba(220, 5, 255, 0.05);
+    padding: 10px 0px 30px 0px;
+    margin-top: 80px;
+    border-radius: 25px;
+}
+
+.wedding-gallary-loop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.wedding-gallary-component {
+    margin-top: 20px;
+}
+
+.wedding-gallary-component h3 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+}
+
+.featured-vendor-component {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.wedding-latest-blog-header h3 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+}
+
+.wedding-latest-blog-content {
+    background-color: rgba(220, 5, 255, 0.05);
+    padding: 20px 8px;
+    border-radius: 25px;
+}
+
+.wedding-blog-navigators {
+    display: flex;
+    justify-content: center;
+}
+
+.wedding-blog-navigators button {
+    background-color: rgba(220, 5, 255, 0.05);
+    border: none;
+}
+
+.wedding-blog-navigators button:first-child {
+    padding: 20px 30px 15px 30px;
+    border-radius: 0px 0px 0px 55px;
+}
+
+.wedding-blog-navigators button:last-child {
+    padding: 20px 30px 15px 30px;
+    border-radius: 0px 0px 55px 0px;
+}
+
+.wedding-blog-grid-border {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    background-color: white;
+}
+
+.wedding-blog-grid-border img {
+    border-radius: 25px;
+}
+
+.wedding-blog-grid-border h5 {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5%;
+    margin-bottom: 20px;
+}
+
+.wedding-blog-grid-border h6 {
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 600;
+}
+
+.wedding-blog-grid-border p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19.6px;
+    letter-spacing: 1.5%;
+    opacity: 0.8;
+    margin: 10px 0px 20px 0px;
+}
+
+.wedding-blog-owner-name {
+    border-top: 1px solid rgba(51, 51, 51, 0.2);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    margin-right: 15px;
+}
+
+.wedding-blog-owner-name p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16.8px;
+    letter-spacing: 0.5%;
+    color: #333333;
+    opacity: 0.6;
+    margin-bottom: 0px;
+}

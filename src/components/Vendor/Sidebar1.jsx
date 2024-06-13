@@ -41,13 +41,18 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
                     {[
                         {
                             name: "Personal Information",
-                            icon: infoIcon,
-                            selectedIcon: infoIconSelected,
+                            icon: inquiriesIcon,
+                            selectedIcon: inquiriesIconSelected,
                         },
                         {
                             name: "Additional Info",
                             icon: infoIcon,
                             selectedIcon: infoIconSelected,
+                        },
+                        {
+                            name: "Menu",
+                            icon: catalogIcon,
+                            selectedIcon: catalogIconSelected,
                         },
                         {
                             name: "My Catalog",
