@@ -32,46 +32,42 @@ const VendorInfo2 = () => {
             if (jsonData.success) {
                 const properties = jsonData.vendorDetails.categoryProperties;
                 setAdditionalDetails(properties);
-                const mappedProperties = properties.reduce((acc, property) => {
-                    acc[property.propertyName] =
-                        property.propertyType === "multiSelect" ? [] : "";
-                    return acc;
-                }, {});
+
+                const initialDetailState = {};
                 user.additional_details.forEach((detail) => {
-                    const propertyName = Object.keys(detail)[0];
-                    if (
-                        Object.prototype.hasOwnProperty.call(
-                            mappedProperties,
-                            propertyName
-                        )
-                    ) {
-                        mappedProperties[propertyName] = detail[propertyName];
-                    }
+                    const key = detail._id;
+                    initialDetailState[key] =
+                        detail[
+                            Object.keys(detail).find((key) => key !== "_id")
+                        ];
                 });
-                setDetailState(mappedProperties);
+                setDetailState(initialDetailState);
             }
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        getAdditionalDetailsSkeleton();
-    }, [user]);
-
-    const handleInputChange = (propertyName, value) => {
+    const handleInputChange = (propertyId, value) => {
         setDetailState((prevState) => ({
             ...prevState,
-            [propertyName]: value,
+            [propertyId]: value,
         }));
         setIsChanged(true);
     };
 
+    useEffect(() => {
+        getAdditionalDetailsSkeleton();
+    }, [user]);
+
     const handleSave = async () => {
-        const statesList = Object.keys(detailState).map((key) => ({
-            [key]: detailState[key],
-        }));
         try {
+            const updatedDetails = user.additional_details.map((detail) => ({
+                ...detail,
+                [Object.keys(detail).find((key) => key !== "_id")]:
+                    detailState[detail._id] || "",
+            }));
+
             const response = await fetch(
                 `${BASE_URL}/vendor/update-additional-details/${user._id}`,
                 {
@@ -81,7 +77,7 @@ const VendorInfo2 = () => {
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
-                        additionalDetails: statesList,
+                        additionalDetails: updatedDetails,
                     }),
                 }
             );
@@ -96,7 +92,7 @@ const VendorInfo2 = () => {
     };
 
     return (
-        <div className="mt-4 md:mt-5 flex flex-col gap-4">
+        <div className="mt-4 md:mt-0 flex flex-col gap-4">
             <div className="border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-4 md:gap-6 ">
                 <div className="flex justify-between">
                     <p className="font-[500] text-lg md:text-2xl">
@@ -115,18 +111,16 @@ const VendorInfo2 = () => {
                 </div>
                 <div className="border-[#00000033] border-b-[1px]"></div>
                 {additionalDetails?.map((el) => {
+                    const detailValue = detailState[el._id] || "";
                     if (el.propertyType === "textInput") {
                         return (
                             <TextInput
                                 key={el._id}
                                 label={el.propertyDescription}
                                 bold={true}
-                                value={detailState[el.propertyName]}
+                                value={detailValue}
                                 onChange={(e) =>
-                                    handleInputChange(
-                                        el.propertyName,
-                                        e.target.value
-                                    )
+                                    handleInputChange(el._id, e.target.value)
                                 }
                             />
                         );
@@ -136,9 +130,9 @@ const VendorInfo2 = () => {
                                 key={el._id}
                                 label={el.propertyDescription}
                                 options={el.inputs}
-                                values={detailState[el.propertyName]}
+                                values={detailValue}
                                 onChange={(value) =>
-                                    handleInputChange(el.propertyName, value)
+                                    handleInputChange(el._id, value)
                                 }
                             />
                         );
@@ -148,9 +142,9 @@ const VendorInfo2 = () => {
                                 key={el._id}
                                 label={el.propertyDescription}
                                 inputs={el.inputs}
-                                value={detailState[el.propertyName]}
+                                value={detailValue}
                                 onChange={(value) =>
-                                    handleInputChange(el.propertyName, value)
+                                    handleInputChange(el._id, value)
                                 }
                             />
                         );
@@ -241,7 +235,6 @@ const MultiSelectInput = ({ options, label, values, onChange }) => {
         } else {
             updatedValues = [...values, option];
         }
-        console.log(updatedValues);
         onChange(updatedValues);
     };
 

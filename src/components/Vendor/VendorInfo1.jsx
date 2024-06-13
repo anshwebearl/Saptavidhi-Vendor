@@ -30,6 +30,70 @@ const VendorInfo1 = () => {
 
     const [isChanged, setIsChanged] = useState(false);
 
+    function countNonEmptyValues(obj, visited = new Set()) {
+        let nonEmptyCount = 0;
+        let totalCount = 0;
+
+        if (visited.has(obj)) {
+            return { nonEmptyCount, totalCount };
+        }
+
+        visited.add(obj);
+
+        for (let key in obj) {
+            if (
+                Object.prototype.hasOwnProperty.call(obj, key) &&
+                ![
+                    "_id",
+                    "password",
+                    "status",
+                    "createdAt",
+                    "updatedAt",
+                ].includes(key)
+            ) {
+                let value = obj[key];
+                totalCount++;
+
+                if (Array.isArray(value)) {
+                    value.forEach((detailObj) => {
+                        if (
+                            typeof detailObj === "object" &&
+                            detailObj !== null
+                        ) {
+                            const detailCounts = countNonEmptyValues(
+                                detailObj,
+                                visited
+                            );
+                            nonEmptyCount += detailCounts.nonEmptyCount;
+                            totalCount += detailCounts.totalCount;
+                        } else if (detailObj) {
+                            nonEmptyCount++;
+                        }
+                    });
+                } else if (typeof value === "object" && value !== null) {
+                    const nestedCounts = countNonEmptyValues(value, visited);
+                    nonEmptyCount += nestedCounts.nonEmptyCount;
+                    totalCount += nestedCounts.totalCount;
+                } else if (
+                    value !== null &&
+                    value !== undefined &&
+                    value !== ""
+                ) {
+                    nonEmptyCount++;
+                }
+            }
+        }
+
+        return { nonEmptyCount, totalCount };
+    }
+
+    function getProfileCompletionPercentage(user) {
+        const { nonEmptyCount, totalCount } = countNonEmptyValues(user);
+        let per = (nonEmptyCount / totalCount) * 100;
+        per = per.toFixed(0);
+        return per;
+    }
+
     useEffect(() => {
         if (user) {
             setLoginEmail(user.email);
@@ -126,7 +190,9 @@ const VendorInfo1 = () => {
                 </p>
                 <div className="border-[#00000033] border-b-[1px]"> </div>
                 <div className="flex h-full items-center justify-between gap-5 flex-wrap">
-                    <CircularProgress percentage={10} />
+                    <CircularProgress
+                        percentage={getProfileCompletionPercentage(user)}
+                    />
                     <div className="border-[#00000033] border-[1px] p-5 flex-grow  md:p-10 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
                         <p className="text-xl md:text-3xl">0</p>
                         <p className="text-lg md:text-2xl">Count</p>

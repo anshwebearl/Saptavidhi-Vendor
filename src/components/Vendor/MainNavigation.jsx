@@ -43,7 +43,7 @@ const MainNavigation = () => {
     }, []);
 
     return (
-        <div className="custom-container mx-auto p-4 md:p-8 bg-gray-100 font-poppins flex md:flex-row flex-col gap-4">
+        <div className="custom-container mx-auto p-4 md:p-8 font-poppins flex md:flex-row flex-col gap-4">
             {/* <div className="md:absolute md:top-8"> */}
             <Sidebar1
                 selectedItem={selectedItem}

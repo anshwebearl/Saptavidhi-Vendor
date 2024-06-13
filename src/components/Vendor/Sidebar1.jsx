@@ -37,7 +37,7 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
                     isSidebarOpen ? "block" : "hidden"
                 } md:block`}
             >
-                <div className="space-y-3">
+                <div className="md:space-y-3 flex md:flex-col gap-2 md:gap-0 flex-wrap items-center md:items-start">
                     {[
                         {
                             name: "Personal Information",
@@ -82,7 +82,7 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
                     ].map((item) => (
                         <div
                             key={item.name}
-                            className={`flex items-center space-x-2 p-2 rounded-md text-sm md:text-xl font-medium transition-colors duration-300 ease-in-out ${
+                            className={`flex md:w-full items-center space-x-2 p-2 rounded-md text-sm md:text-xl font-medium transition-colors duration-300 ease-in-out ${
                                 selectedItem === item.name
                                     ? "bg-[#CF166F0D] text-[#CF166F]"
                                     : "hover:bg-pink-100"
