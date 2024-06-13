@@ -28,7 +28,7 @@ import VendorOtp from "./components/VendorForgotPassword/VendorOtp.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-            <App />
+        <App />
     </React.StrictMode>
 );
 

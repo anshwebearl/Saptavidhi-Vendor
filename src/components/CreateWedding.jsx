@@ -32,7 +32,7 @@ const CreateWedding = () => {
                             />
                         </div>
                         <div className="bg-white rounded-3xl md:full max-w-[300px] p-5 flex flex-col gap-3 md:gap-5">
-                            <p className="font-[500] text-lg md:text-xl">
+                            <p className="font-[500] text-base md:text-xl">
                                 I am the
                             </p>
                             <div className="flex gap-8">
@@ -55,7 +55,7 @@ const CreateWedding = () => {
                                     <label htmlFor="bride">Bride</label>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-5">
+                            <div className="flex flex-col gap-5 text-xs md:text-base">
                                 <div className="flex flex-col gap-2">
                                     <p>Wedding Title</p>
                                     <input
@@ -80,7 +80,7 @@ const CreateWedding = () => {
                                         placeholder="Select Date"
                                     />
                                 </div>
-                                <div className="text-white rounded-2xl font-[500] text-lg md:text-xl text-center p-3 bg-gradient-to-r from-[#FD070780] to-[#5C034080] cursor-pointer">
+                                <div className="text-white rounded-2xl font-[500] text-base md:text-xl text-center p-2 md:p-3 bg-gradient-to-r from-[#FD070780] to-[#5C034080] cursor-pointer">
                                     Create Wedding
                                 </div>
                             </div>

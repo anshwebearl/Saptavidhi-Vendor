@@ -59,22 +59,26 @@ const Banner = () => {
                 style={{ backgroundImage: `url(${bannerImage})` }}
             ></div>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
-            <div className="absolute w-full h-full px-8 md:px-24 flex items-center justify-center">
-                <div className="text-white text-center">
-                    <div>
-                        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                            Your <span className="font-satisfy">Wedding</span>,
-                            Your <span className="font-satisfy">Way</span>
+            <div className="absolute w-full px-5 flex items-end bottom-5 md:bottom-20 justify-center">
+                <div className="text-white flex flex-col items-center gap-4">
+                    <div className="flex flex-col flex-wrap items-center gap-2 md:gap-5 text-center">
+                        <h1 className="text-2xl md:text-5xl font-bold text-center">
+                            Your{" "}
+                            <span className="font-satisfy font-[700]">
+                                Wedding
+                            </span>
+                            , Your{" "}
+                            <span className="font-satisfy font-[700]">Way</span>
                         </h1>
-                        <p className="text-sm md:text-xl mb-8 mx-3">
+                        <p className="text-xs md:text-xl w-fit">
                             Find the best wedding vendors with thousands of
                             trusted reviews
                         </p>
                     </div>
-                    <div className="flex flex-col md:flex-row gap-4 p-2 bg-white/20 backdrop-blur-sm rounded-xl md:rounded-full w-fit mx-auto">
+                    <div className="flex gap-4 p-2 flex-col md:flex-row bg-white/10 backdrop-blur-sm rounded-xl md:rounded-full md:w-fit">
                         <select
                             onChange={(e) => setVendorType(e.target.value)}
-                            className="md:px-4 px-3 py-2 bg-gradient-to-r from-[#FF8DA6] to-[#c2bfc1] rounded-full text-xs md:text-sm"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full text-xs md:text-lg"
                         >
                             <option
                                 value="Select Vendor Type"
@@ -95,7 +99,7 @@ const Banner = () => {
                         </select>
                         <select
                             onChange={handleStateChange}
-                            className="md:px-4 px-3 py-2 bg-gradient-to-r from-[#FF8DA6] to-[#c2bfc1] rounded-full max-w-[150px] text-xs md:text-sm"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-lg"
                         >
                             <option value="Select State" disabled selected>
                                 Select State
@@ -113,7 +117,7 @@ const Banner = () => {
                         <select
                             disabled={!state}
                             onChange={(e) => setCity(e.target.value)}
-                            className="md:px-4 px-3 py-2 bg-gradient-to-r from-[#FF8DA6] to-[#c2bfc1] rounded-full text-xs md:text-sm max-w-[150px]"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-lg"
                         >
                             <option value="Select City" disabled selected>
                                 Select City

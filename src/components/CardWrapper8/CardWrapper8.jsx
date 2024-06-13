@@ -12,6 +12,8 @@ function CardWrapper8() {
     { src: image2, title: '3 Star & Above', locations: ['Mumbai', 'Delhi', 'Agra', 'Goa', 'Shimla'] },
     { src: image3, title: 'Banquet Hall', locations: ['Mumbai', 'Delhi', 'Agra', 'Goa', 'Shimla'] },
     { src: image4, title: 'Resort', locations: ['Mumbai', 'Delhi', 'Agra', 'Goa', 'Shimla'] },
+    { src: image4, title: 'Resort', locations: ['Mumbai', 'Delhi', 'Agra', 'Goa', 'Shimla'] },
+    { src: image4, title: 'Resort', locations: ['Mumbai', 'Delhi', 'Agra', 'Goa', 'Shimla'] },
   ];
 
   return (

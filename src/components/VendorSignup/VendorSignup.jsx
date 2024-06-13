@@ -148,7 +148,7 @@ const VendorSignup = () => {
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
-            <div className="px-5">
+            <div className="px-5 custom-container">
                 <div className="flex flex-col items-center gap-9 md:mt-6 md:max-w-[800px] md:mx-auto">
                     <p className="font-[600] text-2xl md:text-3xl">
                         SignUp as Vendor
@@ -396,7 +396,7 @@ const VendorSignup = () => {
             </div>
 
             <div className="bg-[#EDF4F8] p-6 sm:p-10 md:p-14">
-                <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
+                <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 custom-container">
                     <p className="font-[600] text-xl sm:text-2xl">
                         In search of a life partner?
                     </p>

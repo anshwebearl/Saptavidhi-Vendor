@@ -18,6 +18,8 @@ import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
 import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
 
+import "./App.css"
+
 function App() {
     return (
         <Router>

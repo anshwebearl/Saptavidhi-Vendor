@@ -67,7 +67,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="bg-transparent m-auto py-2 flex flex-row justify-between items-center px-4 md:px-8 font-poppins">
+        <header className="bg-transparent m-auto py-2 flex flex-row justify-between items-center px-4 md:px-14 font-poppins">
             <div className="w-[100px] md:w-[150px] bg-cover mr-4 md:mr-8">
                 <img
                     src={logo}
@@ -119,7 +119,7 @@ const Navbar = () => {
                         {isServicesDropdownOpen && (
                             <div
                                 ref={servicesDropdownRef}
-                                className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50"
+                                className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
                             >
                                 <div
                                     onClick={() => handleNavigation("/venues")}
@@ -218,7 +218,7 @@ const Navbar = () => {
                             {isDropdownOpen && (
                                 <div
                                     ref={dropdownRef}
-                                    className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[300px] z-50 right-0"
+                                    className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
                                 >
                                     <div
                                         onClick={() =>

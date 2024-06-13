@@ -39,7 +39,7 @@ function ChangePassword() {
             </div>
 
             <div className="bg-[#EDF4F8] p-6 sm:p-10 md:p-14">
-                <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
+                <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 custom-container">
                     <p className="font-[600] text-xl sm:text-2xl">
                         In search of a life partner?
                     </p>
