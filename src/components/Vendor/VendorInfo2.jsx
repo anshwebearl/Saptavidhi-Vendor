@@ -33,7 +33,8 @@ const VendorInfo2 = () => {
                 const properties = jsonData.vendorDetails.categoryProperties;
                 setAdditionalDetails(properties);
                 const mappedProperties = properties.reduce((acc, property) => {
-                    acc[property.propertyName] = "";
+                    acc[property.propertyName] =
+                        property.propertyType === "multiSelect" ? [] : "";
                     return acc;
                 }, {});
                 user.additional_details.forEach((detail) => {
@@ -129,6 +130,18 @@ const VendorInfo2 = () => {
                                 }
                             />
                         );
+                    } else if (el.propertyType === "multiSelect") {
+                        return (
+                            <MultiSelectInput
+                                key={el._id}
+                                label={el.propertyDescription}
+                                options={el.inputs}
+                                values={detailState[el.propertyName]}
+                                onChange={(value) =>
+                                    handleInputChange(el.propertyName, value)
+                                }
+                            />
+                        );
                     } else {
                         return (
                             <RadioInput
@@ -195,17 +208,21 @@ const RadioInput = ({ inputs, label, value, onChange }) => {
             <p className="text-sm md:text-lg font-[500]">{label}</p>
             <div className="flex gap-4 md:gap-8 md:text-lg flex-wrap">
                 {inputs.map((el, idx) => {
+                    const radioId = `${label}-${idx}`;
                     return (
                         <div key={idx} className="flex gap-1">
                             <input
                                 type="radio"
-                                id={idx}
+                                id={radioId}
                                 name={label}
                                 className="accent-[#CF166F]"
                                 checked={value === el}
                                 onChange={() => onChange(el)}
                             />
-                            <label htmlFor={el} className="text-sm md:text-lg">
+                            <label
+                                htmlFor={radioId}
+                                className="text-sm md:text-lg"
+                            >
                                 {el}
                             </label>
                         </div>
@@ -216,92 +233,43 @@ const RadioInput = ({ inputs, label, value, onChange }) => {
     );
 };
 
-{
-    /* <TextInput
-                    label="What is the value of your most booked package? (or your avg booking price Eg: 300,000)"
-                    bold={true}
-                    placeholder="eg. john@gmail.com"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <RadioInput
-                    label="The above package includes services for how many days?"
-                    inputs={["1 Day", "2 Day", "3 Day", "4 Day"]}
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <RadioInput
-                    label="The above package includes which services?"
-                    inputs={[
-                        "Photo",
-                        "Photo + Video",
-                        "Photo + Video + Pre wedding",
-                    ]}
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <RadioInput
-                    label="Please describe your cancellation policy ( if a user initiates cancellation) including whether you provide refunds of booking amounts , and terms for doing so."
-                    inputs={[
-                        "Partial Refund Offered",
-                        "No Refund Offered",
-                        "No Refund Offered However Date Adjustment Can Be Done",
-                        "Full Refund Offered",
-                    ]}
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <RadioInput
-                    label="Please describe your cancellation policy ( if you initiates cancellation) including whether you provide refunds of booking amounts , and terms for doing so."
-                    inputs={[
-                        "Partial Refund Offered",
-                        "No Refund Offered",
-                        "No Refund Offered However Date Adjustment Can Be Done",
-                        "Full Refund Offered",
-                    ]}
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="What are the terms & conditions of your cancellation policy? ( please describe in detail - eg No refunds within a month of the wedding day or 50% amount refundable)"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="Describe your photography in three words (eg: fun, vibrant and natural)"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="How many cities have you covered weddings in till date?"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="We love wedding photography because"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="Price for covering a small event like an engagement or roka (Assume under 50 pax and 4 hours of shoot photo and video)"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="How many weeks in advance should a booking be made?"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="Which Year you started shooting weddings?"
-                    bold={true}
-                    placeholder="Enter your message"
-                />
-                <div className="border-[#00000033] border-b-[1px]"></div>
-                <TextInput
-                    label="How many weeks do you take to deliver the photos (Please respond such as 6 weeks, 7 weeks etc)"
-                    bold={true}
-                    placeholder="Enter your message"
-                /> */
-}
+const MultiSelectInput = ({ options, label, values, onChange }) => {
+    const handleCheckboxChange = (option) => {
+        let updatedValues;
+        if (values.includes(option)) {
+            updatedValues = values.filter((value) => value !== option);
+        } else {
+            updatedValues = [...values, option];
+        }
+        console.log(updatedValues);
+        onChange(updatedValues);
+    };
+
+    return (
+        <div className="flex flex-col gap-1 md:gap-2 flex-grow">
+            <p className="text-sm md:text-lg font-[500]">{label}</p>
+            <div className="flex gap-4 md:gap-8 md:text-lg flex-wrap">
+                {options.map((option, idx) => {
+                    const checkboxId = `${label}-${option}-${idx}`;
+                    return (
+                        <div key={idx} className="flex gap-1 items-center">
+                            <input
+                                type="checkbox"
+                                id={checkboxId}
+                                className="accent-[#CF166F]"
+                                checked={values.includes(option)}
+                                onChange={() => handleCheckboxChange(option)}
+                            />
+                            <label
+                                htmlFor={checkboxId}
+                                className="text-sm md:text-lg"
+                            >
+                                {option}
+                            </label>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
