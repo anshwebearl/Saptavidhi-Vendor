@@ -2,16 +2,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const Menu = () => {
     const token = localStorage.getItem("token");
 
-    const { user, getUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [menu, setMenu] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [menuId, setMenuId] = useState("");
     const [menuTitle, setMenuTitle] = useState("");
     const [menuType, setMenuType] = useState("");
     const [pricePerPlate, setPricePerPlate] = useState("");
@@ -27,6 +30,44 @@ const Menu = () => {
         soupSalads: 0,
         liveCounters: 0,
     });
+
+    const emptyMenuStates = () => {
+        setMenuTitle("");
+        setMenuType("");
+        setPricePerPlate("");
+        setVegOptions({
+            starters: 0,
+            mainCourse: 0,
+            soupSalads: 0,
+            desserts: 0,
+        });
+        setNonVegOptions({
+            starters: 0,
+            mainCourse: 0,
+            soupSalads: 0,
+            liveCounters: 0,
+        });
+        setMenuId("");
+    };
+
+    const setStates = (item) => {
+        setMenuTitle(item.menu_title);
+        setMenuType(item.menu_type);
+        setPricePerPlate(item.price_per_plate);
+        setVegOptions({
+            starters: item.veg_starters,
+            mainCourse: item.veg_main_course,
+            soupSalads: item.veg_soup_salad,
+            desserts: item.deserts,
+        });
+        setNonVegOptions({
+            starters: item.nonveg_starters,
+            mainCourse: item.nonveg_main_course,
+            soupSalads: item.nonveg_soup_salad,
+            liveCounters: item.live_counters,
+        });
+        setMenuId(item._id);
+    };
 
     const BASE_URL = import.meta.env.DEV
         ? import.meta.env.VITE_API_BASE_URL_DEV
@@ -51,22 +92,6 @@ const Menu = () => {
         }
     };
 
-    useEffect(() => {
-        getAllMenuItems();
-    }, []);
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleMenuTypeChange = (e) => {
-        setMenuType(e.target.value);
-    };
-
     const handleSelectChange = (e, setFunction) => {
         const { name, value } = e.target;
         setFunction((prev) => ({
@@ -77,7 +102,6 @@ const Menu = () => {
 
     const handleAddMenu = async (e) => {
         e.preventDefault();
-        // Basic form validation
         if (
             !menuType ||
             !e.target.menuTitle.value ||
@@ -115,21 +139,7 @@ const Menu = () => {
             );
             const jsonData = await response.json();
             toast.success(jsonData.message);
-            setMenuTitle("");
-            setMenuType("");
-            setPricePerPlate("");
-            setVegOptions({
-                starters: 0,
-                mainCourse: 0,
-                soupSalads: 0,
-                desserts: 0,
-            });
-            setNonVegOptions({
-                starters: 0,
-                mainCourse: 0,
-                soupSalads: 0,
-                liveCounters: 0,
-            });
+            emptyMenuStates();
             getAllMenuItems();
         } catch (error) {
             console.log(error);
@@ -137,6 +147,93 @@ const Menu = () => {
 
         setIsModalOpen(false);
     };
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(
+                `${BASE_URL}/vendor/delete-menu/${user._id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        menu_id: menuId,
+                    }),
+                }
+            );
+            const jsonData = await response.json();
+            toast.success(jsonData.message);
+            emptyMenuStates();
+            getAllMenuItems();
+            setIsDeleteModalOpen(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleEditMenuModal = (item) => {
+        setIsEditModalOpen(true);
+        setStates(item);
+    };
+
+    const handleEditMenu = async (e) => {
+        e.preventDefault();
+        if (
+            !menuType ||
+            !e.target.menuTitle.value ||
+            !e.target.pricePerPlate.value
+        ) {
+            toast.error("Please fill out all fields.");
+            return;
+        }
+
+        const data = {
+            menu_id: menuId,
+            menu_title: menuTitle,
+            menu_type: menuType,
+            price_per_plate: pricePerPlate,
+            veg_starters: vegOptions.starters,
+            veg_main_course: vegOptions.mainCourse,
+            veg_soup_salad: vegOptions.soupSalads,
+            deserts: vegOptions.desserts,
+            nonveg_starters: nonVegOptions.starters,
+            nonveg_main_course: nonVegOptions.mainCourse,
+            nonveg_soup_salad: nonVegOptions.soupSalads,
+            live_counters: nonVegOptions.liveCounters,
+        };
+
+        try {
+            const response = await fetch(
+                `${BASE_URL}/vendor/update-menu/${user._id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const jsonData = await response.json();
+            if (jsonData.success) {
+                toast.success(jsonData.message);
+                emptyMenuStates();
+                getAllMenuItems();
+                setIsEditModalOpen(false);
+            } else {
+                toast.error(jsonData.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllMenuItems();
+    }, []);
 
     return (
         <div className="relative flex flex-col gap-5 w-full">
@@ -158,9 +255,9 @@ const Menu = () => {
                 <div className="flex justify-between">
                     <p className="font-[500] text-md md:text-2xl">My Menu</p>
                     <div
-                        onClick={handleOpenModal}
+                        onClick={() => setIsModalOpen(true)}
                         className={
-                            "cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F] text-white px-5 py-1 w-fit rounded-full font-extrabold text-xs md:text-lg"
+                            "cursor-pointer bg-gradient-to-r from-[#FD070780] to-[#5C034080] text-white px-5 py-1 w-fit rounded-full font-semibold text-xs md:text-lg"
                         }
                     >
                         ADD
@@ -211,7 +308,12 @@ const Menu = () => {
                                         {item.price_per_plate}
                                     </td>
                                     <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-base">
-                                        <button className="text-indigo-600 hover:text-indigo-900">
+                                        <button
+                                            className="text-indigo-600 hover:text-indigo-900"
+                                            onClick={() =>
+                                                handleEditMenuModal(item)
+                                            }
+                                        >
                                             <MdEdit
                                                 size={
                                                     window.screen.width > 768
@@ -220,7 +322,13 @@ const Menu = () => {
                                                 }
                                             />
                                         </button>
-                                        <button className="text-red-600 hover:text-red-900 ml-4">
+                                        <button
+                                            className="text-red-600 hover:text-red-900 ml-4"
+                                            onClick={() => {
+                                                setIsDeleteModalOpen(true);
+                                                setMenuId(item._id);
+                                            }}
+                                        >
                                             <MdDelete
                                                 size={
                                                     window.screen.width > 768
@@ -237,11 +345,11 @@ const Menu = () => {
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Insert Menu Modal */}
             {isModalOpen && (
                 <div
                     className="fixed inset-0 flex items-center justify-center z-50"
-                    onClick={handleCloseModal}
+                    onClick={() => setIsModalOpen(false)}
                 >
                     <div
                         className="fixed inset-0 bg-black opacity-50"
@@ -283,7 +391,9 @@ const Menu = () => {
                                         id="menuType"
                                         name="menuType"
                                         value={menuType}
-                                        onChange={handleMenuTypeChange}
+                                        onChange={(e) =>
+                                            setMenuType(e.target.value)
+                                        }
                                         className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                                     >
                                         <option value="" disabled>
@@ -423,7 +533,10 @@ const Menu = () => {
                             <div className="flex justify-end gap-2">
                                 <button
                                     type="button"
-                                    onClick={handleCloseModal}
+                                    onClick={() => {
+                                        setIsModalOpen(false);
+                                        emptyMenuStates();
+                                    }}
                                     className="bg-gray-500 text-white px-4 py-2 rounded-md"
                                 >
                                     Cancel
@@ -433,6 +546,253 @@ const Menu = () => {
                                     className="bg-blue-500 text-white px-4 py-2 rounded-md"
                                 >
                                     Add
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Menu Modal */}
+            {isDeleteModalOpen && (
+                <div
+                    className="fixed inset-0 flex items-center justify-center z-50"
+                    onClick={() => setIsDeleteModalOpen(false)}
+                >
+                    <div
+                        className="fixed inset-0 bg-black opacity-50"
+                        onClick={(e) => e.stopPropagation()}
+                    ></div>
+                    <div
+                        className="bg-white p-8 rounded-lg z-10"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h2 className="text-2xl mb-4">Confirm Delete?</h2>
+                        <form onSubmit={handleDelete}>
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsDeleteModalOpen(false);
+                                        emptyMenuStates();
+                                    }}
+                                    className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                >
+                                    OK
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Menu Modal */}
+            {isEditModalOpen && (
+                <div
+                    className="fixed inset-0 flex items-center justify-center z-50"
+                    onClick={() => setIsDeleteModalOpen(false)}
+                >
+                    <div
+                        className="fixed inset-0 bg-black opacity-50"
+                        onClick={(e) => e.stopPropagation()}
+                    ></div>
+                    <div
+                        className="bg-white p-8 rounded-lg z-10"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h2 className="text-2xl mb-4">Add Menu Item</h2>
+                        <form onSubmit={handleEditMenu}>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="menuTitle"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Menu Title
+                                </label>
+                                <input
+                                    type="text"
+                                    id="menuTitle"
+                                    name="menuTitle"
+                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                                    value={menuTitle}
+                                    onChange={(e) =>
+                                        setMenuTitle(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <div className="mb-4 flex-1">
+                                    <label
+                                        htmlFor="menuType"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Menu Type
+                                    </label>
+                                    <select
+                                        id="menuType"
+                                        name="menuType"
+                                        value={menuType}
+                                        onChange={(e) =>
+                                            setMenuType(e.target.value)
+                                        }
+                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                                    >
+                                        <option value="" disabled>
+                                            Select Menu Type
+                                        </option>
+                                        <option value="Veg Standard">
+                                            Veg Standard
+                                        </option>
+                                        <option value="Veg Premium">
+                                            Veg Premium
+                                        </option>
+                                        <option value="Non-Veg Standard">
+                                            Non-Veg Standard
+                                        </option>
+                                        <option value="Non-Veg Premium">
+                                            Non-Veg Premium
+                                        </option>
+                                    </select>
+                                </div>
+                                <div className="mb-4 w-fit">
+                                    <label
+                                        htmlFor="pricePerPlate"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Price per Plate
+                                    </label>
+                                    <input
+                                        value={pricePerPlate}
+                                        onChange={(e) =>
+                                            setPricePerPlate(e.target.value)
+                                        }
+                                        type="number"
+                                        id="pricePerPlate"
+                                        name="pricePerPlate"
+                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="selectInputs"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Veg Options
+                                </label>
+                                <div className="flex gap-2">
+                                    <CustomInput
+                                        name="starters"
+                                        value={vegOptions.starters}
+                                        onChange={(e) =>
+                                            handleSelectChange(e, setVegOptions)
+                                        }
+                                        title="Veg Starters"
+                                    />
+                                    <CustomInput
+                                        name="mainCourse"
+                                        value={vegOptions.mainCourse}
+                                        onChange={(e) =>
+                                            handleSelectChange(e, setVegOptions)
+                                        }
+                                        title="Veg Main Course"
+                                    />
+                                    <CustomInput
+                                        name="soupSalads"
+                                        value={vegOptions.soupSalads}
+                                        onChange={(e) =>
+                                            handleSelectChange(e, setVegOptions)
+                                        }
+                                        title="Veg Soup/Salads"
+                                    />
+                                    <CustomInput
+                                        name="desserts"
+                                        value={vegOptions.desserts}
+                                        onChange={(e) =>
+                                            handleSelectChange(e, setVegOptions)
+                                        }
+                                        title="Desserts"
+                                    />
+                                </div>
+                            </div>
+                            {menuType.includes("Non-Veg") && (
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="selectInputs"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Non-Veg Options
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <CustomInput
+                                            name="starters"
+                                            value={nonVegOptions.starters}
+                                            onChange={(e) =>
+                                                handleSelectChange(
+                                                    e,
+                                                    setNonVegOptions
+                                                )
+                                            }
+                                            title="Non-Veg Starters"
+                                        />
+                                        <CustomInput
+                                            name="mainCourse"
+                                            value={nonVegOptions.mainCourse}
+                                            onChange={(e) =>
+                                                handleSelectChange(
+                                                    e,
+                                                    setNonVegOptions
+                                                )
+                                            }
+                                            title="Non-Veg Main Course"
+                                        />
+                                        <CustomInput
+                                            name="soupSalads"
+                                            value={nonVegOptions.soupSalads}
+                                            onChange={(e) =>
+                                                handleSelectChange(
+                                                    e,
+                                                    setNonVegOptions
+                                                )
+                                            }
+                                            title="Non-Veg Soup/Salads"
+                                        />
+                                        <CustomInput
+                                            name="liveCounters"
+                                            value={nonVegOptions.liveCounters}
+                                            onChange={(e) =>
+                                                handleSelectChange(
+                                                    e,
+                                                    setNonVegOptions
+                                                )
+                                            }
+                                            title="Live Counters"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsEditModalOpen(false);
+                                        emptyMenuStates();
+                                    }}
+                                    className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                >
+                                    Update
                                 </button>
                             </div>
                         </form>

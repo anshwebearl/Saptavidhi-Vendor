@@ -55,7 +55,7 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
                             selectedIcon: catalogIconSelected,
                         },
                         {
-                            name: "My Catalog",
+                            name: "Banquets",
                             icon: catalogIcon,
                             selectedIcon: catalogIconSelected,
                         },

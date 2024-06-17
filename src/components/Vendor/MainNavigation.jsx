@@ -3,14 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import Sidebar1 from "./Sidebar1";
 import VendorInfo1 from "./VendorInfo1";
 import VendorInfo2 from "./VendorInfo2";
-import MyCatalog from "./MyCatalog";
+import Banquet from "../Vendor/Venues/Banquet";
 import ReviewsContainer from "./ReviewsContainer";
 import GoogleMyBusiness from "./GoogleMyBusiness";
 import VendorProjects from "./VendorProjects";
 import CardGrid from "./Cardgrid";
 import Packages from "./Packages";
 import { UserContext } from "../../context/UserContext";
-import Menu from "../Menu/Menu";
+import Menu from "../Vendor/Venues/Menu";
 
 const RenderComponent = ({ selectedItem }) => {
     switch (selectedItem) {
@@ -18,8 +18,8 @@ const RenderComponent = ({ selectedItem }) => {
             return <VendorInfo1 />;
         case "Additional Info":
             return <VendorInfo2 />;
-        case "My Catalog":
-            return <MyCatalog />;
+        case "Banquets":
+            return <Banquet />;
         case "Inquiries":
             return <CardGrid />;
         case "Projects":
