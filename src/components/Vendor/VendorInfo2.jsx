@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const VendorInfo2 = () => {
+
     const token = localStorage.getItem("token");
 
     const BASE_URL = import.meta.env.DEV

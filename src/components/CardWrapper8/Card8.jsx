@@ -15,7 +15,7 @@ function Card8({ src, title, locations }) {
                         {locations.map((location, index) => (
                             <span
                                 key={index}
-                                className="border border-gray-300 px-1 py-1 rounded-sm text-[11px] text-gray-500"
+                                className="border border-gray-300 px-1 py-1 rounded-sm text-[11px] text-gray-500 items-center flex"
                             >
                                 {location}
                             </span>

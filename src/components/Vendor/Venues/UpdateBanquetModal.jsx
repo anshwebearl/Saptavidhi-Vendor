@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ImCross } from "react-icons/im";
 import { State, City } from "country-state-city";
 
-const BASE_URL = "http://localhost:8000"; // Define your base URL for local images
+const BASE_URL = "http://localhost:8000";
 
 const UpdateBanquetModal = ({
     onClose,

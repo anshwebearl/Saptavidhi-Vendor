@@ -60,14 +60,14 @@ const Sidebar1 = ({ selectedItem, setSelectedItem }) => {
                             selectedIcon: catalogIconSelected,
                         },
                         {
-                            name: "Inquiries",
-                            icon: inquiriesIcon,
-                            selectedIcon: inquiriesIconSelected,
-                        },
-                        {
                             name: "Projects",
                             icon: projectsIcon,
                             selectedIcon: projectsIconSelected,
+                        },
+                        {
+                            name: "Inquiries",
+                            icon: inquiriesIcon,
+                            selectedIcon: inquiriesIconSelected,
                         },
                         {
                             name: "Membership Plans",
