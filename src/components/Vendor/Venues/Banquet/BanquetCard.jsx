@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import locationicon from "../../../assets/images/location.png";
+import locationicon from "../../../../assets/images/location.png";
 import { MdEdit, MdDelete } from "react-icons/md";
+import vegIcon from "../../../../assets/images/vegicon.png";
+import nonVegIcon from "../../../../assets/images/nonvegicon.png";
 
 const BanquetCard = ({
     src,
@@ -12,14 +14,16 @@ const BanquetCard = ({
     max_capacity,
     id,
     handleDeleteModal,
-    handleEditModal,
+    handleNavigate,
+    veg_price,
+    nonveg_price,
 }) => {
     const BASE_URL = import.meta.env.DEV
         ? import.meta.env.VITE_IMAGE_URL_DEV
         : import.meta.env.VITE_IMAGE_URL_PROD;
 
     return (
-        <div className="bg-white rounded-3xl border-[#00000033] flex gap-2 md:gap-4 border-[1px] w-[250px] md:w-[320px] overflow-hidden">
+        <div className="bg-white rounded-3xl border-[#00000033] flex gap-2 md:gap-4 border-[1px] w-[250px] md:w-[350px] overflow-hidden">
             <img
                 className="object-cover w-[90px] md:w-[120px] h-full"
                 src={`${BASE_URL}/${src}`}
@@ -38,7 +42,9 @@ const BanquetCard = ({
                     <div className="flex gap-2">
                         <div className="hover:text-green-700 text-green-500 h-fit w-fit border-[0.5px] rounded-md border-green-500 hover:border-green-800 cursor-pointer">
                             <MdEdit
-                                onClick={()=>handleEditModal(id)}
+                                onClick={() =>
+                                    handleNavigate(`update-banquet/${id}`)
+                                }
                                 size={window.screen.width > 768 ? 20 : 20}
                             />
                         </div>
@@ -66,6 +72,28 @@ const BanquetCard = ({
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
                         {max_capacity} Max
                     </span>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="flex gap-1 items-center">
+                        <img
+                            src={nonVegIcon}
+                            alt="red"
+                            className="w-3 h-3 md:w-4 md:h-4"
+                        />
+                        <span className="text-black-500 font-semibold text-[12px] md:text-lg">
+                            ₹{veg_price}
+                        </span>
+                    </div>
+                    <div className="flex gap-1 items-center">
+                        <img
+                            src={vegIcon}
+                            alt="green"
+                            className="w-3 h-3 md:w-42md:h-4"
+                        />
+                        <span className="text-black-500 font-semibold text-[12px] md:text-lg">
+                            ₹{nonveg_price}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

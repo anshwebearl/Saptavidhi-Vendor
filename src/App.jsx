@@ -18,49 +18,84 @@ import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
 import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
 
-import "./App.css"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import "./App.css";
 
 function App() {
     return (
-        <Router>
-            <UserProvider>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<VendorLogin />} />
-                    <Route path="/vendorsignup" element={<VendorSignup />} />
-                    <Route
-                        path="/forgotpassword"
-                        element={<ForgotPassword />}
-                    />
-                    <Route path="/vendorotp" element={<VendorOtp />} />
-                    <Route path="/venues" element={<MainVenue />} />
-                    <Route path="/photographers" element={<DetailsForm />} />
-                    <Route path="/wear" element={<BridalLehenga />} />
-                    <Route path="/makeup" element={<BridalMakeup />} />
-                    <Route path="/decorators" element={<MainVenue />} />
-                    <Route path="/smalldecoration" element={<DetailsForm />} />
-                    <Route path="/einvites" element={<DetailsForm />} />
-                    <Route path="/joinwedding" element={<MainChecklist />} />
-                    <Route path="/profile" element={<MainNavigation />} />
-                    <Route path="/inbox" element={<MainNavigation />} />
-                    <Route path="/bookings" element={<MainNavigation />} />
-                    <Route path="/settings" element={<MainNavigation />} />
-                    <Route path="/downloadapp" element={<MainNavigation />} />
-                    <Route
-                        path="/changepassword"
-                        element={<ChangePassword />}
-                    />
-                    <Route path="/logout" element={<MainNavigation />} />
-                    <Route path="/createwedding" element={<CreateWedding />} />
-                    <Route
-                        path="/real-wedding-details"
-                        element={<RealWeddingDetails />}
-                    />
-                </Routes>
-            </UserProvider>
-            <Footer />
-        </Router>
+        <div>
+            <Router>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                <UserProvider>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<VendorLogin />} />
+                        <Route
+                            path="/vendorsignup"
+                            element={<VendorSignup />}
+                        />
+                        <Route
+                            path="/forgotpassword"
+                            element={<ForgotPassword />}
+                        />
+                        <Route path="/vendorotp" element={<VendorOtp />} />
+                        <Route path="/venues" element={<MainVenue />} />
+                        <Route
+                            path="/photographers"
+                            element={<DetailsForm />}
+                        />
+                        <Route path="/wear" element={<BridalLehenga />} />
+                        <Route path="/makeup" element={<BridalMakeup />} />
+                        <Route path="/decorators" element={<MainVenue />} />
+                        <Route
+                            path="/smalldecoration"
+                            element={<DetailsForm />}
+                        />
+                        <Route path="/einvites" element={<DetailsForm />} />
+                        <Route
+                            path="/joinwedding"
+                            element={<MainChecklist />}
+                        />
+                        <Route path="/profile/*" element={<MainNavigation />} />
+                        <Route path="/inbox" element={<MainNavigation />} />
+                        <Route path="/bookings" element={<MainNavigation />} />
+                        <Route path="/settings" element={<MainNavigation />} />
+                        <Route
+                            path="/downloadapp"
+                            element={<MainNavigation />}
+                        />
+                        <Route
+                            path="/changepassword"
+                            element={<ChangePassword />}
+                        />
+                        <Route path="/logout" element={<MainNavigation />} />
+                        <Route
+                            path="/createwedding"
+                            element={<CreateWedding />}
+                        />
+                        <Route
+                            path="/real-wedding-details"
+                            element={<RealWeddingDetails />}
+                        />
+                    </Routes>
+                </UserProvider>
+                <Footer />
+            </Router>
+        </div>
     );
 }
 

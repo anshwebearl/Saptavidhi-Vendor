@@ -1,31 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../../../context/UserContext";
 
-const BASE_IMAGE_URL = "http://localhost:8000";
+const BASE_IMAGE_URL = import.meta.env.DEV
+    ? import.meta.env.VITE_IMAGE_URL_DEV
+    : import.meta.env.VITE_IMAGE_URL_PROD;
 
-const VendorProjects = () => {
+const BASE_URL = import.meta.env.DEV
+    ? import.meta.env.VITE_API_BASE_URL_DEV
+    : import.meta.env.VITE_API_BASE_URL_PROD;
+
+const VendorProjectVideos = () => {
     const { user } = useContext(UserContext);
 
     const token = localStorage.getItem("token");
 
-    const BASE_URL = import.meta.env.DEV
-        ? import.meta.env.VITE_API_BASE_URL_DEV
-        : import.meta.env.VITE_API_BASE_URL_PROD;
-
-    const [projects, setProjects] = useState({});
+    const [videos, setVideos] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [modalImage, setModalImage] = useState(null);
-    const [newImages, setNewImages] = useState([]);
+    const [isAddVideoModalOpen, setIsAddVideoModalOpen] = useState(false);
+    const [newVideoURL, setNewVideoURL] = useState("");
 
-    const getAllProjectItems = async () => {
+    function YouTubeGetID(url) {
+        url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+        return url[2] !== undefined ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+    }
+
+    const getAllProjectVideos = async () => {
         try {
             const response = await fetch(
-                `${BASE_URL}/vendor/get-projects/${user._id}`,
+                `${BASE_URL}/vendor/get-project-videos/${user._id}`,
                 {
                     method: "GET",
                     headers: {
@@ -36,9 +43,9 @@ const VendorProjects = () => {
             );
             const jsonData = await response.json();
             if (jsonData.success) {
-                setProjects(jsonData.project);
+                setVideos(jsonData.photos);
             } else {
-                setProjects(null);
+                setVideos(null);
             }
         } catch (error) {
             console.log(error);
@@ -46,8 +53,8 @@ const VendorProjects = () => {
     };
 
     useEffect(() => {
-        getAllProjectItems();
-    }, []);
+        getAllProjectVideos();
+    }, [user]);
 
     const handleEditClick = () => {
         setEditMode(true);
@@ -68,20 +75,14 @@ const VendorProjects = () => {
     const handleImageClick = (item) => {
         if (selectedImages.includes(item)) {
             setSelectedImages(selectedImages.filter((image) => image !== item));
-        } else {
-            setModalImage(item);
         }
-    };
-
-    const handleModalClose = () => {
-        setModalImage(null);
     };
 
     const handleSaveClick = async () => {
         try {
             console.log(selectedImages);
             const response = await fetch(
-                `${BASE_URL}/vendor/delete-project/${user._id}`,
+                `${BASE_URL}/vendor/delete-project-videos/${user._id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -95,7 +96,7 @@ const VendorProjects = () => {
             );
             const jsonData = await response.json();
             if (jsonData.success) {
-                getAllProjectItems();
+                getAllProjectVideos();
                 toast.success(jsonData.message);
             }
         } catch (error) {
@@ -105,42 +106,50 @@ const VendorProjects = () => {
         setSelectedImages([]);
     };
 
-    const handleFileChange = (event) => {
-        const files = Array.from(event.target.files);
-        setNewImages(files);
+    const handleAddVideoClick = () => {
+        setIsAddVideoModalOpen(true);
     };
 
-    const handleFileSubmit = async () => {
-        try {
-            const formData = new FormData();
-            newImages.forEach((image) => {
-                formData.append("photos", image);
-            });
+    const handleAddVideoModalClose = () => {
+        setIsAddVideoModalOpen(false);
+        setNewVideoURL("");
+    };
 
+    const handleAddVideoSubmit = async () => {
+        if (newVideoURL.trim() === "") {
+            toast.error("Please enter a valid YouTube URL");
+            return;
+        }
+
+        try {
             const response = await fetch(
-                `${BASE_URL}/vendor/add-project/${user._id}`,
+                `${BASE_URL}/vendor/add-project-video/${user._id}`,
                 {
                     method: "POST",
                     headers: {
+                        "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: formData,
+                    body: JSON.stringify({
+                        video_link: newVideoURL,
+                    }),
                 }
             );
             const jsonData = await response.json();
             if (jsonData.success) {
-                getAllProjectItems();
+                getAllProjectVideos();
                 toast.success(jsonData.message);
+                handleAddVideoModalClose();
+            } else {
+                toast.error(jsonData.message);
             }
         } catch (error) {
             console.log(error);
         }
-        setEditMode(false);
-        setNewImages([]);
     };
 
     return (
-        <div className="relative flex flex-col gap-2 w-full border-[#00000033] border-[1px] p-5 md:px-5 md:py-8 rounded-3xl">
+        <div>
             <ToastContainer
                 position="bottom-right"
                 autoClose={2000}
@@ -153,48 +162,27 @@ const VendorProjects = () => {
                 pauseOnHover
                 theme="light"
             />
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-md md:text-2xl font-semibold">Projects</h2>
+            <div className={`flex items-center mb-4 justify-between`}>
                 <div>
-                    <label
-                        htmlFor="fileInput"
+                    <p
                         className={`inline-block font-semibold text-xs md:text-lg bg-gradient-to-r from-[#FD070780] to-[#5C034080] text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl cursor-pointer ${
                             editMode && "opacity-50 cursor-not-allowed"
                         }`}
+                        onClick={handleAddVideoClick}
                     >
-                        Add Projects
-                        <input
-                            type="file"
-                            id="fileInput"
-                            className="hidden"
-                            multiple
-                            accept="image/*"
-                            onChange={!editMode ? handleFileChange : null}
-                        />
-                    </label>
-                    {newImages.length > 0 && (
-                        <button
-                            onClick={handleFileSubmit}
-                            className={"`ml-2 bg-green-500 text-white text-xs md:text-base px-4 py-2 rounded-full hover:bg-green-700"}
-                        >
-                            OK
-                        </button>
-                    )}
+                        Add Video
+                    </p>
                 </div>
-            </div>
-
-            <hr className="mb-4" />
-            {projects && projects.photos?.length ? (
-                <div className="w-full">
-                    <div className="flex justify-end gap-2 mb-2">
-                        {editMode && (
-                            <div
-                                onClick={handleCancelClick}
-                                className="py-1 px-3 bg-red-600 text-white font-[500] text-xs md:text-base flex items-center rounded-full hover:bg-red-800 cursor-pointer"
-                            >
-                                Cancel
-                            </div>
-                        )}
+                <div className="flex gap-2 mb-2">
+                    {editMode && (
+                        <div
+                            onClick={handleCancelClick}
+                            className="py-1 px-3 bg-red-600 text-white font-[500] text-xs md:text-base flex items-center rounded-full hover:bg-red-800 cursor-pointer"
+                        >
+                            Cancel
+                        </div>
+                    )}
+                    {videos && videos.length !== 0 && (
                         <div
                             onClick={!editMode ? handleEditClick : null}
                             className={`p-1 border-[1px] border-green-600 text-green-600 text-lg md:text-2xl rounded-lg hover:border-green-800 hover:text-green-800 cursor-pointer ${
@@ -203,20 +191,24 @@ const VendorProjects = () => {
                         >
                             <MdEdit />
                         </div>
-                    </div>
+                    )}
+                </div>
+            </div>
+            {videos && videos.length ? (
+                <div className="w-full">
                     <div className="flex gap-4 flex-wrap">
-                        {projects.photos?.map((item) => (
+                        {videos.map((item) => (
                             <div
                                 key={item}
-                                className={`relative h-[100px] w-[100px] md:h-[150px] md:w-[150px] overflow-hidden border ${
+                                className={`relative overflow-hidden border ${
                                     selectedImages.includes(item)
-                                        ? "border-red-600"
+                                        ? "border-red-600 lightened"
                                         : "border-gray-200"
                                 }`}
                                 onClick={
                                     editMode
                                         ? () => handleImageClick(item)
-                                        : () => setModalImage(item)
+                                        : null
                                 }
                             >
                                 {editMode && (
@@ -229,15 +221,14 @@ const VendorProjects = () => {
                                         <ImCross />
                                     </div>
                                 )}
-                                <img
-                                    src={`${BASE_IMAGE_URL}/${item}`}
-                                    alt=""
-                                    className={`h-full w-full object-cover ${
-                                        selectedImages.includes(item)
-                                            ? "opacity-50"
-                                            : ""
-                                    }`}
-                                />
+                                <iframe
+                                    className="video"
+                                    title="Youtube player"
+                                    sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                                    src={`https://youtube.com/embed/${YouTubeGetID(
+                                        item
+                                    )}?autoplay=0`}
+                                ></iframe>
                             </div>
                         ))}
                     </div>
@@ -254,26 +245,38 @@ const VendorProjects = () => {
                 </div>
             ) : (
                 <div>
-                    <p>No Projects</p>
+                    <p>No Videos</p>
                 </div>
             )}
-            {modalImage && (
+            {isAddVideoModalOpen && (
                 <div
                     className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
-                    onClick={handleModalClose}
+                    onClick={handleAddVideoModalClose}
                 >
-                    <div className="relative max-w-[90vw] max-h-[90vh]">
-                        <img
-                            src={`${BASE_IMAGE_URL}/${modalImage}`}
-                            alt=""
-                            className="max-w-full max-h-full object-contain"
-                        />
-                        <div
-                            className="absolute top-0 right-0 p-2 cursor-pointer border-[1px] border-white rounded-full"
-                            onClick={handleModalClose}
-                        >
-                            <ImCross className="text-white text-sm md:text-xl" />
+                    <div
+                        className="bg-white p-4 rounded-lg max-w-md w-full"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-lg font-semibold">Add Video</h2>
+                            <ImCross
+                                className="text-black cursor-pointer"
+                                onClick={handleAddVideoModalClose}
+                            />
                         </div>
+                        <input
+                            type="text"
+                            className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+                            placeholder="Enter YouTube URL"
+                            value={newVideoURL}
+                            onChange={(e) => setNewVideoURL(e.target.value)}
+                        />
+                        <button
+                            className="w-full bg-blue-500 text-white py-2 rounded-lg"
+                            onClick={handleAddVideoSubmit}
+                        >
+                            Submit
+                        </button>
                     </div>
                 </div>
             )}
@@ -281,4 +284,4 @@ const VendorProjects = () => {
     );
 };
 
-export default VendorProjects;
+export default VendorProjectVideos;

@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../context/UserContext";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Menu = () => {
     const token = localStorage.getItem("token");
@@ -237,18 +236,6 @@ const Menu = () => {
 
     return (
         <div className="relative flex flex-col gap-5 w-full">
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <div
                 className={`border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-3 w-full `}
             >

@@ -20,15 +20,12 @@ export const UserProvider = ({ children }) => {
         //     navigate("/");
         // }
         try {
-            const response = await fetch(
-                `${BASE_URL}/vendor/getvendors`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await fetch(`${BASE_URL}/vendor/getvendors`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const data = await response.json();
             console.log(data);
             if (data.success) {
