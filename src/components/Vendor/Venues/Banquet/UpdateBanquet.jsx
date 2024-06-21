@@ -356,14 +356,14 @@ const UpdateBanquet = ({ handleNavigate }) => {
 
     return (
         <div className="bg-white rounded-3xl w-full border-[1px] border-gray-300">
-            <div className="flex items-center rounded-t-3xl gap-5 bg-[#CF166F1A] p-6">
+            <div className="flex items-center rounded-t-3xl gap-2 md:gap-5 bg-[#CF166F1A] p-3 md:p-6">
                 <IoChevronBackOutline
                     className="cursor-pointer"
-                    size={24}
+                    size={window.screen.width > 768 ? 24 : 20}
                     color="#CF166F"
                     onClick={() => handleNavigate(-1)}
                 />
-                <h2 className="text-2xl font-semibold text-[#CF166F]">
+                <h2 className="text-lg md:text-2xl font-semibold text-[#CF166F]">
                     Update Banquet
                 </h2>
             </div>
@@ -372,10 +372,10 @@ const UpdateBanquet = ({ handleNavigate }) => {
                 className="flex flex-col gap-8 p-6"
                 noValidate
             >
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Banquet Information</p>
+                <div className="flex flex-col gap-2 md:gap-5 w-full">
+                    <p className="text-base md:text-xl">Banquet Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Property Name
@@ -385,7 +385,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="property_name"
                                 value={formData.property_name}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Property Name"
                             />
                             {formErrors.property_name && (
@@ -403,7 +403,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="parking_capacity"
                                 value={formData.parking_capacity}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Parking Space"
                             />
                             {formErrors.parking_capacity && (
@@ -420,7 +420,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="catering_policy"
                                 value={formData.catering_policy}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Catering Policy
@@ -439,14 +439,14 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Decor Policy</p>
                             <select
                                 name="decor_policy"
                                 value={formData.decor_policy}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Decor Policy
@@ -470,7 +470,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="dj_policy"
                                 value={formData.dj_policy}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select DJ Policy
@@ -490,7 +490,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="banquet_type"
                                 value={formData.banquet_type}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Banquet Type
@@ -510,7 +510,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Fixed Capacity
@@ -520,7 +520,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="fixed_capacity"
                                 value={formData.fixed_capacity}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Fixed Capacity"
                             />
                             {formErrors.fixed_capacity && (
@@ -538,7 +538,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="max_capacity"
                                 value={formData.max_capacity}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Maximum Capacity"
                             />
                             {formErrors.max_capacity && (
@@ -556,7 +556,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="price_per_room"
                                 value={formData.price_per_room}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Price Per Room"
                             />
                             {formErrors.price_per_room && (
@@ -566,7 +566,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Space (Sqr Foot)
@@ -576,7 +576,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="space"
                                 value={formData.space}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Space"
                             />
                             {formErrors.space && (
@@ -594,7 +594,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="veg_price"
                                 value={formData.veg_price}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Maximum Veg Price"
                             />
                             {formErrors.veg_price && (
@@ -612,7 +612,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="nonveg_price"
                                 value={formData.nonveg_price}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Maximum Non-Veg Price"
                             />
                             {formErrors.nonveg_price && (
@@ -623,17 +623,17 @@ const UpdateBanquet = ({ handleNavigate }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Address Information</p>
+                <div className="flex flex-col gap-2 md:gap-5 w-full">
+                    <p className="text-base md:text-xl">Address Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>State</p>
                             <select
                                 name="state"
                                 value={formData.state}
                                 onChange={handleStateChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select State
@@ -660,7 +660,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 value={formData.city}
                                 onChange={handleChange}
                                 disabled={!formData.state}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select City
@@ -684,7 +684,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="pincode"
                                 value={formData.pincode}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Pincode"
                             />
                             {formErrors.pincode && (
@@ -694,7 +694,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Address</p>
                             <input
@@ -702,7 +702,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Address"
                             />
                             {formErrors.address && (
@@ -713,8 +713,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Upload Images</p>
+                <div className="flex flex-col gap-2 md:gap-5 w-full">
+                    <p className="text-base md:text-xl">Upload Images</p>
                     <div className="p-[1px] bg-slate-200" />
                     <div className="flex flex-col gap-1 md:gap-1 w-fit">
                         <p className={`text-xs md:text-sm`}>Cover Photo</p>
@@ -723,7 +723,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             name="cover_photo"
                             multiple={false}
                             onChange={handleCoverPhotoChange}
-                            className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                            className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                         />
                         {formErrors.cover_photo && (
                             <span className="text-red-600 text-xs mt-1">
@@ -768,7 +768,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             name="additional_photos"
                             multiple
                             onChange={handlePhotoChange}
-                            className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                            className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                         />
                         {formErrors.additional_photos && (
                             <span className="text-red-600 text-xs mt-1">

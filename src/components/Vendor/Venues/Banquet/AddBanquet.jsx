@@ -213,7 +213,7 @@ const AddBanquet = ({ handleNavigate }) => {
             formData.additional_photos.forEach((photo) => {
                 data.append("additional_photos", photo);
             });
-            console.log(data)
+            console.log(data);
             try {
                 const response = await fetch(
                     `${BASE_URL}/vendor/add-banquet/${user._id}`,
@@ -238,26 +238,26 @@ const AddBanquet = ({ handleNavigate }) => {
 
     return (
         <div className="bg-white rounded-3xl w-full border-[1px] border-gray-300">
-            <div className="flex items-center rounded-t-3xl gap-5 bg-[#CF166F1A] p-6">
+            <div className="flex items-center rounded-t-3xl gap-2 md:gap-5 bg-[#CF166F1A] p-3 md:p-6">
                 <IoChevronBackOutline
                     className="cursor-pointer"
-                    size={24}
+                    size={window.screen.width > 768 ? 24 : 20}
                     color="#CF166F"
                     onClick={() => handleNavigate(-1)}
                 />
-                <h2 className="text-2xl font-semibold text-[#CF166F]">
+                <h2 className="text-lg md:text-2xl font-semibold text-[#CF166F]">
                     Add Banquet
                 </h2>
             </div>
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-8 p-6"
+                className="flex flex-col gap-5 p-6"
                 noValidate
             >
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Banquet Information</p>
+                <div className="flex flex-col gap-3 md:gap-5 w-full">
+                    <p className="md:text-xl">Banquet Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Property Name
@@ -321,7 +321,7 @@ const AddBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Decor Policy</p>
                             <select
@@ -392,7 +392,7 @@ const AddBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Fixed Capacity
@@ -448,7 +448,7 @@ const AddBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Space (Sqr Foot)
@@ -505,10 +505,10 @@ const AddBanquet = ({ handleNavigate }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Address Information</p>
+                <div className="flex flex-col gap-3 md:gap-5 w-full">
+                    <p className="md:text-xl">Address Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>State</p>
                             <select
@@ -576,7 +576,7 @@ const AddBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Address</p>
                             <input
@@ -595,8 +595,8 @@ const AddBanquet = ({ handleNavigate }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Upload Images</p>
+                <div className="flex flex-col gap-3 md:gap-5 w-full">
+                    <p className="md:text-xl">Upload Images</p>
                     <div className="p-[1px] bg-slate-200" />
                     <div className="flex flex-col gap-1 md:gap-1 w-fit">
                         <p className={`text-xs md:text-sm`}>Cover Photo</p>

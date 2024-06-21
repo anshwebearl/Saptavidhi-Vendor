@@ -1,25 +1,23 @@
 // Sidebar1.js
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import infoIcon from "../../assets/images/Vector0.png"; // Import the vector images
-import infoIconSelected from "../../assets/images/Vector1.png"; // Import the vector images
-import catalogIcon from "../../assets/images/Vector2.png";
-import catalogIconSelected from "../../assets/images/Vector10.png";
-import inquiriesIcon from "../../assets/images/Vector3.png";
-import inquiriesIconSelected from "../../assets/images/Vector11.png";
-import projectsIcon from "../../assets/images/Vector4.png";
-import projectsIconSelected from "../../assets/images/Vector12.png";
-import membershipIcon from "../../assets/images/Vector5.png";
-import membershipIconSelected from "../../assets/images/Vector13.png";
-import reviewsIcon from "../../assets/images/Vector6.png";
-import reviewsIconSelected from "../../assets/images/Vector9.png";
-import gmbIcon from "../../assets/images/Vector7.png";
-import gmbIconSelected from "../../assets/images/Vector8.png";
+import { useContext, useState } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+
+import { IoPersonCircleOutline, IoCameraOutline } from "react-icons/io5";
+import { FiInfo } from "react-icons/fi";
+import { BiFoodMenu, BiMessageRoundedDetail } from "react-icons/bi";
+import { FaRegBuilding } from "react-icons/fa";
+import { RiImageCircleFill } from "react-icons/ri";
+import { BsPersonFillAdd } from "react-icons/bs";
+import { MdCardMembership } from "react-icons/md";
+import { FaCode } from "react-icons/fa6";
 
 const Sidebar1 = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const { vendorType } = useContext(UserContext);
 
     const location = useLocation();
 
@@ -35,6 +33,8 @@ const Sidebar1 = () => {
                 return navigate("banquets");
             case "Inquiries":
                 return navigate("inquiries");
+            case "Services":
+                return navigate("photography-services");
             case "Projects":
                 return navigate("projects");
             case "Membership Plans":
@@ -50,6 +50,72 @@ const Sidebar1 = () => {
         }
     };
 
+    const sidebarItems = [
+        {
+            name: "Personal Information",
+            key: "personal-information",
+            icon: <IoPersonCircleOutline color="black" size={20} />,
+            selectedIcon: <IoPersonCircleOutline color="#CF166F" size={20} />,
+        },
+        {
+            name: "Additional Info",
+            key: "additional-info",
+            icon: <FiInfo size={20} />,
+            selectedIcon: <FiInfo color="#CF166F" size={20} />,
+        },
+        {
+            name: "Menu",
+            key: "menu",
+            icon: <BiFoodMenu size={20} />,
+            selectedIcon: <BiFoodMenu color="#CF166F" size={20} />,
+            visibleFor: "Venues",
+        },
+        {
+            name: "Banquets",
+            key: "banquets",
+            icon: <FaRegBuilding size={20} />,
+            selectedIcon: <FaRegBuilding color="#CF166F" size={20} />,
+            visibleFor: "Venues",
+        },
+        {
+            name: "Services",
+            key: "photography-services",
+            icon: <IoCameraOutline size={20} />,
+            selectedIcon: <IoCameraOutline color="#CF166F" size={20} />,
+            visibleFor: "Photographers",
+        },
+        {
+            name: "Projects",
+            key: "projects",
+            icon: <RiImageCircleFill size={20} />,
+            selectedIcon: <RiImageCircleFill color="#CF166F" size={20} />,
+        },
+        {
+            name: "Inquiries",
+            key: "inquiries",
+            icon: <BsPersonFillAdd size={20} />,
+            selectedIcon: <BsPersonFillAdd color="#CF166F" size={20} />,
+        },
+        {
+            name: "Membership Plans",
+            key: "membership-plans",
+            icon: <MdCardMembership size={20} />,
+            selectedIcon: <MdCardMembership color="#CF166F" size={20} />,
+        },
+        {
+            name: "Reviews",
+            key: "reviews",
+            icon: <BiMessageRoundedDetail size={20} />,
+            selectedIcon: <BiMessageRoundedDetail color="#CF166F" size={20} />,
+        },
+        {
+            name: "Google My Business",
+            key: "google-my-business",
+            icon: <FaCode size={20} />,
+            selectedIcon: <FaCode color="#CF166F" size={20} />,
+        },
+    ];
+
     return (
         <div className="flex flex-col md:flex-row h-fit w-fit">
             <button
@@ -59,91 +125,38 @@ const Sidebar1 = () => {
                 {isSidebarOpen ? <FaCaretLeft /> : <FaCaretRight />}
             </button>
             <div
-                className={`bg-white text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[250px] rounded-xl transition-all duration-300 ease-in-out ${
+                className={`bg-white text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[220px] rounded-xl transition-all duration-300 ease-in-out ${
                     isSidebarOpen ? "block" : "hidden"
                 } md:block`}
             >
                 <div className="md:space-y-3 flex md:flex-col gap-2 md:gap-0 flex-wrap items-center md:items-start">
-                    {[
-                        {
-                            name: "Personal Information",
-                            key: "personal-information",
-                            icon: inquiriesIcon,
-                            selectedIcon: inquiriesIconSelected,
-                        },
-                        {
-                            name: "Additional Info",
-                            key: "additional-info",
-                            icon: infoIcon,
-                            selectedIcon: infoIconSelected,
-                        },
-                        {
-                            name: "Menu",
-                            key: "menu",
-                            icon: catalogIcon,
-                            selectedIcon: catalogIconSelected,
-                        },
-                        {
-                            name: "Banquets",
-                            key: "banquets",
-                            icon: catalogIcon,
-                            selectedIcon: catalogIconSelected,
-                        },
-                        {
-                            name: "Projects",
-                            key: "projects",
-                            icon: projectsIcon,
-                            selectedIcon: projectsIconSelected,
-                        },
-                        {
-                            name: "Inquiries",
-                            key: "inquiries",
-                            icon: inquiriesIcon,
-                            selectedIcon: inquiriesIconSelected,
-                        },
-                        {
-                            name: "Membership Plans",
-                            key: "membership-plans",
-                            icon: membershipIcon,
-                            selectedIcon: membershipIconSelected,
-                        },
-                        {
-                            name: "Reviews",
-                            key: "reviews",
-                            icon: reviewsIcon,
-                            selectedIcon: reviewsIconSelected,
-                        },
-                        {
-                            name: "Google My Business",
-                            key: "google-my-business",
-                            icon: gmbIcon,
-                            selectedIcon: gmbIconSelected,
-                        },
-                    ].map((item) => (
-                        <div
-                            key={item.name}
-                            className={`cursor-pointer flex md:w-full items-center space-x-2 p-2 rounded-md text-sm md:text-xl font-medium transition-colors duration-300 ease-in-out ${
-                                location.pathname.toString().split("/")[2] ===
-                                item.key
-                                    ? "bg-[#CF166F0D] text-[#CF166F]"
-                                    : "hover:bg-pink-100"
-                            }`}
-                            onClick={() => handleItemClick(item.name)}
-                        >
-                            <img
-                                src={
+                    {sidebarItems
+                        .filter(
+                            (item) =>
+                                !item.visibleFor ||
+                                item.visibleFor === vendorType
+                        )
+                        .map((item) => (
+                            <div
+                                key={item.name}
+                                className={`cursor-pointer flex md:w-full items-center space-x-2 p-2 rounded-md transition-colors duration-300 ease-in-out ${
                                     location.pathname
                                         .toString()
                                         .split("/")[2] === item.key
-                                        ? item.selectedIcon
-                                        : item.icon
-                                }
-                                alt={`${item.name} Icon`}
-                                className="w-4 h-4"
-                            />
-                            <span>{item.name}</span>
-                        </div>
-                    ))}
+                                        ? "bg-[#CF166F0D] text-[#CF166F]"
+                                        : "hover:bg-pink-100"
+                                }`}
+                                onClick={() => handleItemClick(item.name)}
+                            >
+                                {location.pathname.toString().split("/")[2] ===
+                                item.key
+                                    ? item.selectedIcon
+                                    : item.icon}
+                                <span className="text-sm md:text-base font-medium">
+                                    {item.name}
+                                </span>
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>

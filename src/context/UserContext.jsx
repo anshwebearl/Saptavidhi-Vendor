@@ -10,11 +10,11 @@ export const UserProvider = ({ children }) => {
         : import.meta.env.VITE_API_BASE_URL_PROD;
 
     const [user, setUser] = useState(null);
+    const [vendorType, setVendorType] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
 
     const getUser = async () => {
-        // const token = document.cookie.split("=")[1];
         const token = localStorage.getItem("token");
         // if (!token) {
         //     navigate("/");
@@ -27,9 +27,9 @@ export const UserProvider = ({ children }) => {
                 },
             });
             const data = await response.json();
-            console.log(data);
             if (data.success) {
                 setUser(data.vendor);
+                setVendorType(data.category.name);
             } else {
                 if (
                     ["/createwedding", "/profile"].includes(location.pathname)
@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
     }, [navigate]);
 
     return (
-        <UserContext.Provider value={{ user, setUser, getUser }}>
+        <UserContext.Provider value={{ user, setUser, getUser, vendorType }}>
             {children}
         </UserContext.Provider>
     );

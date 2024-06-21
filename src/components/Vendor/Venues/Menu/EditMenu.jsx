@@ -153,15 +153,15 @@ const EditMenu = ({ handleNavigate }) => {
 
     return (
         <div className="bg-white rounded-3xl w-full border-[1px] border-gray-300">
-            <div className="flex items-center rounded-t-3xl gap-5 bg-[#CF166F1A] p-6">
+            <div className="flex items-center rounded-t-3xl gap-2 md:gap-5 bg-[#CF166F1A] p-3 md:p-6">
                 <IoChevronBackOutline
                     className="cursor-pointer"
-                    size={24}
+                    size={window.screen.width > 768 ? 24 : 20}
                     color="#CF166F"
                     onClick={() => handleNavigate(-1)}
                 />
-                <h2 className="text-2xl font-semibold text-[#CF166F]">
-                    Update Menu
+                <h2 className="text-lg md:text-2xl font-semibold text-[#CF166F]">
+                    Edit Menu
                 </h2>
             </div>
             <form
@@ -169,10 +169,10 @@ const EditMenu = ({ handleNavigate }) => {
                 className="flex flex-col gap-8 p-6"
                 noValidate
             >
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Menu Information</p>
+                <div className="flex flex-col gap-2 md:gap-5 w-full">
+                    <p className="text-base md:text-xl">Menu Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Menu Title</p>
                             <input
@@ -180,7 +180,7 @@ const EditMenu = ({ handleNavigate }) => {
                                 name="menu_title"
                                 value={menuTitle}
                                 onChange={(e) => setMenuTitle(e.target.value)}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
                                     errors.menuTitle ? "border-red-500" : ""
                                 }`}
                                 placeholder="Enter Menu Title"
@@ -202,7 +202,7 @@ const EditMenu = ({ handleNavigate }) => {
                                 onChange={(e) =>
                                     setPricePerPlate(e.target.value)
                                 }
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
                                     errors.pricePerPlate ? "border-red-500" : ""
                                 }`}
                                 placeholder="Enter Price Per Plate"
@@ -219,7 +219,7 @@ const EditMenu = ({ handleNavigate }) => {
                                 name="menu_type"
                                 value={menuType}
                                 onChange={(e) => setMenuType(e.target.value)}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px] ${
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px] ${
                                     errors.menuType ? "border-red-500" : ""
                                 }`}
                             >
@@ -245,10 +245,10 @@ const EditMenu = ({ handleNavigate }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 w-full">
-                    <p className="text-xl">Food Information</p>
+                <div className="flex flex-col gap-2 md:gap-5 w-full">
+                    <p className="text-base md:text-xl">Food Information</p>
                     <div className="p-[1px] bg-slate-200" />
-                    <div className="flex justify-between gap-5 w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>Veg Starters</p>
                             <select
@@ -260,7 +260,7 @@ const EditMenu = ({ handleNavigate }) => {
                                         starters: e.target.value,
                                     }))
                                 }
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Veg Starters
@@ -285,7 +285,7 @@ const EditMenu = ({ handleNavigate }) => {
                                         mainCourse: e.target.value,
                                     }))
                                 }
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Veg Main Course
@@ -310,7 +310,7 @@ const EditMenu = ({ handleNavigate }) => {
                                         soupSalads: e.target.value,
                                     }))
                                 }
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Veg Soup / Salads
@@ -333,7 +333,7 @@ const EditMenu = ({ handleNavigate }) => {
                                         desserts: e.target.value,
                                     }))
                                 }
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Select Desserts
@@ -347,7 +347,7 @@ const EditMenu = ({ handleNavigate }) => {
                         </div>
                     </div>
                     {menuType.includes("Non-Veg") && (
-                        <div className="flex justify-between gap-5 w-full">
+                        <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
                             <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                                 <p className={`text-xs md:text-sm`}>
                                     Non Veg Starters
@@ -361,7 +361,7 @@ const EditMenu = ({ handleNavigate }) => {
                                             starters: e.target.value,
                                         }))
                                     }
-                                    className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                    className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 >
                                     <option value="" disabled>
                                         Select Non Veg Starters
@@ -386,7 +386,7 @@ const EditMenu = ({ handleNavigate }) => {
                                             mainCourse: e.target.value,
                                         }))
                                     }
-                                    className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                    className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 >
                                     <option value="" disabled>
                                         Select Non Veg Main Course
@@ -411,7 +411,7 @@ const EditMenu = ({ handleNavigate }) => {
                                             soupSalads: e.target.value,
                                         }))
                                     }
-                                    className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                    className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 >
                                     <option value="" disabled>
                                         Select Non Veg Soup / Salads
@@ -436,7 +436,7 @@ const EditMenu = ({ handleNavigate }) => {
                                             liveCounters: e.target.value,
                                         }))
                                     }
-                                    className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                    className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 >
                                     <option value="" disabled>
                                         Select Live Counters

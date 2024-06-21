@@ -4,6 +4,10 @@ import { UserContext } from "../../../../context/UserContext";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
+const BASE_URL = import.meta.env.DEV
+    ? import.meta.env.VITE_API_BASE_URL_DEV
+    : import.meta.env.VITE_API_BASE_URL_PROD;
+
 const Menu = ({ handleNavigate }) => {
     const token = localStorage.getItem("token");
 
@@ -11,47 +15,7 @@ const Menu = ({ handleNavigate }) => {
 
     const [menu, setMenu] = useState([]);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [menuId, setMenuId] = useState("");
-    const [menuTitle, setMenuTitle] = useState("");
-    const [menuType, setMenuType] = useState("");
-    const [pricePerPlate, setPricePerPlate] = useState("");
-
-    const [vegOptions, setVegOptions] = useState({
-        starters: 0,
-        mainCourse: 0,
-        soupSalads: 0,
-        desserts: 0,
-    });
-    const [nonVegOptions, setNonVegOptions] = useState({
-        starters: 0,
-        mainCourse: 0,
-        soupSalads: 0,
-        liveCounters: 0,
-    });
-
-    const emptyMenuStates = () => {
-        setMenuTitle("");
-        setMenuType("");
-        setPricePerPlate("");
-        setVegOptions({
-            starters: 0,
-            mainCourse: 0,
-            soupSalads: 0,
-            desserts: 0,
-        });
-        setNonVegOptions({
-            starters: 0,
-            mainCourse: 0,
-            soupSalads: 0,
-            liveCounters: 0,
-        });
-        setMenuId("");
-    };
-
-    const BASE_URL = import.meta.env.DEV
-        ? import.meta.env.VITE_API_BASE_URL_DEV
-        : import.meta.env.VITE_API_BASE_URL_PROD;
 
     const getAllMenuItems = async () => {
         try {
@@ -90,53 +54,9 @@ const Menu = ({ handleNavigate }) => {
             );
             const jsonData = await response.json();
             toast.success(jsonData.message);
-            emptyMenuStates();
+            setMenuId("");
             getAllMenuItems();
             setIsDeleteModalOpen(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleEditMenu = async (e) => {
-        e.preventDefault();
-
-        const data = {
-            menu_id: menuId,
-            menu_title: menuTitle,
-            menu_type: menuType,
-            price_per_plate: pricePerPlate,
-            veg_starters: vegOptions.starters,
-            veg_main_course: vegOptions.mainCourse,
-            veg_soup_salad: vegOptions.soupSalads,
-            deserts: vegOptions.desserts,
-            nonveg_starters: nonVegOptions.starters,
-            nonveg_main_course: nonVegOptions.mainCourse,
-            nonveg_soup_salad: nonVegOptions.soupSalads,
-            live_counters: nonVegOptions.liveCounters,
-        };
-
-        try {
-            const response = await fetch(
-                `${BASE_URL}/vendor/update-menu/${user._id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
-            const jsonData = await response.json();
-            if (jsonData.success) {
-                toast.success(jsonData.message);
-                emptyMenuStates();
-                getAllMenuItems();
-                setIsEditModalOpen(false);
-            } else {
-                toast.error(jsonData.message);
-            }
         } catch (error) {
             console.log(error);
         }
@@ -269,7 +189,7 @@ const Menu = ({ handleNavigate }) => {
                                     type="button"
                                     onClick={() => {
                                         setIsDeleteModalOpen(false);
-                                        emptyMenuStates();
+                                        setMenuId("");
                                     }}
                                     className="bg-gray-500 text-white px-4 py-2 rounded-md"
                                 >
@@ -286,237 +206,8 @@ const Menu = ({ handleNavigate }) => {
                     </div>
                 </div>
             )}
-
-            {/* Edit Menu Modal */}
-            {isEditModalOpen && (
-                <div
-                    className="fixed inset-0 flex items-center justify-center z-50"
-                    onClick={() => setIsDeleteModalOpen(false)}
-                >
-                    <div
-                        className="fixed inset-0 bg-black opacity-50"
-                        onClick={(e) => e.stopPropagation()}
-                    ></div>
-                    <div
-                        className="bg-white p-8 rounded-lg z-10"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <h2 className="text-2xl mb-4">Add Menu Item</h2>
-                        <form onSubmit={handleEditMenu}>
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="menuTitle"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Menu Title
-                                </label>
-                                <input
-                                    type="text"
-                                    id="menuTitle"
-                                    name="menuTitle"
-                                    className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-                                    value={menuTitle}
-                                    onChange={(e) =>
-                                        setMenuTitle(e.target.value)
-                                    }
-                                />
-                            </div>
-                            <div className="flex gap-2">
-                                <div className="mb-4 flex-1">
-                                    <label
-                                        htmlFor="menuType"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Menu Type
-                                    </label>
-                                    <select
-                                        id="menuType"
-                                        name="menuType"
-                                        value={menuType}
-                                        onChange={(e) =>
-                                            setMenuType(e.target.value)
-                                        }
-                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-                                    >
-                                        <option value="" disabled>
-                                            Select Menu Type
-                                        </option>
-                                        <option value="Veg Standard">
-                                            Veg Standard
-                                        </option>
-                                        <option value="Veg Premium">
-                                            Veg Premium
-                                        </option>
-                                        <option value="Non-Veg Standard">
-                                            Non-Veg Standard
-                                        </option>
-                                        <option value="Non-Veg Premium">
-                                            Non-Veg Premium
-                                        </option>
-                                    </select>
-                                </div>
-                                <div className="mb-4 w-fit">
-                                    <label
-                                        htmlFor="pricePerPlate"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Price per Plate
-                                    </label>
-                                    <input
-                                        value={pricePerPlate}
-                                        onChange={(e) =>
-                                            setPricePerPlate(e.target.value)
-                                        }
-                                        type="number"
-                                        id="pricePerPlate"
-                                        name="pricePerPlate"
-                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-                                    />
-                                </div>
-                            </div>
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="selectInputs"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Veg Options
-                                </label>
-                                <div className="flex gap-2">
-                                    <CustomInput
-                                        name="starters"
-                                        value={vegOptions.starters}
-                                        onChange={(e) =>
-                                            handleSelectChange(e, setVegOptions)
-                                        }
-                                        title="Veg Starters"
-                                    />
-                                    <CustomInput
-                                        name="mainCourse"
-                                        value={vegOptions.mainCourse}
-                                        onChange={(e) =>
-                                            handleSelectChange(e, setVegOptions)
-                                        }
-                                        title="Veg Main Course"
-                                    />
-                                    <CustomInput
-                                        name="soupSalads"
-                                        value={vegOptions.soupSalads}
-                                        onChange={(e) =>
-                                            handleSelectChange(e, setVegOptions)
-                                        }
-                                        title="Veg Soup/Salads"
-                                    />
-                                    <CustomInput
-                                        name="desserts"
-                                        value={vegOptions.desserts}
-                                        onChange={(e) =>
-                                            handleSelectChange(e, setVegOptions)
-                                        }
-                                        title="Desserts"
-                                    />
-                                </div>
-                            </div>
-                            {menuType.includes("Non-Veg") && (
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="selectInputs"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Non-Veg Options
-                                    </label>
-                                    <div className="flex gap-2">
-                                        <CustomInput
-                                            name="starters"
-                                            value={nonVegOptions.starters}
-                                            onChange={(e) =>
-                                                handleSelectChange(
-                                                    e,
-                                                    setNonVegOptions
-                                                )
-                                            }
-                                            title="Non-Veg Starters"
-                                        />
-                                        <CustomInput
-                                            name="mainCourse"
-                                            value={nonVegOptions.mainCourse}
-                                            onChange={(e) =>
-                                                handleSelectChange(
-                                                    e,
-                                                    setNonVegOptions
-                                                )
-                                            }
-                                            title="Non-Veg Main Course"
-                                        />
-                                        <CustomInput
-                                            name="soupSalads"
-                                            value={nonVegOptions.soupSalads}
-                                            onChange={(e) =>
-                                                handleSelectChange(
-                                                    e,
-                                                    setNonVegOptions
-                                                )
-                                            }
-                                            title="Non-Veg Soup/Salads"
-                                        />
-                                        <CustomInput
-                                            name="liveCounters"
-                                            value={nonVegOptions.liveCounters}
-                                            onChange={(e) =>
-                                                handleSelectChange(
-                                                    e,
-                                                    setNonVegOptions
-                                                )
-                                            }
-                                            title="Live Counters"
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                            <div className="flex justify-end gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setIsEditModalOpen(false);
-                                        emptyMenuStates();
-                                    }}
-                                    className="bg-gray-500 text-white px-4 py-2 rounded-md"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                                >
-                                    Update
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
 
 export default Menu;
-
-const CustomInput = ({ value, name, title, onChange }) => {
-    return (
-        <select
-            name={name}
-            value={value}
-            onChange={onChange}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            // defaultValue={"dasds"}
-        >
-            <option value="0" disabled selected={true}>
-                {title}
-            </option>
-            {Array.from({ length: 20 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                </option>
-            ))}
-        </select>
-    );
-};

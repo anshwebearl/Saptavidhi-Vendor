@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const VendorLogin = () => {
@@ -44,7 +44,7 @@ const VendorLogin = () => {
             if (data.success) {
                 localStorage.setItem("token", data.token);
                 navigate("/", { replace: true });
-                window.location.reload();
+                toast.success("Logged in Successgully")
             } else {
                 return toast.error(data.message);
             }
@@ -69,18 +69,6 @@ const VendorLogin = () => {
 
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <div className="px-0 custom-container">
                 <div className="flex flex-col items-center gap-9 md:mt-6 md:max-w-[450px] md:mx-auto">
                     <p className="font-[600] text-2xl md:text-4xl">

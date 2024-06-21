@@ -12,9 +12,10 @@ import { UserContext } from "../../context/UserContext";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BanquetNavigator from "./Venues/Banquet/BanquetNavigator";
 import MenuNavigator from "./Venues/Menu/MenuNavigator";
+import PhotographerServiceNavigator from "./Photographers/PhotographerServiceNavigator";
 
 const MainNavigation = () => {
-    const { getUser } = useContext(UserContext);
+    const { getUser, vendorType } = useContext(UserContext);
 
     useEffect(() => {
         getUser();
@@ -30,16 +31,29 @@ const MainNavigation = () => {
                         element={<VendorInfo1 />}
                     />
                     <Route path="additional-info" element={<VendorInfo2 />} />
-                    <Route path="banquets/*" element={<BanquetNavigator />} />
-                    <Route path="inquiries" element={<CardGrid />} />
                     <Route path="projects/*" element={<VendorProjects />} />
+                    {vendorType && vendorType === "Venues" && (
+                        <Route
+                            path="banquets/*"
+                            element={<BanquetNavigator />}
+                        />
+                    )}
+                    {vendorType && vendorType === "Venues" && (
+                        <Route path="menu/*" element={<MenuNavigator />} />
+                    )}
+                    {vendorType && vendorType === "Photographers" && (
+                        <Route
+                            path="photography-services/*"
+                            element={<PhotographerServiceNavigator />}
+                        />
+                    )}
+                    <Route path="inquiries" element={<CardGrid />} />
                     <Route path="membership-plans" element={<Packages />} />
                     <Route path="reviews" element={<ReviewsContainer />} />
                     <Route
                         path="google-my-business"
                         element={<GoogleMyBusiness />}
                     />
-                    <Route path="menu/*" element={<MenuNavigator />} />
                     <Route
                         path="/"
                         element={<Navigate to="personal-information" />}
