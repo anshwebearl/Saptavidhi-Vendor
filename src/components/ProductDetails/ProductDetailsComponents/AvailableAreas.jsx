@@ -1,7 +1,7 @@
 import React from "react";
 import hotel from "../../../assets/images/ProductDetailsImages/hotel.png"; // adjust the path as necessary
 
-function AvailableAreas() {
+function  AvailableAreas() {
     const areaInfo = {
         seating: 1000,
         floating: 1400,
@@ -9,12 +9,12 @@ function AvailableAreas() {
     };
     return (
         <>
-            <div className="border-2  rounded-[20px] px-5 py-3 md:px-8 md:py-5 flex flex-col gap-2 md:gap-3">
+            <div className="border-2  rounded-[20px] px-5 py-3 md:px-8 shadow-md md:py-5 flex flex-col gap-2 md:gap-3">
                 <h1 className="md:text-lg text-base font-semibold">
                     Available Areas
                 </h1>
                 <hr className="border-gray-300 " />
-                <div className="flex items-center gap-5 md:gap-10">
+                <div className="flex items-center gap-10">
                     <div className="flex flex-col items-center">
                         <img
                             src={hotel}
@@ -40,7 +40,7 @@ function AvailableAreas() {
                     </div>
                 </div>
                 <hr className="border-gray-400" />
-                <div className="flex items-center gap-5 md:gap-10">
+                <div className="flex items-center gap-10">
                     <div className="flex flex-col items-center">
                         <img
                             src={hotel}

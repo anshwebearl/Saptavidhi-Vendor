@@ -11,7 +11,7 @@ const Gallery = () => {
   const [activeTab, setActiveTab] = useState('Portfolios');
 
   return (
-    <div className="relative min-h-[400px] my-[20px] mx-[10px] md:mx-[20px] px-4 pt-4 pb-[50px] border border-gray-400 rounded-[20px] ">
+    <div className="relative md:min-h-[350px] px-4 pt-4 pb-[50px] border-2 rounded-[20px] ">
       <div className="flex  mb-4">
         <button 
           className={`px-4 py-2 ${activeTab === 'Portfolios' ? 'text-pink-500 border-b-2 border-pink-500' : ''}`}

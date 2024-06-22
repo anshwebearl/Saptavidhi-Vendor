@@ -8,9 +8,9 @@ function ProductDetailsForm() {
                 Hi Club Mahindra Kensville Golf Resort,
             </h1>
             <hr className="border-gray-300" />
-            <div className="flex md:flex-row flex-col gap-3">
+            <div className="flex md:flex-row flex-col gap-2 md:gap-8">
                 <div className="flex flex-col flex-1 gap-4">
-                    <div className="w-full px-3 flex flex-col gap-1">
+                    <div className="w-full flex flex-col gap-1">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold "
                             htmlFor="full-name"
@@ -18,14 +18,13 @@ function ProductDetailsForm() {
                             Full Name
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="full-name"
                             type="text"
                             placeholder="Enter Full Name"
                         />
                     </div>
-
-                    <div className="w-full px-3 flex flex-col gap-1">
+                    <div className="w-full flex flex-col gap-1">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
                             htmlFor="email"
@@ -33,13 +32,13 @@ function ProductDetailsForm() {
                             Email
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="email"
                             type="text"
                             placeholder="Enter Email"
                         />
                     </div>
-                    <div className="w-full px-3 flex flex-col gap-1">
+                    <div className="w-full flex flex-col gap-1">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
                             htmlFor="no-of-guests"
@@ -47,7 +46,7 @@ function ProductDetailsForm() {
                             No. of Guests (min 50)
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="no-of-guests"
                             type="number"
                             placeholder="Enter No. of Guests"
@@ -55,7 +54,7 @@ function ProductDetailsForm() {
                     </div>
                 </div>
                 <div className="flex flex-col flex-1 gap-4">
-                    <div className="w-full px-3 flex flex-col gap-1">
+                    <div className="w-full flex flex-col gap-1">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
                             htmlFor="mobile-no"
@@ -63,13 +62,13 @@ function ProductDetailsForm() {
                             Mobile No.
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="mobile-no"
                             type="text"
                             placeholder="Enter Mobile No."
                         />
                     </div>
-                    <div className="w-full px-3 flex flex-col gap-1 relative">
+                    <div className="w-full flex flex-col gap-1 relative">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
                             htmlFor="function-date"
@@ -77,14 +76,13 @@ function ProductDetailsForm() {
                             Function Date
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="function-date"
                             type="date"
                             placeholder="Select Date"
                         />
                     </div>
-
-                    <div className="w-full px-3 flex flex-col gap-1">
+                    <div className="w-full  flex flex-col gap-1">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
                             htmlFor="no-of-rooms"
@@ -92,7 +90,7 @@ function ProductDetailsForm() {
                             No. of Rooms
                         </label>
                         <input
-                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="appearance-none block w-full  text-gray-700 border border-[#FF8DA680] rounded py-1 px-2 md:py-2 md:px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="no-of-rooms"
                             type="number"
                             placeholder="Enter No. of Rooms"
@@ -113,7 +111,9 @@ function ProductDetailsForm() {
                                 name="function-type"
                                 value="pre-wedding"
                             />
-                            <span className="text-sm md:text-base">Pre Wedding</span>
+                            <span className="text-sm md:text-base">
+                                Pre Wedding
+                            </span>
                         </label>
                         <label className="inline-flex items-center gap-1">
                             <input
@@ -122,7 +122,9 @@ function ProductDetailsForm() {
                                 name="function-type"
                                 value="wedding"
                             />
-                            <span className="text-sm md:text-base">Wedding</span>
+                            <span className="text-sm md:text-base">
+                                Wedding
+                            </span>
                         </label>
                     </div>
                 </div>
@@ -147,7 +149,9 @@ function ProductDetailsForm() {
                                 name="function-time"
                                 value="evening"
                             />
-                            <span className="text-sm md:text-base">Evening</span>
+                            <span className="text-sm md:text-base">
+                                Evening
+                            </span>
                         </label>
                         <label className="inline-flex items-center gap-1">
                             <input
@@ -162,7 +166,7 @@ function ProductDetailsForm() {
                 </div>
             </div>
             <button
-                className="w-full bg-gradient-to-r from-[#fd070789] to-[#5c034089] text-white font-bold py-2 px-3 rounded-[8px] focus:outline-none focus:shadow-outline"
+                className="w-[80%] self-center flex items-center text-sm md:text-lg justify-center bg-gradient-to-r from-[#fd070789] to-[#5c034089] text-white font-bold px-2 py-1 md:py-2 md:px-3 rounded-[8px] focus:outline-none focus:shadow-outline"
                 type="button"
             >
                 Check Availability & Prices

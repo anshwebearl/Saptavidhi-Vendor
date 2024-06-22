@@ -267,13 +267,13 @@ const UpdateBanquet = ({ handleNavigate }) => {
             }
         });
 
-        // if (
-        //     formData["additional_photos"].length === 0 &&
-        //     formData["updated_additional_photos"].length === 0
-        // ) {
-        //     newFormErrors["additional_photos"] =
-        //         "Please fill in the additional photos field";
-        // }
+        if (
+            formData["additional_photos"].length === 0 &&
+            formData["updated_additional_photos"].length === 0
+        ) {
+            newFormErrors["additional_photos"] =
+                "Please fill in the additional photos field";
+        }
 
         if (
             formData["cover_photo"].trim() === "" &&
@@ -283,13 +283,13 @@ const UpdateBanquet = ({ handleNavigate }) => {
                 "Please fill in the cover photos field";
         }
 
-        if (formData.additional_photos.length < 2) {
-            newFormErrors.additional_photos =
-                "Please select at least 2 additional photos.";
-            isValid = false;
-        } else {
-            newFormErrors.additional_photos = "";
-        }
+        // if (formData.additional_photos.length < 2) {
+        //     newFormErrors.additional_photos =
+        //         "Please select at least 2 additional photos.";
+        //     isValid = false;
+        // } else {
+        //     newFormErrors.additional_photos = "";
+        // }
 
         setFormErrors(newFormErrors);
 

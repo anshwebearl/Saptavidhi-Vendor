@@ -44,10 +44,10 @@ function Reviews() {
     ];
 
     return (
-        <div className="mx-[10px] md:mx-[20px] border border-gray-400 rounded-[20px] p-4">
+        <div className="border-2 rounded-[20px] p-4">
             <div className="flex justify-between items-center mb-4">
                 <div>
-                    <h1 className="text-[18px] font-semibold ">Reviews</h1>
+                    <h1 className="text-lg md:text-xl font-semibold ">Reviews</h1>
                 </div>
                 <div className="flex items-center font-semibold">
                     {stars.map((star, index) => (
