@@ -23,7 +23,7 @@ const RealWeddingDetails = () => {
   }, [currentIndex]);
 
   return (
-    <div className="max-w-[1200px] font-poppins px-3 md:px-10 mt-2 md:mt-5 mx-auto bg-[#f5f5f5] flex flex-col gap-5 md:gap-8">
+    <div className="custom-container font-poppins px-3 md:px-10 mt-2 md:mt-5 flex flex-col gap-5 md:gap-8">
       <div className="rounded-3xl border-[1.5px] border-[#7171716f]">
         <div className="relative h-[200px] w-full md:h-[500px] rounded-3xl">
           <div

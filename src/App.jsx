@@ -17,6 +17,7 @@ import Footer from "./components/Footer.jsx";
 import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
 import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx"
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -90,6 +91,10 @@ function App() {
                         <Route
                             path="/real-wedding-details"
                             element={<RealWeddingDetails />}
+                        />
+                        <Route
+                            path="/product-details"
+                            element={<ProductDetails />}
                         />
                     </Routes>
                 </UserProvider>
