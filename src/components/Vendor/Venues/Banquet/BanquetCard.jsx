@@ -4,6 +4,7 @@ import locationicon from "../../../../assets/images/location.png";
 import { MdEdit, MdDelete } from "react-icons/md";
 import vegIcon from "../../../../assets/images/vegicon.png";
 import nonVegIcon from "../../../../assets/images/nonvegicon.png";
+import { useNavigate } from "react-router-dom";
 
 const BanquetCard = ({
     src,
@@ -22,10 +23,13 @@ const BanquetCard = ({
         ? import.meta.env.VITE_IMAGE_URL_DEV
         : import.meta.env.VITE_IMAGE_URL_PROD;
 
+    const navigate = useNavigate();
+
     return (
         <div className="bg-white rounded-3xl border-[#00000033] flex gap-2 md:gap-4 border-[1px] w-[250px] md:w-[350px] overflow-hidden">
             <img
-                className="object-cover w-[90px] md:w-[120px] h-full"
+                onClick={() => navigate(`/vendors/venues/${id}`)}
+                className="object-cover w-[90px] md:w-[120px] h-full cursor-pointer"
                 src={`${BASE_URL}/${src}`}
                 alt="Venue"
             />

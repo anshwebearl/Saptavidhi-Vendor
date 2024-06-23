@@ -302,7 +302,7 @@ const AddBanquet = ({ handleNavigate }) => {
                                 name="catering_policy"
                                 value={formData.catering_policy}
                                 onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px]`}
+                                className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
                                     Catering Policy

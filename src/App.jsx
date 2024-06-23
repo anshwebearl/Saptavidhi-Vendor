@@ -17,12 +17,13 @@ import Footer from "./components/Footer.jsx";
 import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
 import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
-import ProductDetails from "./components/ProductDetails/ProductDetails.jsx"
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
+import VendorNavigator from "./components/VendorNavigator/VendorNavigator.jsx";
 
 function App() {
     return (
@@ -95,6 +96,10 @@ function App() {
                         <Route
                             path="/product-details"
                             element={<ProductDetails />}
+                        />
+                        <Route
+                            path="/vendors/*"
+                            element={<VendorNavigator />}
                         />
                     </Routes>
                 </UserProvider>

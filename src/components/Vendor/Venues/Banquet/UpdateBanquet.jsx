@@ -273,15 +273,16 @@ const UpdateBanquet = ({ handleNavigate }) => {
         ) {
             newFormErrors["additional_photos"] =
                 "Please fill in the additional photos field";
+            isValid = false;
         }
 
-        if (
-            formData["cover_photo"].trim() === "" &&
-            formData["updated_cover_photo"].trim() === ""
-        ) {
-            newFormErrors["cover_photo"] =
-                "Please fill in the cover photos field";
-        }
+        // if (
+        //     formData["cover_photo"].trim() === "" &&
+        //     formData["updated_cover_photo"].trim() === ""
+        // ) {
+        //     newFormErrors["cover_photo"] =
+        //         "Please fill in the cover photos field";
+        // }
 
         // if (formData.additional_photos.length < 2) {
         //     newFormErrors.additional_photos =
@@ -316,6 +317,14 @@ const UpdateBanquet = ({ handleNavigate }) => {
             formData.additional_photos.forEach((photo) => {
                 data.append("additional_photos", photo);
             });
+
+            if (formData.updated_cover_photo) {
+                data.append(
+                    "updated_cover_photo",
+                    formData.updated_cover_photo
+                );
+            }
+
             if (formData.updated_additional_photos.length > 0) {
                 formData.updated_additional_photos.forEach((photo) => {
                     if (photo instanceof File) {
@@ -328,10 +337,9 @@ const UpdateBanquet = ({ handleNavigate }) => {
                 data.append("updated_additional_photos", []);
             }
             if (!data.has("updated_cover_photo")) {
-                data.append("updated_cover_photo", null);
+                data.append("updated_cover_photo", "");
             }
 
-            console.log(data);
             try {
                 const response = await fetch(
                     `${BASE_URL}/vendor/update-banquet/${user._id}`,

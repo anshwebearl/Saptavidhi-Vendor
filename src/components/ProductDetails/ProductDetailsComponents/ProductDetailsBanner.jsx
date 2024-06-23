@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import message from "../../../assets/images/ProductDetailsImages/message.png";
 import contact from "../../../assets/images/ProductDetailsImages/Contact.png";
@@ -8,12 +9,16 @@ import review from "../../../assets/images/ProductDetailsImages/review.png";
 import share from "../../../assets/images/ProductDetailsImages/share.png";
 import image1 from "../../../assets/images/ProductDetailsImages/image1.jpeg";
 
-function ProductDetailsBanner() {
+const BASE_IMAGE_URL = import.meta.env.DEV
+    ? import.meta.env.VITE_IMAGE_URL_DEV
+    : import.meta.env.VITE_IMAGE_URL_PROD;
+
+function ProductDetailsBanner({ property_name, city, state, cover_photo }) {
     return (
         <div className="border-2 rounded-[30px] shadow-lg overflow-hidden">
             <div className=" h-[200px] md:h-[500px] overflow-hidden rounded-[30px] relative">
                 <img
-                    src={image1}
+                    src={`${BASE_IMAGE_URL}/${cover_photo}`}
                     alt="Club Mahindra Kensville Gold Resort"
                     className="w-full h-full object-cover object-bottom"
                 />
@@ -21,7 +26,7 @@ function ProductDetailsBanner() {
             <div className="md:px-6 md:py-4 px-4 py-5 flex flex-col gap-3 md:flex-row justify-between">
                 <div className="flex flex-col gap-2">
                     <h2 className=" text-lg md:text-2xl font-bold">
-                        Club Mahindra Kensville Gold Resort
+                        {property_name}
                     </h2>
                     <div className="flex items-center gap-2 text-gray-700 text-xs md:text-base border-2 rounded-[8px] w-fit p-1 md:p-2">
                         <img
