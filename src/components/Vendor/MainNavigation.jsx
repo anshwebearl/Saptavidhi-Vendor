@@ -12,7 +12,6 @@ import { UserContext } from "../../context/UserContext";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BanquetNavigator from "./Venues/Banquet/BanquetNavigator";
 import MenuNavigator from "./Venues/Menu/MenuNavigator";
-import PhotographerServiceNavigator from "./Photographers/PhotographerServiceNavigator";
 
 const MainNavigation = () => {
     const { getUser, vendorType } = useContext(UserContext);
@@ -22,7 +21,7 @@ const MainNavigation = () => {
     }, []);
 
     return (
-        <div className="custom-container mx-auto p-4 md:p-8 font-poppins flex md:flex-row flex-col gap-4">
+        <div className="custom-container mx-auto p-4 md:p-8 font-poppins flex md:flex-row flex-col gap-3 md:gap-4">
             <Sidebar1 />
             <div className="w-full">
                 <Routes>
@@ -40,12 +39,6 @@ const MainNavigation = () => {
                     )}
                     {vendorType && vendorType === "Venues" && (
                         <Route path="menu/*" element={<MenuNavigator />} />
-                    )}
-                    {vendorType && vendorType === "Photographers" && (
-                        <Route
-                            path="photography-services/*"
-                            element={<PhotographerServiceNavigator />}
-                        />
                     )}
                     <Route path="inquiries" element={<CardGrid />} />
                     <Route path="membership-plans" element={<Packages />} />

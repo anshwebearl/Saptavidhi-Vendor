@@ -5,6 +5,9 @@ import { State, City } from "country-state-city";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { IoEye } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
+
 const VendorSignup = () => {
     const navigate = useNavigate();
 
@@ -27,6 +30,9 @@ const VendorSignup = () => {
     const [address, setAddress] = useState("");
     const [errors, setErrors] = useState({});
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     const allStates = State.getStatesOfCountry("IN");
     const [allCities, setAllCities] = useState([]);
 
@@ -35,6 +41,7 @@ const VendorSignup = () => {
     const handleStateChange = (e) => {
         const selectedState = e.target.value;
         setState(selectedState);
+        setErrors((prevErrors) => ({ ...prevErrors, state: "" }));
         const stateCode = allStates.find(
             (s) => s.name === selectedState
         )?.isoCode;
@@ -46,17 +53,17 @@ const VendorSignup = () => {
 
     const handleMobileChange = (e) => {
         const value = e.target.value;
-        const re = /^[0-9\b]+$/;
-        if (re.test(value)) {
+        if (value === "" || /^[0-9\b]+$/.test(value)) {
             setMobile(value);
+            setErrors((prevErrors) => ({ ...prevErrors, mobile: "" }));
         }
     };
 
     const handlePincodeChange = (e) => {
         const value = e.target.value;
-        const re = /^[0-9\b]+$/;
-        if (re.test(value)) {
+        if (value === "" || /^[0-9\b]+$/.test(value)) {
             setPincode(value);
+            setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
         }
     };
 
@@ -73,6 +80,11 @@ const VendorSignup = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleInputChange = (setter, field) => (e) => {
+        setter(e.target.value);
+        setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
     };
 
     const handleSignup = async () => {
@@ -168,16 +180,17 @@ const VendorSignup = () => {
                 </p>
                 <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col justify-center items-center gap-5 md:gap-9 w-full sm:w-auto">
                     <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12 w-full flex-wrap">
-                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[50%]">
+                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[48%]">
                             <div>
                                 <input
                                     type="text"
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                     placeholder="Brand Name"
                                     value={brandName}
-                                    onChange={(e) =>
-                                        setBrandName(e.target.value)
-                                    }
+                                    onChange={handleInputChange(
+                                        setBrandName,
+                                        "brandName"
+                                    )}
                                 />
                                 {errors.brandName && (
                                     <p className="text-red-500 text-xs">
@@ -215,7 +228,13 @@ const VendorSignup = () => {
                             <div>
                                 <select
                                     disabled={!state}
-                                    onChange={(e) => setCity(e.target.value)}
+                                    onChange={(e) => {
+                                        setCity(e.target.value);
+                                        setErrors((prevErrors) => ({
+                                            ...prevErrors,
+                                            city: "",
+                                        }));
+                                    }}
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                 >
                                     <option
@@ -247,6 +266,7 @@ const VendorSignup = () => {
                                     placeholder="Pincode"
                                     value={pincode}
                                     onChange={handlePincodeChange}
+                                    maxLength={6}
                                 />
                                 {errors.pincode && (
                                     <p className="text-red-500 text-xs">
@@ -261,6 +281,7 @@ const VendorSignup = () => {
                                     placeholder="Mobile Number"
                                     value={mobile}
                                     onChange={handleMobileChange}
+                                    maxLength={10}
                                 />
                                 {errors.mobile && (
                                     <p className="text-red-500 text-xs">
@@ -269,16 +290,17 @@ const VendorSignup = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[50%]">
+                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[48%]">
                             <div>
                                 <input
                                     type="text"
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                     placeholder="Contact Person Name"
                                     value={contactPersonName}
-                                    onChange={(e) =>
-                                        setContactPersonName(e.target.value)
-                                    }
+                                    onChange={handleInputChange(
+                                        setContactPersonName,
+                                        "contactPersonName"
+                                    )}
                                 />
                                 {errors.contactPersonName && (
                                     <p className="text-red-500 text-xs">
@@ -289,9 +311,13 @@ const VendorSignup = () => {
                             <div>
                                 <select
                                     value={vendorType}
-                                    onChange={(e) =>
-                                        setVendorType(e.target.value)
-                                    }
+                                    onChange={(e) => {
+                                        setVendorType(e.target.value);
+                                        setErrors((prevErrors) => ({
+                                            ...prevErrors,
+                                            vendorType: "",
+                                        }));
+                                    }}
                                     name="vendor_type"
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                 >
@@ -321,7 +347,10 @@ const VendorSignup = () => {
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                     placeholder="Email"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={handleInputChange(
+                                        setEmail,
+                                        "email"
+                                    )}
                                 />
                                 {errors.email && (
                                     <p className="text-red-500 text-xs">
@@ -329,32 +358,64 @@ const VendorSignup = () => {
                                     </p>
                                 )}
                             </div>
-                            <div>
+                            <div className="relative">
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                     placeholder="Password"
                                     value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
+                                    onChange={handleInputChange(
+                                        setPassword,
+                                        "password"
+                                    )}
                                 />
+                                <div
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
+                                >
+                                    {showPassword ? (
+                                        <IoEyeOff color="gray" size={20} />
+                                    ) : (
+                                        <IoEye color="gray" size={20} />
+                                    )}
+                                </div>
                                 {errors.password && (
                                     <p className="text-red-500 text-xs">
                                         {errors.password}
                                     </p>
                                 )}
                             </div>
-                            <div>
+                            <div className="relative">
                                 <input
-                                    type="password"
+                                    type={
+                                        showConfirmPassword
+                                            ? "text"
+                                            : "password"
+                                    }
                                     className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                                     placeholder="Confirm Password"
                                     value={confirmPassword}
-                                    onChange={(e) =>
-                                        setConfirmPassword(e.target.value)
-                                    }
+                                    onChange={handleInputChange(
+                                        setConfirmPassword,
+                                        "confirmPassword"
+                                    )}
                                 />
+                                <div
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                    onClick={() =>
+                                        setShowConfirmPassword(
+                                            !showConfirmPassword
+                                        )
+                                    }
+                                >
+                                    {showConfirmPassword ? (
+                                        <IoEyeOff color="gray" size={20} />
+                                    ) : (
+                                        <IoEye color="gray" size={20} />
+                                    )}
+                                </div>
                                 {errors.confirmPassword && (
                                     <p className="text-red-500 text-xs">
                                         {errors.confirmPassword}
@@ -374,7 +435,7 @@ const VendorSignup = () => {
                             className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
                             placeholder="Address"
                             value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            onChange={handleInputChange(setAddress, "address")}
                         />
                         {errors.address && (
                             <p className="text-red-500 text-xs">

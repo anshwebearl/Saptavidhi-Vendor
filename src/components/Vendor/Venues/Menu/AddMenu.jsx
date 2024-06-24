@@ -130,7 +130,13 @@ const AddMenu = ({ handleNavigate }) => {
                                 type="text"
                                 name="menu_title"
                                 value={menuTitle}
-                                onChange={(e) => setMenuTitle(e.target.value)}
+                                onChange={(e) => {
+                                    setMenuTitle(e.target.value);
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        menuTitle: "",
+                                    }));
+                                }}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
                                     errors.menuTitle ? "border-red-500" : ""
                                 }`}
@@ -150,12 +156,21 @@ const AddMenu = ({ handleNavigate }) => {
                                 type="text"
                                 name="price_per_plate"
                                 value={pricePerPlate}
-                                onChange={(e) =>
-                                    setPricePerPlate(e.target.value)
-                                }
+                                onChange={(e) => {
+                                    const num = e.target.value.replace(
+                                        /[^0-9]/g,
+                                        ""
+                                    );
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        pricePerPlate: "",
+                                    }));
+                                    setPricePerPlate(num);
+                                }}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] ${
                                     errors.pricePerPlate ? "border-red-500" : ""
                                 }`}
+                                maxLength={5}
                                 placeholder="Enter Price Per Plate"
                             />
                             {errors.pricePerPlate && (
@@ -169,7 +184,13 @@ const AddMenu = ({ handleNavigate }) => {
                             <select
                                 name="menu_type"
                                 value={menuType}
-                                onChange={(e) => setMenuType(e.target.value)}
+                                onChange={(e) => {
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        menuType: "",
+                                    }));
+                                    setMenuType(e.target.value);
+                                }}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff729ia] focus:border-[1.5px] ${
                                     errors.menuType ? "border-red-500" : ""
                                 }`}

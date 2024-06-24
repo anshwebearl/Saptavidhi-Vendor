@@ -34,7 +34,7 @@ function ProductDetailsBanner({ property_name, city, state, cover_photo }) {
                             alt="Location"
                             className="h-[10px] md:h-[16px] w-auto"
                         />
-                        Ahmedabad, Gujarat
+                        {city}, {state}
                     </div>
                 </div>
                 <div className="flex flex-col items-start md:items-end gap-3 md:gap-5">
@@ -57,14 +57,14 @@ function ProductDetailsBanner({ property_name, city, state, cover_photo }) {
                         </button>
                     </div>
                     <div className="flex justify-around w-full md:w-fit text-gray-700 gap-3 md:gap-5 text-xs md:text-base">
-                        <span className="cursor-pointer flex items-center">
+                        <a className="cursor-pointer flex items-center" href="#gallery-section">
                             <img
                                 src={gallery}
                                 alt="Photos"
                                 className="mr-2 w-3 md:w-4"
                             />
                             Photos
-                        </span>
+                        </a>
                         <span className="cursor-pointer flex items-center border-l border-gray-500 pl-2 md:pl-3">
                             <img
                                 src={heart}

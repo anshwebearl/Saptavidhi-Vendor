@@ -52,25 +52,39 @@ function ProductDetails() {
 
     useEffect(() => {
         getBanquetById();
-    }, []);
+        console.log(user)
+    }, [user]);
 
     return (
         <div className="custom-container md:p-0 px-4 flex flex-col gap-4 md:gap-10">
-            <ProductDetailsBanner cover_photo={banquet?.cover_photo} property_name={banquet?.property_name} />
+            <ProductDetailsBanner
+                cover_photo={banquet?.cover_photo}
+                property_name={banquet?.property_name}
+                city={banquet?.city}
+                state={banquet?.state}
+            />
             <div className="flex md:flex-row flex-col justify-center gap-6 items-center">
                 <div className="flex flex-col gap-6 w-full md:w-2/5">
-                    <Charges />
-                    <AvailableAreas />
+                    <Charges
+                        veg_price={banquet?.veg_price}
+                        nonveg_price={banquet?.nonveg_price}
+                        price_per_room={banquet?.price_per_room}
+                    />
+                    <AvailableAreas
+                        seating={banquet?.fixed_capacity}
+                        floating={banquet?.max_capacity}
+                        type={banquet?.banquet_type}
+                    />
                 </div>
                 <div className="w-full md:w-3/5">
                     <ProductDetailsForm />
                 </div>
             </div>
             <div className="flex md:flex-row flex-col items-center gap-6">
-                <div className="w-full md:w-3/5">
-                    <About />
+                <div className="w-full md:w-3/5" id="about-section">
+                    <About additional_details={user?.additional_details} />
                 </div>
-                <div className="w-full md:w-2/5">
+                <div className="w-full md:w-2/5" id="gallery-section">
                     <Gallery />
                 </div>
             </div>

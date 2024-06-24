@@ -33,8 +33,6 @@ const Sidebar1 = () => {
                 return navigate("banquets");
             case "Inquiries":
                 return navigate("inquiries");
-            case "Services":
-                return navigate("photography-services");
             case "Projects":
                 return navigate("projects");
             case "Membership Plans":
@@ -78,13 +76,6 @@ const Sidebar1 = () => {
             visibleFor: "Venues",
         },
         {
-            name: "Services",
-            key: "photography-services",
-            icon: <IoCameraOutline size={20} />,
-            selectedIcon: <IoCameraOutline color="#CF166F" size={20} />,
-            visibleFor: "Photographers",
-        },
-        {
             name: "Projects",
             key: "projects",
             icon: <RiImageCircleFill size={20} />,
@@ -125,7 +116,7 @@ const Sidebar1 = () => {
                 {isSidebarOpen ? <FaCaretLeft /> : <FaCaretRight />}
             </button>
             <div
-                className={`bg-white text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[220px] rounded-xl transition-all duration-300 ease-in-out ${
+                className={`bg-white md:mt-0 mt-4 text-black flex flex-col p-3 border-2 font-poppins w-fit md:w-[220px] rounded-xl transition-all duration-300 ease-in-out ${
                     isSidebarOpen ? "block" : "hidden"
                 } md:block`}
             >

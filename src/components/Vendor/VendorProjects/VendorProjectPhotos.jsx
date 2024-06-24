@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../context/UserContext";
 import { ImCross } from "react-icons/im";
@@ -35,7 +35,6 @@ const VendorProjectPhotos = () => {
             const jsonData = await response.json();
             if (jsonData.success) {
                 setProjects(jsonData.albums);
-                console.log(jsonData.albums);
             } else {
                 setProjects(null);
             }
@@ -58,18 +57,6 @@ const VendorProjectPhotos = () => {
 
     return (
         <div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             {projects && projects.length ? (
                 <div className="w-full flex flex-wrap gap-2">
                     {projects.map((el) =>

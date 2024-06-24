@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { ImCross } from "react-icons/im";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../context/UserContext";
 
@@ -150,18 +150,6 @@ const VendorProjectVideos = () => {
 
     return (
         <div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <div className={`flex items-center mb-4 justify-between`}>
                 <div>
                     <p

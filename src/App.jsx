@@ -103,7 +103,11 @@ function App() {
                         />
                     </Routes>
                 </UserProvider>
-                <Footer />
+                <div className=" bg-gradient-to-b from-[#FF8DA680] to-[#FD070780]">
+                    <div className="custom-container">
+                        <Footer />
+                    </div>
+                </div>
             </Router>
         </div>
     );

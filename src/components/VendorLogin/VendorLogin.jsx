@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const VendorLogin = () => {
     const BASE_URL = import.meta.env.DEV
@@ -13,6 +14,9 @@ const VendorLogin = () => {
     const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
+
+    const [showPassword, setShowPassword] = useState(false);
+
     const { user } = useContext(UserContext);
 
     const handleLogin = async () => {
@@ -44,7 +48,7 @@ const VendorLogin = () => {
             if (data.success) {
                 localStorage.setItem("token", data.token);
                 navigate("/", { replace: true });
-                toast.success("Logged in Successgully")
+                toast.success("Logged in Successgully");
             } else {
                 return toast.error(data.message);
             }
@@ -60,6 +64,7 @@ const VendorLogin = () => {
     }, [user, navigate]);
 
     const handleMobileChange = (e) => {
+        setErrors((prev) => ({ ...prev, mobile: "" }));
         const value = e.target.value;
         const re = /^[0-9]*$/; // Updated regex to allow empty string and digits only
         if (re.test(value)) {
@@ -81,6 +86,7 @@ const VendorLogin = () => {
                                 placeholder="Mobile Number"
                                 value={mobile}
                                 onChange={handleMobileChange}
+                                maxLength={10}
                             />
                             {errors.mobile && (
                                 <p className="text-red-500 text-xs">
@@ -88,14 +94,30 @@ const VendorLogin = () => {
                                 </p>
                             )}
                         </div>
-                        <div className="w-full">
+                        <div className="w-full relative">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
                                 placeholder="Password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        password: "",
+                                    }));
+                                }}
                             />
+                            <div
+                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? (
+                                    <IoEyeOff color="gray" size={20} />
+                                ) : (
+                                    <IoEye color="gray" size={20} />
+                                )}
+                            </div>
                             {errors.password && (
                                 <p className="text-red-500 text-xs">
                                     {errors.password}

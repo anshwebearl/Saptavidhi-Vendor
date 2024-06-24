@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import infoIcon from "../../assets/images/Vector1.png";
 import { UserContext } from "../../context/UserContext";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const VendorInfo1 = () => {
@@ -186,21 +186,9 @@ const VendorInfo1 = () => {
     };
 
     return (
-        <div className="flex flex-col gap-5 w-full">
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            <div className="border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-3">
-                <p className="font-[500] text-lg md:text-2xl">
+        <div className="flex flex-col gap-5 w-full border-2 p-3 md:p-8 rounded-3xl">
+            <div className="flex flex-col gap-3">
+                <p className="font-[600] text-lg md:text-2xl">
                     Profile Analytics
                 </p>
                 <div className="border-[#00000033] border-b-[1px]"> </div>
@@ -266,10 +254,10 @@ const VendorInfo1 = () => {
                 </div>
             )}
             <div
-                className={`border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-3 `}
+                className={`border-[#00000033] border-[1px] p-3 md:p-8 rounded-3xl flex flex-col gap-3 w-full `}
             >
-                <div className="flex justify-between">
-                    <p className="font-[500] text-lg md:text-2xl">
+                <div className="flex justify-between items-start">
+                    <p className="font-[600] text-base md:text-2xl">
                         Personal Information
                     </p>
                     <div
@@ -278,13 +266,13 @@ const VendorInfo1 = () => {
                             !isChanged
                                 ? "cursor-not-allowed bg-gradient-to-r from-[#e6b8d7] to-[#f7aed1]"
                                 : "cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F]"
-                        } text-white px-5 py-1 w-fit rounded-full font-extrabold text-lg`}
+                        } text-white md:px-5 md:py-1 w-fit rounded-full font-extrabold md:text-lg text-xs px-3 py-1`}
                     >
                         SAVE
                     </div>
                 </div>
                 <div className="border-[#00000033] border-b-[1px]"></div>
-                <div className="flex gap-3 md:gap-6 flex-wrap">
+                <div className="flex gap-3 md:gap-6 flex-wrap justify-center md:justify-between ">
                     <TextInput
                         label="Login email ID"
                         placeholder="eg. john@gmail.com"
@@ -377,7 +365,7 @@ const TextInput = ({
     bold,
 }) => {
     return (
-        <div className="flex flex-col gap-1 md:gap-2 flex-grow">
+        <div className="flex flex-col gap-1 md:gap-2 md:flex-grow flex-grow-0 max-w-[250px] md:max-w-[300px]">
             <div className="flex gap-1 items-center">
                 <p
                     className={`text-sm md:text-base ${

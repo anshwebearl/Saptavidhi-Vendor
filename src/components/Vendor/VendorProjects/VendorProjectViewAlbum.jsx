@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEdit, MdClose } from "react-icons/md";
 import { ImCross } from "react-icons/im";
@@ -145,18 +145,6 @@ const VendorProjectViewAlbum = () => {
 
     return (
         <div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <div className="flex justify-between items-center">
                 <p className="text-base md:text-lg font-bold md:mb-2">
                     {album?.album_title}
