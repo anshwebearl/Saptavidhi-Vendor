@@ -9,7 +9,7 @@ import nonVegIcon from "../../../assets/images/ProductDetailsImages/nonvegicon.p
 function Charges({veg_price,nonveg_price, price_per_room}) {
     return (
         <>
-            <div className="border-2 rounded-[20px] flex flex-col gap-3 md:gap-4 shadow-md px-5 py-3 md:px-8 md:py-5">
+            <div className="border-2 rounded-[20px] flex flex-col gap-3 md:gap-4 shadow-md px-5 py-3 md:px-8 md:py-5 flex-grow h-fit">
                 <div className="flex items-center ">
                     <div className="flex gap-2 flex-1 items-center">
                         <img src={roomImage} alt="Room" className="w-5 h-5" />

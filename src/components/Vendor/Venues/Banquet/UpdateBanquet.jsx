@@ -6,6 +6,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { UserContext } from "../../../../context/UserContext";
 import { useParams } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 
 const BASE_IMAGE_URL = import.meta.env.DEV
     ? import.meta.env.VITE_IMAGE_URL_DEV
@@ -33,9 +34,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
         catering_policy: "",
         decor_policy: "",
         dj_policy: "",
-        banquet_type: "",
-        fixed_capacity: "",
-        max_capacity: "",
         price_per_room: "",
         space: "",
         veg_price: "",
@@ -46,6 +44,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
         address: "",
         cover_photo: "",
         additional_photos: "",
+        spaces: [],
+        emptySpaces: "",
     });
 
     const [formData, setFormData] = useState({
@@ -54,9 +54,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
         catering_policy: "",
         decor_policy: "",
         dj_policy: "",
-        banquet_type: "",
-        fixed_capacity: "",
-        max_capacity: "",
         price_per_room: "",
         space: "",
         veg_price: "",
@@ -69,10 +66,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
         updated_cover_photo: null,
         additional_photos: [],
         updated_additional_photos: [],
+        spaces: [],
     });
-
-    const numberRegex = /^[0-9]*$/;
-    const pincodeRegex = /^[0-9]{6}$/;
 
     useEffect(() => {
         getBanquet();
@@ -100,9 +95,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
             catering_policy: banquet?.catering_policy,
             decor_policy: banquet?.decor_policy,
             dj_policy: banquet?.dj_policy,
-            banquet_type: banquet?.banquet_type,
-            fixed_capacity: banquet?.fixed_capacity,
-            max_capacity: banquet?.max_capacity,
             price_per_room: banquet?.price_per_room,
             space: banquet?.space,
             veg_price: banquet?.veg_price,
@@ -115,6 +107,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
             updated_cover_photo: null,
             additional_photos: banquet?.additional_photos,
             updated_additional_photos: [],
+            spaces: banquet?.available_spaces,
         });
     }, [banquet]);
 
@@ -133,7 +126,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
             const jsonData = await response.json();
             if (jsonData.success) {
                 setBanquet(jsonData.banquet);
-                console.log(jsonData);
             }
         } catch (error) {
             console.log(error);
@@ -142,31 +134,15 @@ const UpdateBanquet = ({ handleNavigate }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        let error = "";
-
-        switch (name) {
-            case "parking_capacity":
-            case "fixed_capacity":
-            case "max_capacity":
-            case "price_per_room":
-            case "space":
-            case "veg_price":
-            case "nonveg_price":
-                if (!numberRegex.test(value)) {
-                    error = "Please enter a valid number.";
-                }
-                break;
-            case "pincode":
-                if (!pincodeRegex.test(value)) {
-                    error = "Please enter a valid 6-digit pincode.";
-                }
-                break;
-            default:
-                break;
-        }
-
-        setFormErrors({ ...formErrors, [name]: error });
+        setFormErrors({ ...formErrors, [name]: "" });
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleNumChange = (e) => {
+        const { name } = e.target;
+        setFormErrors({ ...formErrors, [name]: "" });
+        const num = e.target.value.replace(/[^0-9]/g, "");
+        setFormData({ ...formData, [name]: num });
     };
 
     const handleStateChange = (e) => {
@@ -180,6 +156,71 @@ const UpdateBanquet = ({ handleNavigate }) => {
             selectedStateData.isoCode
         ).map((city) => city.name);
         setCities(stateCities);
+    };
+
+    const handleSpaceChange = (e, index) => {
+        const { name, value } = e.target;
+        const updatedSpaces = formData.spaces.map((space, i) =>
+            i === index ? { ...space, [name]: value } : space
+        );
+
+        const updatedErrors = formErrors.spaces.map((error, i) =>
+            i === index ? { ...error, [name]: "" } : error
+        );
+
+        setFormData({ ...formData, spaces: updatedSpaces });
+        setFormErrors({ ...formErrors, spaces: updatedErrors });
+    };
+
+    const handleSpaceNumChange = (e, index) => {
+        const { name } = e.target;
+        const num = e.target.value.replace(/[^0-9]/g, "");
+        const updatedSpaces = formData.spaces.map((space, i) =>
+            i === index ? { ...space, [name]: num } : space
+        );
+
+        const updatedErrors = formErrors.spaces.map((error, i) =>
+            i === index ? { ...error, [name]: "" } : error
+        );
+
+        setFormData({ ...formData, spaces: updatedSpaces });
+        setFormErrors({ ...formErrors, spaces: updatedErrors });
+    };
+
+    const handleAddSpace = () => {
+        setFormData({
+            ...formData,
+            spaces: [
+                ...formData.spaces,
+                {
+                    space_name: "",
+                    space_type: "",
+                    fixed_capacity: "",
+                    max_capacity: "",
+                },
+            ],
+        });
+        setFormErrors({
+            ...formErrors,
+            emptySpaces: "",
+            spaces: [
+                ...formErrors.spaces,
+                {
+                    space_name: "",
+                    space_type: "",
+                    fixed_capacity: "",
+                    max_capacity: "",
+                },
+            ],
+        });
+    };
+
+    const handleRemoveSpace = (index) => {
+        const updatedSpaces = formData.spaces.filter((_, i) => i !== index);
+        const updatedErrors = formErrors.spaces.filter((_, i) => i !== index);
+
+        setFormData({ ...formData, spaces: updatedSpaces });
+        setFormErrors({ ...formErrors, spaces: updatedErrors });
     };
 
     const handlePhotoChange = (e) => {
@@ -240,9 +281,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
             "catering_policy",
             "decor_policy",
             "dj_policy",
-            "banquet_type",
-            "fixed_capacity",
-            "max_capacity",
             "price_per_room",
             "space",
             "veg_price",
@@ -266,6 +304,12 @@ const UpdateBanquet = ({ handleNavigate }) => {
                 newFormErrors[field] = "";
             }
         });
+
+        if (formData.pincode.length < 6) {
+            newFormErrors["pincode"] =
+                "Pincode should be atleast 6 digits long";
+            isValid = false;
+        }
 
         if (
             formData["additional_photos"].length === 0 &&
@@ -292,6 +336,28 @@ const UpdateBanquet = ({ handleNavigate }) => {
         //     newFormErrors.additional_photos = "";
         // }
 
+        if (formData.spaces.length == 0) {
+            newFormErrors.emptySpaces = "Add Atleast one Available Space";
+            isValid = false;
+        } else {
+            formData.spaces.forEach((space, index) => {
+                Object.keys(space).forEach((key) => {
+                    if (!space[key]) {
+                        if (!newFormErrors.spaces) newFormErrors.spaces = [];
+                        if (!newFormErrors.spaces[index])
+                            newFormErrors.spaces[index] = {};
+                        newFormErrors.spaces[index][
+                            key
+                        ] = `Please fill in the ${key.replace("_", " ")}.`;
+                        isValid = false;
+                    } else {
+                        if (newFormErrors.spaces?.[index])
+                            newFormErrors.spaces[index][key] = "";
+                    }
+                });
+            });
+        }
+
         setFormErrors(newFormErrors);
 
         if (isValid) {
@@ -317,6 +383,7 @@ const UpdateBanquet = ({ handleNavigate }) => {
             formData.additional_photos.forEach((photo) => {
                 data.append("additional_photos", photo);
             });
+            data.append("available_spaces", JSON.stringify(formData.spaces));
 
             if (formData.updated_cover_photo) {
                 data.append(
@@ -410,7 +477,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="parking_capacity"
                                 value={formData.parking_capacity}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={3}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Parking Space"
                             />
@@ -493,69 +561,6 @@ const UpdateBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>Banquet Type</p>
-                            <select
-                                name="banquet_type"
-                                value={formData.banquet_type}
-                                onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
-                            >
-                                <option value="" disabled>
-                                    Select Banquet Type
-                                </option>
-                                <option value="Indoor">Indoor</option>
-                                <option value="Outdoor">Outdoor</option>
-                                <option value="Poolside">Poolside</option>
-                                <option value="Indoor & Outdoor">
-                                    Indoor & Outdoor
-                                </option>
-                                <option value="Terrace">Terrace</option>
-                            </select>
-                            {formErrors.banquet_type && (
-                                <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.banquet_type}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-5 w-full">
-                        <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>
-                                Fixed Capacity
-                            </p>
-                            <input
-                                type="text"
-                                name="fixed_capacity"
-                                value={formData.fixed_capacity}
-                                onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
-                                placeholder="Enter Fixed Capacity"
-                            />
-                            {formErrors.fixed_capacity && (
-                                <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.fixed_capacity}
-                                </span>
-                            )}
-                        </div>
-                        <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>
-                                Maximum Capacity
-                            </p>
-                            <input
-                                type="text"
-                                name="max_capacity"
-                                value={formData.max_capacity}
-                                onChange={handleChange}
-                                className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
-                                placeholder="Maximum Capacity"
-                            />
-                            {formErrors.max_capacity && (
-                                <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.max_capacity}
-                                </span>
-                            )}
-                        </div>
-                        <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
                             <p className={`text-xs md:text-sm`}>
                                 Price Per Room
                             </p>
@@ -563,7 +568,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="price_per_room"
                                 value={formData.price_per_room}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={6}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Price Per Room"
                             />
@@ -583,7 +589,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="space"
                                 value={formData.space}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={5}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Space"
                             />
@@ -601,7 +608,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="veg_price"
                                 value={formData.veg_price}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={5}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Maximum Veg Price"
                             />
@@ -619,7 +627,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="nonveg_price"
                                 value={formData.nonveg_price}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={5}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Maximum Non-Veg Price"
                             />
@@ -629,6 +638,157 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 </span>
                             )}
                         </div>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-3 md:gap-5 w-full">
+                    <p className="md:text-xl">Available Spaces</p>
+                    <div className="p-[1px] bg-slate-200" />
+                    {formData.spaces?.map((space, index) => (
+                        <div
+                            key={index}
+                            className="flex flex-col gap-3 md:gap-5 w-full"
+                        >
+                            <div className="flex justify-between">
+                                <p className="text-sm md:text-sm font-semibold text-red-600">
+                                    Space {index + 1}
+                                </p>
+                                <button
+                                    type="button"
+                                    className="text-red-600 text-sm md:text-md"
+                                    onClick={() => handleRemoveSpace(index)}
+                                >
+                                    <ImCross />
+                                </button>
+                            </div>
+                            <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
+                                <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
+                                    <p className="text-xs md:text-sm">
+                                        Space Name
+                                    </p>
+                                    <input
+                                        type="text"
+                                        name="space_name"
+                                        value={space.space_name}
+                                        onChange={(e) =>
+                                            handleSpaceChange(e, index)
+                                        }
+                                        className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                        placeholder="Space Name"
+                                    />
+                                    {formErrors.spaces?.[index]?.space_name && (
+                                        <span className="text-red-600 text-xs mt-1">
+                                            {
+                                                formErrors.spaces[index]
+                                                    .space_name
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
+                                    <p className="text-xs md:text-sm">
+                                        Space Type
+                                    </p>
+                                    <select
+                                        name="space_type"
+                                        value={space.space_type}
+                                        onChange={(e) =>
+                                            handleSpaceChange(e, index)
+                                        }
+                                        className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                    >
+                                        <option value="" disabled>
+                                            Select Space Type
+                                        </option>
+                                        <option value="Indoor">Indoor</option>
+                                        <option value="Outdoor">Outdoor</option>
+                                        <option value="Poolside">
+                                            Poolside
+                                        </option>
+                                        <option value="Indoor & Outdoor">
+                                            Indoor & Outdoor
+                                        </option>
+                                        <option value="Terrace">Terrace</option>
+                                    </select>
+                                    {formErrors.spaces?.[index]?.space_type && (
+                                        <span className="text-red-600 text-xs mt-1">
+                                            {
+                                                formErrors.spaces[index]
+                                                    .space_type
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
+                                <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
+                                    <p className="text-xs md:text-sm">
+                                        Fixed Capacity
+                                    </p>
+                                    <input
+                                        type="text"
+                                        name="fixed_capacity"
+                                        value={space.fixed_capacity}
+                                        onChange={(e) =>
+                                            handleSpaceNumChange(e, index)
+                                        }
+                                        maxLength={4}
+                                        className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px] `}
+                                        placeholder="Fixed Capacity"
+                                    />
+                                    {formErrors.spaces?.[index]
+                                        ?.fixed_capacity && (
+                                        <span className="text-red-600 text-xs mt-1">
+                                            {
+                                                formErrors.spaces[index]
+                                                    .fixed_capacity
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
+                                    <p className="text-xs md:text-sm">
+                                        Maximum Capacity
+                                    </p>
+                                    <input
+                                        type="text"
+                                        name="max_capacity"
+                                        value={space.max_capacity}
+                                        onChange={(e) =>
+                                            handleSpaceNumChange(e, index)
+                                        }
+                                        maxLength={4}
+                                        className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                                        placeholder="Floating Capacity"
+                                    />
+                                    {formErrors.spaces?.[index]
+                                        ?.max_capacity && (
+                                        <span className="text-red-600 text-xs mt-1">
+                                            {
+                                                formErrors.spaces[index]
+                                                    .max_capacity
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {formErrors.emptySpaces && (
+                        <span className="text-red-600 text-xs mt-1">
+                            {formErrors.emptySpaces}
+                        </span>
+                    )}
+                    <div className="flex justify-start w-full">
+                        <button
+                            type="button"
+                            onClick={handleAddSpace}
+                            className="flex gap-2 items-center text-white bg-[#ff7291] px-3 py-2 md:px-4 md:py-2 rounded-lg"
+                        >
+                            <FaPlus />
+                            <span className="text-sm md:text-md">
+                                Add Space
+                            </span>
+                        </button>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 md:gap-5 w-full">
@@ -691,7 +851,8 @@ const UpdateBanquet = ({ handleNavigate }) => {
                                 type="text"
                                 name="pincode"
                                 value={formData.pincode}
-                                onChange={handleChange}
+                                onChange={handleNumChange}
+                                maxLength={6}
                                 className={`bg-transparent rounded-xl text-xs md:text-sm border-[1px] border-[#FF8DA680] px-2 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                                 placeholder="Enter Pincode"
                             />

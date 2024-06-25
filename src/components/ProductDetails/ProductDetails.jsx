@@ -50,9 +50,11 @@ function ProductDetails() {
         }
     };
 
+    console.log(user.additional_details);
+
     useEffect(() => {
         getBanquetById();
-        console.log(user)
+        console.log(user);
     }, [user]);
 
     return (
@@ -64,16 +66,14 @@ function ProductDetails() {
                 state={banquet?.state}
             />
             <div className="flex md:flex-row flex-col justify-center gap-6 items-center">
-                <div className="flex flex-col gap-6 w-full md:w-2/5">
+                <div className="flex flex-col sm:flex-row-reverse lg:flex-col gap-6 w-full md:w-2/5">
                     <Charges
                         veg_price={banquet?.veg_price}
                         nonveg_price={banquet?.nonveg_price}
                         price_per_room={banquet?.price_per_room}
                     />
                     <AvailableAreas
-                        seating={banquet?.fixed_capacity}
-                        floating={banquet?.max_capacity}
-                        type={banquet?.banquet_type}
+                        available_spaces={banquet?.available_spaces}
                     />
                 </div>
                 <div className="w-full md:w-3/5">
