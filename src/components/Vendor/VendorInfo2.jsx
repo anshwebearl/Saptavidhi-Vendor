@@ -146,9 +146,12 @@ const VendorInfo2 = () => {
                         const detailValue = detailState[el._id] || "";
                         if (
                             el.propertyType === "textInput" &&
-                            !["sherwaniPriceRange", "suitsPriceRange"].includes(
-                                el.propertyName
-                            )
+                            ![
+                                "sherwaniPriceRange",
+                                "suitsPriceRange",
+                                "indoorBanquetPrice",
+                                "outdoorPrice",
+                            ].includes(el.propertyName)
                         ) {
                             return (
                                 <TextInput
@@ -166,21 +169,38 @@ const VendorInfo2 = () => {
                             );
                         } else if (
                             el.propertyType === "textInput" &&
-                            ["sherwaniPriceRange", "suitsPriceRange"].includes(
-                                el.propertyName
-                            )
+                            [
+                                "sherwaniPriceRange",
+                                "suitsPriceRange",
+                                "indoorBanquetPrice",
+                                "outdoorPrice",
+                            ].includes(el.propertyName)
                         ) {
                             return (
-                                <>
-                                    <RangeSlider
-                                        key={el._id}
-                                        label={el.propertyDescription}
-                                        value={detailValue}
-                                        onChange={(value) =>
-                                            handleInputChange(el._id, value)
-                                        }
-                                    />
-                                </>
+                                <RangeSlider
+                                    key={el._id}
+                                    label={el.propertyDescription}
+                                    value={detailValue}
+                                    maxValue={
+                                        [
+                                            "sherwaniPriceRange",
+                                            "suitsPriceRange",
+                                        ].includes(el.propertyName)
+                                            ? 500000
+                                            : 3000000
+                                    }
+                                    minValue={
+                                        [
+                                            "sherwaniPriceRange",
+                                            "suitsPriceRange",
+                                        ].includes(el.propertyName)
+                                            ? 0
+                                            : 40000
+                                    }
+                                    onChange={(value) =>
+                                        handleInputChange(el._id, value)
+                                    }
+                                />
                             );
                         } else if (
                             el.propertyType === "multiSelect" &&
@@ -498,7 +518,6 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
                                         className="bg-transparent rounded-xl text-sm md:text-base border-[1px] border-[#FF8DA680] max-w-[150px] md:max-w-[200px] lg:max-w-[250px] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
                                         value={textValue}
                                         onChange={(event) =>
-                                            
                                             handleTextInputChange(
                                                 option.subInputVariable,
                                                 event
@@ -677,9 +696,9 @@ const NumericInput = ({
     );
 };
 
-const RangeSlider = ({ label, value, onChange }) => {
+const RangeSlider = ({ label, value, onChange, minValue, maxValue }) => {
     const [rangeValues, setRangeValues] = useState(
-        value ? [value.min, value.max] : [0, 500000]
+        value ? [value.min, value.max] : [minValue, maxValue]
     );
 
     useEffect(() => {
