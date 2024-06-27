@@ -86,7 +86,7 @@ function Banquet({ handleNavigate }) {
                 </div>
             </div>
             <hr className="mb-4" />
-            <div className="flex flex-wrap gap-4 md:justify-start justify-center md:gap-4 w-full">
+            <div className="flex flex-col xs:flex-row flex-wrap md:px-5 gap-5">
                 {banquets?.map((item) => (
                     <BanquetCard
                         key={item._id}

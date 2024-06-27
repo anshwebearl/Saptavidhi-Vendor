@@ -22,9 +22,9 @@ const AddBanquet = ({ handleNavigate }) => {
     const [formErrors, setFormErrors] = useState({
         property_name: "",
         parking_capacity: "",
-        catering_policy: "",
-        decor_policy: "",
-        dj_policy: "",
+        banquet_type: "",
+        guest_count: "",
+        room_count: "",
         price_per_room: "",
         space: "",
         veg_price: "",
@@ -42,9 +42,9 @@ const AddBanquet = ({ handleNavigate }) => {
     const [formData, setFormData] = useState({
         property_name: "",
         parking_capacity: "",
-        catering_policy: "",
-        decor_policy: "",
-        dj_policy: "",
+        banquet_type: "",
+        guest_count: "",
+        room_count: "",
         price_per_room: "",
         space: "",
         veg_price: "",
@@ -197,9 +197,9 @@ const AddBanquet = ({ handleNavigate }) => {
         const requiredFields = [
             "property_name",
             "parking_capacity",
-            "catering_policy",
-            "decor_policy",
-            "dj_policy",
+            "banquet_type",
+            "guest_count",
+            "room_count",
             "price_per_room",
             "space",
             "veg_price",
@@ -268,9 +268,9 @@ const AddBanquet = ({ handleNavigate }) => {
             const data = new FormData();
             data.append("property_name", formData.property_name);
             data.append("parking_capacity", formData.parking_capacity);
-            data.append("catering_policy", formData.catering_policy);
-            data.append("decor_policy", formData.decor_policy);
-            data.append("dj_policy", formData.dj_policy);
+            data.append("banquet_type", formData.banquet_type);
+            data.append("guest_count", formData.guest_count);
+            data.append("room_count", formData.room_count);
             data.append("price_per_room", formData.price_per_room);
             data.append("space", formData.space);
             data.append("veg_price", formData.veg_price);
@@ -366,74 +366,101 @@ const AddBanquet = ({ handleNavigate }) => {
                             )}
                         </div>
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>
-                                Catering Policy
-                            </p>
+                            <p className={`text-xs md:text-sm`}>Banquet Type</p>
                             <select
-                                name="catering_policy"
-                                value={formData.catering_policy}
+                                name="banquet_type"
+                                value={formData.banquet_type}
                                 onChange={handleChange}
                                 className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                             >
                                 <option value="" disabled>
-                                    Catering Policy
+                                    Banquet Type
                                 </option>
-                                <option value="Outside Catering">
-                                    Outside Catering
+                                <option value="4 Star & Above Wedding Hotels">
+                                    4 Star & Above Wedding Hotels
                                 </option>
-                                <option value="Inside Catering">
-                                    Inside Catering
+                                <option value="Banquet Halls">
+                                    Banquet Halls
+                                </option>
+                                <option value="Lawns / Farmhouses">
+                                    Lawns / Farmhouses
+                                </option>
+                                <option value="3 Star Hotels with Banquets">
+                                    3 Star Hotels with Banquets
+                                </option>
+                                <option value="Country / Golf Club">
+                                    Country / Golf Club
+                                </option>
+                                <option value="Wedding Resorts">
+                                    Wedding Resorts
+                                </option>
+                                <option value="Party Restaurants / Lounge Bars">
+                                    Party Restaurants / Lounge Bars
+                                </option>
+                                <option value="Forts / Palaces For Wedding">
+                                    Forts / Palaces For Wedding
+                                </option>
+                                <option value="Destination Wedding Venues">
+                                    Destination Wedding Venues
+                                </option>
+                                <option value="Kalyana Mandapams">
+                                    Kalyana Mandapams
+                                </option>
+                                <option value="Small Function / Party Halls">
+                                    Small Function / Party Halls
+                                </option>
+                                <option value="Venues With Rooms">
+                                    Venues With Rooms
+                                </option>
+                                <option value="5 Star Luxury Wedding Hotels">
+                                    5 Star Luxury Wedding Hotels
+                                </option>
+                                <option value="Temple Wedding Venues">
+                                    Temple Wedding Venues
+                                </option>
+                                <option value="Convention / Function Halls">
+                                    Convention / Function Halls
                                 </option>
                             </select>
-                            {formErrors.catering_policy && (
+                            {formErrors.banquet_type && (
                                 <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.catering_policy}
+                                    {formErrors.banquet_type}
                                 </span>
                             )}
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-5 w-full">
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>Decor Policy</p>
-                            <select
-                                name="decor_policy"
-                                value={formData.decor_policy}
-                                onChange={handleChange}
+                            <p className={`text-xs md:text-sm`}>Guest Count</p>
+                            <input
+                                type="text"
+                                name="guest_count"
+                                value={formData.guest_count}
+                                onChange={handleNumChange}
+                                maxLength={6}
                                 className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
-                            >
-                                <option value="" disabled>
-                                    Select Decor Policy
-                                </option>
-                                <option value="Outside Decoration">
-                                    Outside Decoration
-                                </option>
-                                <option value="Inside Decoration">
-                                    Inside Decoration
-                                </option>
-                            </select>
-                            {formErrors.decor_policy && (
+                                placeholder="Enter Guest Accomodation"
+                            />
+                            {formErrors.guest_count && (
                                 <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.decor_policy}
+                                    {formErrors.guest_count}
                                 </span>
                             )}
                         </div>
                         <div className="flex flex-col gap-1 md:gap-1 flex-grow w-full">
-                            <p className={`text-xs md:text-sm`}>DJ Policy</p>
-                            <select
-                                name="dj_policy"
-                                value={formData.dj_policy}
-                                onChange={handleChange}
+                            <p className={`text-xs md:text-sm`}>Room Count</p>
+                            <input
+                                type="text"
+                                name="room_count"
+                                value={formData.room_count}
+                                onChange={handleNumChange}
+                                maxLength={3}
                                 className={`bg-transparent rounded-xl text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
-                            >
-                                <option value="" disabled>
-                                    Select DJ Policy
-                                </option>
-                                <option value="Outside DJ">Outside DJ</option>
-                                <option value="Inside DJ">Inside DJ</option>
-                            </select>
-                            {formErrors.dj_policy && (
+                                placeholder="Enter Room Count"
+                            />
+                            {formErrors.room_count && (
                                 <span className="text-red-600 text-xs mt-1">
-                                    {formErrors.dj_policy}
+                                    {formErrors.room_count}
                                 </span>
                             )}
                         </div>

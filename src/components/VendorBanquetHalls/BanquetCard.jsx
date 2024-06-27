@@ -1,36 +1,33 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import locationicon from "../../../../assets/images/location.png";
-import { MdEdit, MdDelete } from "react-icons/md";
-import vegIcon from "../../../../assets/images/vegicon.png";
-import nonVegIcon from "../../../../assets/images/nonvegicon.png";
-import { useNavigate } from "react-router-dom";
+
+import locationicon from "../../assets/images/location.png";
+import vegIcon from "../../assets/images/vegicon.png";
+import nonVegIcon from "../../assets/images/nonvegicon.png";
 
 const BanquetCard = ({
     src,
     title,
-    subtitle,
+    banquet_type,
     location,
-    fixed_capacity,
-    max_capacity,
+    guest_count,
     id,
-    handleDeleteModal,
-    handleNavigate,
+    handleNavigation,
     veg_price,
     nonveg_price,
+    parking_capacity,
     room_count,
 }) => {
     const BASE_URL = import.meta.env.DEV
         ? import.meta.env.VITE_IMAGE_URL_DEV
         : import.meta.env.VITE_IMAGE_URL_PROD;
 
-    const navigate = useNavigate();
-
     return (
-        <div className="bg-white rounded-3xl border-[#00000033] flex gap-2 md:gap-4 border-[1px] w-[260px] flex-grow md:max-w-[320px] overflow-hidden">
+        <div
+            onClick={() => handleNavigation(`banquet/${id}`)}
+            className="bg-white rounded-3xl border-[#00000033] cursor-pointer flex gap-2 md:gap-4 border-[1px] max-w-[100%] flex-grow md:max-w-[360px] overflow-hidden"
+        >
             <img
-                onClick={() => navigate(`/vendors/venues/banquet/${id}`)}
-                className="object-cover w-[90px] md:w-[120px] h-full cursor-pointer"
+                className="object-cover w-[90px] md:w-[120px] h-full"
                 src={`${BASE_URL}/${src}`}
                 alt="Venue"
             />
@@ -41,43 +38,29 @@ const BanquetCard = ({
                             {title}
                         </h2>
                         <p className="text-gray-600 text-[10px] md:text-xs">
-                            {subtitle}
+                            {banquet_type}
                         </p>
-                    </div>
-                    <div className="flex gap-2">
-                        <div className="hover:text-green-700 text-green-500 h-fit w-fit border-[0.5px] rounded-md border-green-500 hover:border-green-800 cursor-pointer">
-                            <MdEdit
-                                onClick={() =>
-                                    handleNavigate(`update-banquet/${id}`)
-                                }
-                                size={window.screen.width > 768 ? 20 : 20}
-                            />
-                        </div>
-                        <div className="hover:text-red-800 text-red-500 cursor-pointer h-fit w-fit border-[0.5px] rounded-md border-red-500 hover:border-red-800">
-                            <MdDelete
-                                onClick={() => handleDeleteModal(id)}
-                                size={window.screen.width > 768 ? 20 : 20}
-                            />
-                        </div>
                     </div>
                 </div>
 
                 <p className="text-gray-600 flex items-center text-[10px] md:text-sm">
                     <img
                         src={locationicon}
-                        className="text-gray-600 mr-1 h-3 md:h-4"
+                        className="text-gray-600 mr-1 h-3 md:h-3"
                     />{" "}
                     {location}
                 </p>
                 <div className="border-b-[1px] border-gray-400" />
                 <div className="flex justify-start items-center flex-wrap gap-1">
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
-                        {fixed_capacity} Fixed
+                        {parking_capacity} Parking
                     </span>
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
-                        {max_capacity} Max
+                        {guest_count} Pax
                     </span>
-                    
+                    <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
+                        {room_count} Rooms
+                    </span>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="flex gap-1 items-center">
@@ -87,17 +70,17 @@ const BanquetCard = ({
                             className="w-3 h-3 md:w-4 md:h-4"
                         />
                         <span className="text-black-500 font-semibold text-[12px] md:text-lg">
-                            ₹{veg_price}
+                            ₹ {veg_price.toLocaleString("en-IN")}
                         </span>
                     </div>
                     <div className="flex gap-1 items-center">
                         <img
                             src={nonVegIcon}
                             alt="green"
-                            className="w-3 h-3 md:w-42md:h-4"
+                            className="w-3 h-3 md:w-4 md:h-4"
                         />
                         <span className="text-black-500 font-semibold text-[12px] md:text-lg">
-                            ₹{nonveg_price}
+                            ₹ {nonveg_price.toLocaleString("en-IN")}
                         </span>
                     </div>
                 </div>

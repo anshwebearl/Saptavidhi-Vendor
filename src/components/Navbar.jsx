@@ -122,7 +122,7 @@ const Navbar = () => {
                                 className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
                             >
                                 <div
-                                    onClick={() => handleNavigation("/venues")}
+                                    onClick={() => handleNavigation("/vendors/venues/all-venues")}
                                     className="mb-4 cursor-pointer font-poppins font-medium text-[16px] leading-[24px]"
                                 >
                                     Venues

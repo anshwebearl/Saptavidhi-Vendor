@@ -1,9 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import calendarIcon from "../../../assets/images/ProductDetailsImages/Calender.png";
 
-function ProductDetailsForm() {
+function ProductDetailsForm({ formRef }) {
     return (
-        <div className="px-5 py-3 md:px-8 md:py-6 bg-white rounded-[20px] shadow-md border-2 flex flex-col gap-3 md:gap-5">
+        <div
+            id="message-section"
+            ref={formRef}
+            className="px-5 py-3 w-full md:w-3/5 md:px-8 md:py-6 bg-white rounded-[20px] shadow-md border-2 flex flex-col gap-3 md:gap-5"
+        >
             <h1 className="text-base md:text-xl font-semibold">
                 Hi Club Mahindra Kensville Golf Resort,
             </h1>

@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import ProductDetails from "../ProductDetails/ProductDetails";
+import VenueNavigator from "./VenueNavigator/VenueNavigator";
 
 const VendorNavigator = () => {
     return (
         <Routes>
-            <Route path="venues/:id" element={<ProductDetails />} />
+            <Route path="venues/*" element={<VenueNavigator />} />
         </Routes>
     );
 };

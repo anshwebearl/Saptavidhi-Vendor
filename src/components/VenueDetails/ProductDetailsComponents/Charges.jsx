@@ -9,11 +9,11 @@ import nonVegIcon from "../../../assets/images/ProductDetailsImages/nonvegicon.p
 function Charges({veg_price,nonveg_price, price_per_room}) {
     return (
         <>
-            <div className="border-2 rounded-[20px] flex flex-col gap-3 md:gap-4 shadow-md px-5 py-3 md:px-8 md:py-5 flex-grow h-fit">
+            <div className="border-2 rounded-[20px] flex flex-col justify-between md:justify-center gap-3 md:gap-4 shadow-md px-5 py-5 md:px-8 md:py-5 flex-grow h-fit">
                 <div className="flex items-center ">
                     <div className="flex gap-2 flex-1 items-center">
                         <img src={roomImage} alt="Room" className="w-5 h-5" />
-                        <span className="text-xs md:text-base font-semibold">
+                        <span className="text-sm md:text-lg font-semibold">
                             ₹ {price_per_room}
                         </span>
                     </div>
@@ -29,7 +29,7 @@ function Charges({veg_price,nonveg_price, price_per_room}) {
                             alt="Veg Dish"
                             className="w-5 h-4"
                         />
-                        <span className="text-xs md:text-base font-semibold">
+                        <span className="text-sm md:text-base font-semibold">
                             ₹ {veg_price}
                         </span>
                     </div>
@@ -48,7 +48,7 @@ function Charges({veg_price,nonveg_price, price_per_room}) {
                             alt="Non Veg Dish"
                             className="w-5 h-4"
                         />
-                        <span className="text-xs md:text-base font-semibold">
+                        <span className="text-sm md:text-base font-semibold">
                             ₹ {nonveg_price}
                         </span>
                     </div>
@@ -58,7 +58,7 @@ function Charges({veg_price,nonveg_price, price_per_room}) {
                             alt="Non Veg Icon"
                             className="w-4 h-4"
                         />
-                        <span className="text-sm md:text-lg text-gray-500">
+                        <span className="text-sm md:text-base text-gray-500">
                             Non Veg/plate
                         </span>
                     </div>

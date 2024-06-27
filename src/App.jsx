@@ -17,7 +17,7 @@ import Footer from "./components/Footer.jsx";
 import DetailsForm from "./components/SmallFuncDecor/DetailsForm";
 import MainVenue from "./components/VendorBanquetHalls/MainVenue";
 import RealWeddingDetails from "./components/RealWeddingDetails.jsx";
-import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+import ProductDetails from "./components/VenueDetails/ProductDetails.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -55,7 +55,6 @@ function App() {
                             element={<ForgotPassword />}
                         />
                         <Route path="/vendorotp" element={<VendorOtp />} />
-                        <Route path="/venues" element={<MainVenue />} />
                         <Route
                             path="/photographers"
                             element={<DetailsForm />}

@@ -161,7 +161,7 @@ const VendorSignup = () => {
     }, []);
 
     return (
-        <div className="font-poppins flex flex-col gap-5 mx-4 md:mx-auto max-w-[1200px]">
+        <div className="font-poppins flex flex-col gap-5">
             <ToastContainer
                 position="bottom-right"
                 autoClose={2000}
@@ -174,7 +174,7 @@ const VendorSignup = () => {
                 pauseOnHover
                 theme="light"
             />
-            <div className="flex flex-col items-center gap-9 mt-3 md:mt-6 max-w-[350px] md:max-w-[700px] mx-auto">
+            <div className="custom-container flex flex-col items-center gap-9 mt-3 md:mt-6 max-w-[350px] md:max-w-[700px] mx-auto">
                 <p className="font-[600] text-xl md:text-3xl">
                     SignUp as Vendor
                 </p>
