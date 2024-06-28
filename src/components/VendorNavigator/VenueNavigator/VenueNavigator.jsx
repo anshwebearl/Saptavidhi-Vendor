@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import ProductDetails from "../../VenueDetails/ProductDetails";
 import MainVenue from "../../VendorBanquetHalls/MainVenue";
 
@@ -12,6 +12,7 @@ const VenueNavigator = () => {
 
     return (
         <Routes>
+            <Route path="/*" element={<Navigate to="all-venues" />} />
             <Route
                 path="all-venues"
                 element={<MainVenue handleNavigation={handleNavigation} />}

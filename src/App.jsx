@@ -27,7 +27,7 @@ import VendorNavigator from "./components/VendorNavigator/VendorNavigator.jsx";
 
 function App() {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen ">
             <Router>
                 <ToastContainer
                     position="bottom-right"
@@ -42,71 +42,87 @@ function App() {
                     theme="light"
                 />
                 <UserProvider>
-                    <Navbar />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<VendorLogin />} />
-                        <Route
-                            path="/vendorsignup"
-                            element={<VendorSignup />}
-                        />
-                        <Route
-                            path="/forgotpassword"
-                            element={<ForgotPassword />}
-                        />
-                        <Route path="/vendorotp" element={<VendorOtp />} />
-                        <Route
-                            path="/photographers"
-                            element={<DetailsForm />}
-                        />
-                        <Route path="/wear" element={<BridalLehenga />} />
-                        <Route path="/makeup" element={<BridalMakeup />} />
-                        <Route path="/decorators" element={<MainVenue />} />
-                        <Route
-                            path="/smalldecoration"
-                            element={<DetailsForm />}
-                        />
-                        <Route path="/einvites" element={<DetailsForm />} />
-                        <Route
-                            path="/joinwedding"
-                            element={<MainChecklist />}
-                        />
-                        <Route path="/profile/*" element={<MainNavigation />} />
-                        <Route path="/inbox" element={<MainNavigation />} />
-                        <Route path="/bookings" element={<MainNavigation />} />
-                        <Route path="/settings" element={<MainNavigation />} />
-                        <Route
-                            path="/downloadapp"
-                            element={<MainNavigation />}
-                        />
-                        <Route
-                            path="/changepassword"
-                            element={<ChangePassword />}
-                        />
-                        <Route path="/logout" element={<MainNavigation />} />
-                        <Route
-                            path="/createwedding"
-                            element={<CreateWedding />}
-                        />
-                        <Route
-                            path="/real-wedding-details"
-                            element={<RealWeddingDetails />}
-                        />
-                        <Route
-                            path="/product-details"
-                            element={<ProductDetails />}
-                        />
-                        <Route
-                            path="/vendors/*"
-                            element={<VendorNavigator />}
-                        />
-                    </Routes>
+                    <header className="w-full custom-container">
+                        <Navbar />
+                    </header>
+                    <main className="flex-grow">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<VendorLogin />} />
+                            <Route
+                                path="/vendorsignup"
+                                element={<VendorSignup />}
+                            />
+                            <Route
+                                path="/forgotpassword"
+                                element={<ForgotPassword />}
+                            />
+                            <Route path="/vendorotp" element={<VendorOtp />} />
+                            <Route
+                                path="/photographers"
+                                element={<DetailsForm />}
+                            />
+                            <Route path="/wear" element={<BridalLehenga />} />
+                            <Route path="/makeup" element={<BridalMakeup />} />
+                            <Route path="/decorators" element={<MainVenue />} />
+                            <Route
+                                path="/smalldecoration"
+                                element={<DetailsForm />}
+                            />
+                            <Route path="/einvites" element={<DetailsForm />} />
+                            <Route
+                                path="/joinwedding"
+                                element={<MainChecklist />}
+                            />
+                            <Route
+                                path="/profile/*"
+                                element={<MainNavigation />}
+                            />
+                            <Route path="/inbox" element={<MainNavigation />} />
+                            <Route
+                                path="/bookings"
+                                element={<MainNavigation />}
+                            />
+                            <Route
+                                path="/settings"
+                                element={<MainNavigation />}
+                            />
+                            <Route
+                                path="/downloadapp"
+                                element={<MainNavigation />}
+                            />
+                            <Route
+                                path="/changepassword"
+                                element={<ChangePassword />}
+                            />
+                            <Route
+                                path="/logout"
+                                element={<MainNavigation />}
+                            />
+                            <Route
+                                path="/createwedding"
+                                element={<CreateWedding />}
+                            />
+                            <Route
+                                path="/real-wedding-details"
+                                element={<RealWeddingDetails />}
+                            />
+                            <Route
+                                path="/product-details"
+                                element={<ProductDetails />}
+                            />
+                            <Route
+                                path="/vendors/*"
+                                element={<VendorNavigator />}
+                            />
+                        </Routes>
+                    </main>
+                    <footer className="w-full bg-gradient-to-b from-[#FF8DA680] to-[#FD070780]">
+                        <div className="custom-container">
+                            <Footer />
+                        </div>
+                    </footer>
                 </UserProvider>
-                <div className=" bg-gradient-to-b from-[#FF8DA680] to-[#FD070780]">
-                    <div className="custom-container">
-                        <Footer />
-                    </div>
-                </div>
             </Router>
         </div>
     );

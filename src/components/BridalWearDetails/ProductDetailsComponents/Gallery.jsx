@@ -43,9 +43,9 @@ const Gallery = ({ vendorProject, galleryRef }) => {
 
     return (
         <div
-            id="gallerySection"
+            id="gallery-section"
             ref={window.screen.width > 768 ? galleryRef : null}
-            className="scroll-mt-40 relatives w-full md:w-2/5 relative px-4 pt-4 h-[300px] md:max-h-full pb-[50px] border-2 rounded-[20px]"
+            className="relatives w-full md:w-2/5 relative px-4 pt-4 h-[300px] md:max-h-full pb-[50px] border-2 rounded-[20px]"
         >
             <div className="flex mb-4 md:text-base text-xs">
                 <button
@@ -79,7 +79,7 @@ const Gallery = ({ vendorProject, galleryRef }) => {
                     Videos ({videos.length})
                 </button>
             </div>
-            <div className="overflow-y-scroll h-[90%] md:h-[95%] pb-5">
+            <div className="overflow-y-scroll h-[90%] md:h-[95%]  pb-5">
                 {activeTab === "Portfolios" && (
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-wrap gap-3 md:gap-5">

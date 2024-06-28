@@ -57,7 +57,7 @@ const Filter = ({
                             onChange={(e) => setGuestCount(e.target.value)}
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" disabled selected>
+                            <option value="" selected>
                                 No. of Guests
                             </option>
                             <option value="<100">&lt; 100</option>
@@ -74,7 +74,7 @@ const Filter = ({
                             onChange={(e) => setRoomCount(e.target.value)}
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" disabled selected>
+                            <option value="" selected>
                                 Room Count
                             </option>
                             <option value="<30">&lt; 30</option>
@@ -91,7 +91,7 @@ const Filter = ({
                             onChange={(e) => setPlatePrice(e.target.value)}
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" disabled selected>
+                            <option value="" selected>
                                 Veg. Price Per Plate
                             </option>
                             <option value="<1000">&lt; 1000</option>
@@ -108,7 +108,7 @@ const Filter = ({
                             onChange={(e) => setVenueType(e.target.value)}
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" disabled selected>
+                            <option value="" selected>
                                 Venue Type
                             </option>
                             <option value="4 Star & Above Wedding Hotels">
@@ -163,7 +163,7 @@ const Filter = ({
                             onChange={(e) => setSpace(e.target.value)}
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" selected disabled>
+                            <option value="" selected>
                                 Select Space Type
                             </option>
                             <option value="Indoor">Indoor</option>
@@ -180,7 +180,7 @@ const Filter = ({
                             name="fabric"
                             className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
                         >
-                            <option value="" disabled selected>
+                            <option value="" selected>
                                 Rating
                             </option>
                             <option value="option 1">Fabric 1</option>

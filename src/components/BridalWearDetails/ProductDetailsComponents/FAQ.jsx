@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FiArrowDownCircle } from "react-icons/fi";
 
-const FAQ = ({ additional_details, property_name }) => {
+const FAQ = ({ additional_details }) => {
     const [detailsData, setDetailsData] = useState({});
 
     const transformDetails = (details) => {
@@ -43,11 +43,11 @@ const FAQ = ({ additional_details, property_name }) => {
     }, [additional_details]);
 
     const questions = [
-        `Does ${property_name}'s allow small size gatherings (<100)?`,
-        `What is ${property_name}'s policy on catering?`,
-        `What is ${property_name}'s policy on decor?`,
-        `Is outside alcohol permitted at ${property_name}?`,
-        `What is ${property_name}'s policy on DJ?`,
+        "Does Club Mahindra Kensville Golf Resort allow small size gatherings (<100)?",
+        "What is Club Mahindra Kensville Golf Resort's policy on catering?",
+        "What is Club Mahindra Kensville Golf Resort's policy on decor?",
+        "Is outside alcohol permitted at Club Mahindra Kensville Golf Resort?",
+        "What is Club Mahindra Kensville Golf Resort's policy on DJ?",
     ];
 
     const answers = [

@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-
 function ProductDetailsForm({ formRef, property_name }) {
     return (
         <div
-            id="messageSection"
+            id="message-section"
             ref={formRef}
-            className="scroll-mt-40 px-5 py-3 w-full md:w-3/5 md:px-8 md:py-6 bg-white rounded-[20px] shadow-md border-2 flex flex-col gap-3 md:gap-5"
+            className="px-5 py-3 w-full md:w-3/5 md:px-8 md:py-6 bg-white rounded-[20px] shadow-md border-2 flex flex-col gap-3 md:gap-5"
         >
             <h1 className="text-base md:text-xl font-semibold">
                 Hi {property_name},

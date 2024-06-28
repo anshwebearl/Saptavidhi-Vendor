@@ -8,17 +8,17 @@ import { useNavigate } from "react-router-dom";
 
 const BanquetCard = ({
     src,
-    title,
-    subtitle,
-    location,
-    fixed_capacity,
-    max_capacity,
-    id,
     handleDeleteModal,
     handleNavigate,
     veg_price,
     nonveg_price,
     room_count,
+    title,
+    banquet_type,
+    location,
+    guest_count,
+    id,
+    parking_capacity,
 }) => {
     const BASE_URL = import.meta.env.DEV
         ? import.meta.env.VITE_IMAGE_URL_DEV
@@ -41,7 +41,7 @@ const BanquetCard = ({
                             {title}
                         </h2>
                         <p className="text-gray-600 text-[10px] md:text-xs">
-                            {subtitle}
+                            {banquet_type}
                         </p>
                     </div>
                     <div className="flex gap-2">
@@ -71,13 +71,15 @@ const BanquetCard = ({
                 </p>
                 <div className="border-b-[1px] border-gray-400" />
                 <div className="flex justify-start items-center flex-wrap gap-1">
-                    <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
-                        {fixed_capacity} Fixed
+                <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
+                        {parking_capacity} Parking
                     </span>
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
-                        {max_capacity} Max
+                        {guest_count} Pax
                     </span>
-                    
+                    <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
+                        {room_count} Rooms
+                    </span>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="flex gap-1 items-center">

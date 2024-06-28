@@ -17,7 +17,7 @@ const BASE_IMAGE_URL = import.meta.env.DEV
     : import.meta.env.VITE_IMAGE_URL_PROD;
 
 function ProductDetailsBanner({
-    property_name,
+    brand_name,
     city,
     state,
     cover_photo,
@@ -56,8 +56,9 @@ function ProductDetailsBanner({
             </div>
             <div className=" bg-white md:px-6 md:py-6 rounded-b-[15px] px-4 py-3 border-2 shadow-lg border-t-0 flex flex-col gap-3 -mt-16 md:flex-row justify-between sticky top-0 z-10">
                 <div className="flex flex-col gap-2">
-                    <h2 className=" text-lg md:text-3xl font-bold capitalize">
-                        {property_name}
+                    <h2 className=" text-lg md:text-3xl font-bold capitalize
+                    ">
+                        {brand_name}
                     </h2>
                     <div className="flex items-center gap-2 text-gray-700 text-xs md:text-base border-2 rounded-2xl w-fit p-1 md:px-5 md:py-2">
                         <img

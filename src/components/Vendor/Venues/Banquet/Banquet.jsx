@@ -86,21 +86,22 @@ function Banquet({ handleNavigate }) {
                 </div>
             </div>
             <hr className="mb-4" />
-            <div className="flex flex-col xs:flex-row flex-wrap md:px-5 gap-5">
-                {banquets?.map((item) => (
+            <div className="flex flex-col xs:flex-row flex-wrap md:px-5 gap-5 w-full">
+                {banquets?.map((banquet) => (
                     <BanquetCard
-                        key={item._id}
-                        id={item._id}
-                        src={item.cover_photo}
-                        title={item.property_name.toUpperCase()}
-                        fixed_capacity={item.fixed_capacity}
-                        max_capacity={item.max_capacity}
-                        location={`${item.city}, ${item.state}`}
-                        subtitle={item.banquet_type}
                         handleDeleteModal={handleDeleteModal}
+                        key={banquet._id}
+                        id={banquet._id}
+                        src={banquet.cover_photo}
+                        title={banquet.property_name.toUpperCase()}
+                        location={`${banquet.city}, ${banquet.state}`}
+                        banquet_type={banquet.banquet_type}
+                        parking_capacity={banquet.parking_capacity}
+                        guest_count={banquet.guest_count}
                         handleNavigate={handleNavigate}
-                        veg_price={item.veg_price}
-                        nonveg_price={item.nonveg_price}
+                        veg_price={banquet.veg_price}
+                        nonveg_price={banquet.nonveg_price}
+                        room_count={banquet.room_count}
                     />
                 ))}
             </div>

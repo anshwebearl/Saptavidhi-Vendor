@@ -67,7 +67,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="bg-transparent m-auto py-2 flex flex-row justify-between items-center px-4 md:px-14 font-poppins">
+        <header className="bg-transparent py-2 mx-5 md:mx-0 flex flex-row justify-between items-center font-poppins">
             <div className="w-[100px] md:w-[150px] bg-cover mr-4 md:mr-8">
                 <img
                     src={logo}
@@ -122,7 +122,11 @@ const Navbar = () => {
                                 className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
                             >
                                 <div
-                                    onClick={() => handleNavigation("/vendors/venues/all-venues")}
+                                    onClick={() =>
+                                        handleNavigation(
+                                            "/vendors/venues/all-venues"
+                                        )
+                                    }
                                     className="mb-4 cursor-pointer font-poppins font-medium text-[16px] leading-[24px]"
                                 >
                                     Venues

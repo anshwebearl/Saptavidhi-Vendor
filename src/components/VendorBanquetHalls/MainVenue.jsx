@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Filter from "./Filter";
 import BanquetCard from "./BanquetCard";
 
+let limit = window.screen.width > 768 ? 12 : 6;
+
 const BASE_URL = import.meta.env.DEV
     ? import.meta.env.VITE_API_BASE_URL_DEV
     : import.meta.env.VITE_API_BASE_URL_PROD;
@@ -32,7 +34,7 @@ const MainVenue = ({ handleNavigation }) => {
         try {
             setPaginationLoading(true);
             const response = await fetch(
-                `${BASE_URL}/vendor/banquets-pagination?page=${currentPage}&limit=12&guest_count=${guestCount}&room_count=${roomCount}&plate_price=${platePrice}&venue_type=${venueType}&space=${space}`,
+                `${BASE_URL}/vendor/banquets-pagination?page=${currentPage}&limit=${limit}&guest_count=${guestCount}&room_count=${roomCount}&plate_price=${platePrice}&venue_type=${venueType}&space=${space}`,
                 {
                     method: "GET",
                     headers: {
