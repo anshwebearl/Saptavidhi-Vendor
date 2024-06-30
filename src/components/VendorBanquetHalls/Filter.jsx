@@ -55,7 +55,7 @@ const Filter = ({
                             name="type"
                             value={guestCount}
                             onChange={(e) => setGuestCount(e.target.value)}
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 No. of Guests
@@ -72,7 +72,7 @@ const Filter = ({
                             name="Room Count"
                             value={roomCount}
                             onChange={(e) => setRoomCount(e.target.value)}
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 Room Count
@@ -89,7 +89,7 @@ const Filter = ({
                             name="Price"
                             value={platePrice}
                             onChange={(e) => setPlatePrice(e.target.value)}
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 Veg. Price Per Plate
@@ -106,7 +106,7 @@ const Filter = ({
                             name="city"
                             value={venueType}
                             onChange={(e) => setVenueType(e.target.value)}
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 w-[200px] md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 Venue Type
@@ -161,7 +161,7 @@ const Filter = ({
                             name="brand"
                             value={space}
                             onChange={(e) => setSpace(e.target.value)}
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 Select Space Type
@@ -178,7 +178,7 @@ const Filter = ({
                     <div className="">
                         <select
                             name="fabric"
-                            className="text-sm py-1 px-3 md:text-base md:py-2 md:px-5 rounded-full text-[#797979]"
+                            className="text-sm py-1 px-3 md:text-sm md:py-1 md:px-4 rounded-full text-[#797979]"
                         >
                             <option value="" selected>
                                 Rating

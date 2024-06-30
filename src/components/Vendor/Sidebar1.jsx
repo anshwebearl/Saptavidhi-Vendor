@@ -143,7 +143,7 @@ const Sidebar1 = () => {
                                 item.key
                                     ? item.selectedIcon
                                     : item.icon}
-                                <span className="text-sm md:text-base font-medium">
+                                <span className="text-sm md:text-sm font-medium">
                                     {item.name}
                                 </span>
                             </div>

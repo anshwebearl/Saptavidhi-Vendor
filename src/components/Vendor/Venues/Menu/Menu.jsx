@@ -69,10 +69,10 @@ const Menu = ({ handleNavigate }) => {
     return (
         <div className="relative flex flex-col gap-5 w-full">
             <div
-                className={`border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-3 w-full `}
+                className={`border-2 p-5 md:p-8 rounded-3xl flex flex-col gap-3 w-full `}
             >
                 <div className="flex justify-between">
-                    <p className="font-[500] text-md md:text-2xl">My Menu</p>
+                    <p className="font-[600] text-md md:text-xl">My Menu</p>
                     <div
                         onClick={() => handleNavigate("add-menu")}
                         className={
@@ -90,25 +90,25 @@ const Menu = ({ handleNavigate }) => {
                             <tr>
                                 <th
                                     scope="col"
-                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-base font-medium text-gray-500 uppercase tracking-wider"
+                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-sm font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Title
                                 </th>
                                 <th
                                     scope="col"
-                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-base font-medium text-gray-500 uppercase tracking-wider"
+                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-sm font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Type
                                 </th>
                                 <th
                                     scope="col"
-                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-base font-medium text-gray-500 uppercase tracking-wider"
+                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-sm font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Price per Plate
                                 </th>
                                 <th
                                     scope="col"
-                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-base font-medium text-gray-500 uppercase tracking-wider"
+                                    className="px-2 md:px-6 md:py-3 text-left text-[10px] md:text-sm font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Actions
                                 </th>

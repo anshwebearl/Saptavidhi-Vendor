@@ -75,12 +75,12 @@ function Banquet({ handleNavigate }) {
     }, [handleNavigate]);
 
     return (
-        <div className="relative flex flex-col gap-2 w-full border-[#00000033] border-[1px] p-5 md:px-5 md:py-8 rounded-3xl">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-md md:text-2xl font-semibold">Banquets</h2>
+        <div className="relative flex flex-col gap-2 w-full border-2 p-5 md:p-8 rounded-3xl">
+            <div className="flex justify-between items-center mb-2">
+                <h2 className="text-md md:text-xl font-semibold">Banquets</h2>
                 <div
                     onClick={() => handleNavigate("add-banquet")}
-                    className="font-semibold text-xs md:text-lg bg-gradient-to-r from-[#FD070780] to-[#5C034080] text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl cursor-pointer"
+                    className="font-semibold text-xs md:text-sm bg-gradient-to-r from-[#FD070780] to-[#5C034080] text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl cursor-pointer"
                 >
                     Add Banquet
                 </div>

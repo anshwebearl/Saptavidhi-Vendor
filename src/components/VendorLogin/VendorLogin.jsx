@@ -75,14 +75,14 @@ const VendorLogin = () => {
     return (
         <div className="font-poppins flex flex-col gap-5 md:mx-auto bg-[#f5f5f5]">
             <div className="px-0 custom-container">
-                <div className="flex flex-col items-center gap-9 md:mt-6 md:max-w-[450px] md:mx-auto">
-                    <p className="font-[600] text-2xl md:text-4xl">
+                <div className="flex flex-col items-center gap-4 md:gap-9 md:mt-6 mt-3 md:w-[350px] md:mx-auto">
+                    <p className="font-[600] text-xl md:text-2xl">
                         Login to your account
                     </p>
-                    <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8 md:gap-9 items-center md:w-full sm:w-auto">
+                    <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 md:p-6 flex flex-col gap-4 md:gap-6 items-center md:w-full sm:w-auto">
                         <div className="w-full">
                             <input
-                                className="remove-arrow border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
+                                className="remove-arrow border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 sm:pb-2 w-full"
                                 placeholder="Mobile Number"
                                 value={mobile}
                                 onChange={handleMobileChange}
@@ -97,7 +97,7 @@ const VendorLogin = () => {
                         <div className="w-full relative">
                             <input
                                 type={showPassword ? "text" : "password"}
-                                className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-lg bg-transparent pb-2 sm:pb-4 w-full"
+                                className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 sm:pb-2 w-full"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => {
@@ -109,7 +109,7 @@ const VendorLogin = () => {
                                 }}
                             />
                             <div
-                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                className="absolute right-2 bottom-0 transform -translate-y-1/2 cursor-pointer"
                                 onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? (
@@ -126,17 +126,17 @@ const VendorLogin = () => {
                         </div>
                         <div
                             onClick={handleLogin}
-                            className="font-[700] text-sm sm:text-xl py-2 sm:py-3 px-4 sm:px-8 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"
+                            className="font-[700] text-sm md:text-base py-2 md:py-1 px-4 md:px-5 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"
                         >
                             Login
                         </div>
                         <div
-                            className="font-[600] text-xs md:text-base cursor-pointer"
+                            className="font-[600] text-xs md:text-sm cursor-pointer"
                             onClick={() => navigate("/forgotpassword")}
                         >
                             Forget Password?
                         </div>
-                        <div className="font-[600] text-xs md:text-base cursor-pointer">
+                        <div className="font-[600] text-xs md:text-sm cursor-pointer">
                             Don't have an account?{" "}
                             <span
                                 className="text-[#FD3E42] underline cursor-pointer"
@@ -179,7 +179,6 @@ const VendorLogin = () => {
                         />
                     </div>
                 </div>
-                <div></div>
             </div>
         </div>
     );

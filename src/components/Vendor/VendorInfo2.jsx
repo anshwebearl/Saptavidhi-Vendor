@@ -124,9 +124,9 @@ const VendorInfo2 = () => {
 
     return (
         <div className="flex flex-col gap-4 border-2 rounded-3xl">
-            <div className="p-5 md:px-8 flex flex-col gap-4 md:gap-6 ">
+            <div className="p-5 md:p-8 flex flex-col gap-4 md:gap-4 ">
                 <div className="flex justify-between items-start">
-                    <p className="font-[600] text-lg md:text-2xl">
+                    <p className="font-[600] text-lg md:text-xl">
                         Additional Details
                     </p>
                     <div
@@ -135,13 +135,13 @@ const VendorInfo2 = () => {
                             !isChanged
                                 ? "cursor-not-allowed bg-gradient-to-r from-[#e6b8d7] to-[#f7aed1]"
                                 : "cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F]"
-                        } text-white md:px-5 md:py-1 w-fit rounded-full font-extrabold md:text-lg text-xs px-3 py-1`}
+                        } text-white md:px-4 md:py-1 w-fit h-fit rounded-full font-extrabold md:text-sm text-xs px-3 py-1`}
                     >
                         SAVE
                     </div>
                 </div>
                 <div className="border-[#00000033] border-b-[1px]"></div>
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-7">
                     {additionalDetails?.map((el) => {
                         const detailValue = detailState[el._id] || "";
                         if (
@@ -319,7 +319,7 @@ const TextInput = ({
             <div className="flex gap-1 items-center">
                 <p
                     className={`text-sm md:text-base ${
-                        bold && "md:text-lg font-[500]"
+                        bold && "md:text-base font-[500]"
                     }`}
                 >
                     {label}
@@ -333,7 +333,7 @@ const TextInput = ({
             </div>
             <input
                 type="text"
-                className={`bg-transparent rounded-xl text-sm md:text-base ${
+                className={`bg-transparent rounded-xl text-sm md:text-sm ${
                     bold && "md:text-base"
                 } border-[1px] border-[#FF8DA680] max-w-[150px]  md:max-w-[200px] lg:max-w-[250px] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                 placeholder={placeholder}
@@ -358,7 +358,7 @@ const TextArea = ({
             <div className="flex gap-1 items-center">
                 <p
                     className={`text-sm md:text-base ${
-                        bold && "md:text-lg font-[500]"
+                        bold && "md:text-base font-[500]"
                     }`}
                 >
                     {label}
@@ -372,7 +372,7 @@ const TextArea = ({
             </div>
             <textarea
                 rows={5}
-                className={`bg-transparent rounded-xl text-sm md:text-base ${
+                className={`bg-transparent rounded-xl text-sm md:text-sm ${
                     bold && "md:text-base"
                 } border-[1px] border-[#FF8DA680]  px-3 py-1 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                 placeholder={placeholder}
@@ -386,7 +386,7 @@ const TextArea = ({
 const RadioInput = ({ inputs, label, value, onChange }) => {
     return (
         <div className="flex flex-col gap-1 md:gap-2 flex-grow">
-            <p className="text-sm md:text-lg font-[500]">{label}</p>
+            <p className="text-sm md:text-base font-[500]">{label}</p>
             <div className="flex flex-col gap-2 md:gap-2 md:text-lg flex-wrap">
                 {inputs.map((el, idx) => {
                     const radioId = `${label}-${idx}`;
@@ -402,7 +402,7 @@ const RadioInput = ({ inputs, label, value, onChange }) => {
                             />
                             <label
                                 htmlFor={radioId}
-                                className="text-sm md:text-base"
+                                className="text-sm md:text-sm"
                             >
                                 {el}
                             </label>
@@ -427,8 +427,8 @@ const MultiSelectInput = ({ options, label, values, onChange }) => {
 
     return (
         <div className="flex flex-col gap-1 md:gap-2 flex-grow">
-            <p className="text-sm md:text-lg font-[500]">{label}</p>
-            <div className="flex flex-col gap-2 md:gap-2 md:text-lg flex-wrap">
+            <p className="text-sm md:text-base font-[500]">{label}</p>
+            <div className="flex flex-col gap-2 md:gap-2 md:text-base flex-wrap">
                 {options.map((option, idx) => {
                     const checkboxId = `${label}-${option}-${idx}`;
                     return (
@@ -442,7 +442,7 @@ const MultiSelectInput = ({ options, label, values, onChange }) => {
                             />
                             <label
                                 htmlFor={checkboxId}
-                                className="text-sm md:text-base"
+                                className="text-sm md:text-sm"
                             >
                                 {option}
                             </label>
@@ -474,8 +474,8 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
 
     return (
         <div className="flex flex-col gap-1 md:gap-2 flex-grow">
-            <p className="text-sm md:text-lg font-[500]">{label}</p>
-            <div className="flex flex-col gap-2 md:gap-2 md:text-lg flex-wrap">
+            <p className="text-sm md:text-base font-[500]">{label}</p>
+            <div className="flex flex-col gap-2 md:gap-2 md:text-base flex-wrap">
                 {options.map((option, idx) => {
                     const checkboxId = `${label}-${option.subInputVariable}-${idx}`;
                     const isChecked = values.some(
@@ -503,7 +503,7 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
                                 />
                                 <label
                                     htmlFor={checkboxId}
-                                    className="text-sm md:text-base"
+                                    className="text-sm md:text-sm"
                                 >
                                     {option.subInputName}
                                 </label>
@@ -582,8 +582,8 @@ const MultiSelectWithRange = ({ options, label, values, onChange }) => {
 
     return (
         <div className="flex flex-col gap-1 md:gap-2 flex-grow">
-            <p className="text-sm md:text-lg font-[500]">{label}</p>
-            <div className="flex flex-col gap-2 md:gap-2 md:text-lg flex-wrap">
+            <p className="text-sm md:text-base font-[500]">{label}</p>
+            <div className="flex flex-col gap-2 md:gap-2 md:text-base flex-wrap">
                 {options.map((option, idx) => {
                     const checkboxId = `${label}-${option}-${idx}`;
                     return (
@@ -602,7 +602,7 @@ const MultiSelectWithRange = ({ options, label, values, onChange }) => {
                                 />
                                 <label
                                     htmlFor={checkboxId}
-                                    className="text-sm md:text-base"
+                                    className="text-sm md:text-sm"
                                 >
                                     {option}
                                 </label>
@@ -671,7 +671,7 @@ const NumericInput = ({
             <div className="flex gap-1 items-center">
                 <p
                     className={`text-sm md:text-base ${
-                        bold && "md:text-lg font-[500]"
+                        bold && "md:text-base font-[500]"
                     }`}
                 >
                     {label}
@@ -685,8 +685,8 @@ const NumericInput = ({
             </div>
             <input
                 type="text"
-                className={`bg-transparent rounded-xl text-sm md:text-base ${
-                    bold && "md:text-base"
+                className={`bg-transparent rounded-xl text-sm md:text-sm ${
+                    bold && "md:text-sm"
                 } border-[1px] border-[#FF8DA680] max-w-[150px]  md:max-w-[200px] lg:max-w-[250px] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                 placeholder={placeholder}
                 value={value}
@@ -738,14 +738,14 @@ const RangeSlider = ({ label, value, onChange, minValue, maxValue }) => {
             <div className="flex gap-2">
                 <input
                     type="text"
-                    className="bg-transparent rounded-xl max-w-[120px] text-sm md:text-base border-[1px] border-[#FF8DA680] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
+                    className="bg-transparent rounded-xl max-w-[120px] text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
                     value={rangeValues[0]}
                     onChange={(e) => handleInputChange(0, e.target.value)}
                 />
                 -
                 <input
                     type="text"
-                    className="bg-transparent rounded-xl max-w-[120px] text-sm md:text-base border-[1px] border-[#FF8DA680] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
+                    className="bg-transparent rounded-xl max-w-[120px] text-sm md:text-sm border-[1px] border-[#FF8DA680] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
                     value={rangeValues[1]}
                     onChange={(e) => handleInputChange(1, e.target.value)}
                 />

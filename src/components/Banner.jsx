@@ -62,7 +62,7 @@ const Banner = () => {
             <div className="absolute w-full px-5 flex items-end bottom-5 md:bottom-20 justify-center">
                 <div className="text-white flex flex-col items-center gap-4">
                     <div className="flex flex-col flex-wrap items-center gap-2 md:gap-5 text-center">
-                        <h1 className="text-2xl md:text-5xl font-bold text-center">
+                        <h1 className="text-2xl md:text-4xl font-bold text-center">
                             Your{" "}
                             <span className="font-satisfy font-[700]">
                                 Wedding
@@ -70,7 +70,7 @@ const Banner = () => {
                             , Your{" "}
                             <span className="font-satisfy font-[700]">Way</span>
                         </h1>
-                        <p className="text-xs md:text-xl w-fit">
+                        <p className="text-xs md:text-lg w-fit">
                             Find the best wedding vendors with thousands of
                             trusted reviews
                         </p>
@@ -78,7 +78,7 @@ const Banner = () => {
                     <div className="flex gap-4 p-2 flex-col md:flex-row bg-white/10 backdrop-blur-sm rounded-xl md:rounded-full md:w-fit">
                         <select
                             onChange={(e) => setVendorType(e.target.value)}
-                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full text-xs md:text-lg"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] max-w-[220px] rounded-full text-xs md:text-base"
                         >
                             <option
                                 value="Select Vendor Type"
@@ -99,7 +99,7 @@ const Banner = () => {
                         </select>
                         <select
                             onChange={handleStateChange}
-                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-lg"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-base"
                         >
                             <option value="Select State" disabled selected>
                                 Select State
@@ -117,7 +117,7 @@ const Banner = () => {
                         <select
                             disabled={!state}
                             onChange={(e) => setCity(e.target.value)}
-                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-lg"
+                            className="md:px-4 px-2 py-1 bg-gradient-to-r from-[#FD070780] to-[#5C034080] rounded-full max-w-[150px] text-xs md:text-base"
                         >
                             <option value="Select City" disabled selected>
                                 Select City

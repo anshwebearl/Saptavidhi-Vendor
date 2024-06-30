@@ -188,7 +188,7 @@ const VendorInfo1 = () => {
     return (
         <div className="flex flex-col gap-5 w-full border-2 p-3 md:p-8 rounded-3xl">
             <div className="flex flex-col gap-3">
-                <p className="font-[600] text-lg md:text-2xl">
+                <p className="font-[600] text-lg md:text-xl">
                     Profile Analytics
                 </p>
                 <div className="border-[#00000033] border-b-[1px]"> </div>
@@ -196,57 +196,57 @@ const VendorInfo1 = () => {
                     <CircularProgress
                         percentage={getProfileCompletionPercentage(user)}
                     />
-                    <div className="border-[#00000033] border-[1px] p-5 flex-grow  md:p-10 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
-                        <p className="text-xl md:text-3xl">0</p>
-                        <p className="text-lg md:text-2xl">Count</p>
+                    <div className="border-[#00000033] border-[1px] p-5 flex-grow  md:p-5 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
+                        <p className="text-xl md:text-2xl">0</p>
+                        <p className="text-lg md:text-xl">Count</p>
                     </div>
-                    <div className="border-[#00000033] border-[1px] p-5 flex-grow md:p-10 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
-                        <p className="text-xl md:text-3xl">0</p>
-                        <p className="text-lg md:text-2xl">Leads</p>
+                    <div className="border-[#00000033] border-[1px] p-5 flex-grow md:p-5 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
+                        <p className="text-xl md:text-2xl">0</p>
+                        <p className="text-lg md:text-xl">Leads</p>
                     </div>
-                    <div className="border-[#00000033] border-[1px] p-5 flex-grow md:p-10 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
-                        <p className="text-xl md:text-3xl">0</p>
-                        <p className="text-lg md:text-2xl">Page View</p>
+                    <div className="border-[#00000033] border-[1px] p-5 flex-grow md:p-5 rounded-2xl flex flex-col h-full w-fit items-center max-w-[150px] md:max-w-[200px]">
+                        <p className="text-xl md:text-2xl">0</p>
+                        <p className="text-lg md:text-xl">Page View</p>
                     </div>
                 </div>
             </div>
             {getProfileCompletionPercentage(user) !== 100 && (
                 <div className="border-[#00000033] border-[1px] p-5 md:p-8 rounded-3xl flex flex-col gap-3">
-                    <p className="font-[500] text-lg md:text-2xl">
+                    <p className="font-[500] text-base md:text-lg">
                         Complete your profile by:
                     </p>
                     <div className="border-[#00000033] border-b-[1px]"> </div>
-                    <ul className="list-disc pl-3 md:pl-4 space-y-1 md:space-y-3">
+                    <ul className="list-disc pl-3 md:pl-4 space-y-1 md:space-y-2">
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Answering your FAQs
                             </p>
                         </li>
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Linking your profile to your Facebook page/
                                 website
                             </p>
                         </li>
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Adding images to your portfolio
                             </p>
                         </li>
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Get featured in a Real Wedding. Email your work
                                 to submissions@wedmegood.com
                             </p>
                         </li>
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Upload your first album to get visibility on our
                                 inspiration gallery and social media handles
                             </p>
                         </li>
                         <li className="text-[#FF6B85]">
-                            <p className="text-black text-sm md:text-lg">
+                            <p className="text-black text-sm md:text-base">
                                 Invite clients to review your work
                             </p>
                         </li>
@@ -257,7 +257,7 @@ const VendorInfo1 = () => {
                 className={`border-[#00000033] border-[1px] p-3 md:p-8 rounded-3xl flex flex-col gap-3 w-full `}
             >
                 <div className="flex justify-between items-start">
-                    <p className="font-[600] text-base md:text-2xl">
+                    <p className="font-[600] text-base md:text-xl">
                         Personal Information
                     </p>
                     <div
@@ -266,7 +266,7 @@ const VendorInfo1 = () => {
                             !isChanged
                                 ? "cursor-not-allowed bg-gradient-to-r from-[#e6b8d7] to-[#f7aed1]"
                                 : "cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F]"
-                        } text-white md:px-5 md:py-1 w-fit rounded-full font-extrabold md:text-lg text-xs px-3 py-1`}
+                        } text-white md:px-3 md:py-1 w-fit rounded-full font-extrabold h-fit md:text-base text-xs px-3 py-1`}
                     >
                         SAVE
                     </div>
@@ -368,8 +368,8 @@ const TextInput = ({
         <div className="flex flex-col gap-1 md:gap-2 md:flex-grow flex-grow-0 max-w-[250px] md:max-w-[300px]">
             <div className="flex gap-1 items-center">
                 <p
-                    className={`text-sm md:text-base ${
-                        bold && "md:text-lg font-[500]"
+                    className={`text-sm md:text-sm ${
+                        bold && "md:text-base font-[500]"
                     }`}
                 >
                     {label}
@@ -383,9 +383,9 @@ const TextInput = ({
             </div>
             <input
                 type="text"
-                className={`bg-transparent rounded-xl text-sm md:text-base ${
+                className={`bg-transparent rounded-xl text-sm md:text-sm ${
                     bold && "md:text-base"
-                } border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-3 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
+                } border-[1px] border-[#FF8DA680] px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]`}
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

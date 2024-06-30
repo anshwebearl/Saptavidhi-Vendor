@@ -68,7 +68,7 @@ const Navbar = () => {
 
     return (
         <header className="bg-transparent py-2 mx-5 md:mx-0 flex flex-row justify-between items-center font-poppins">
-            <div className="w-[100px] md:w-[150px] bg-cover mr-4 md:mr-8">
+            <div className="w-[100px] md:w-[120px] bg-cover mr-4 md:mr-8">
                 <img
                     src={logo}
                     alt="Logo"
@@ -90,20 +90,20 @@ const Navbar = () => {
                     isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
                 } transition-transform duration-300 md:relative md:transform-none md:flex md:items-center`}
             >
-                <div className="flex flex-col md:flex-row md:items-center h-full md:h-auto">
+                <div className="flex flex-col md:flex-row md:items-center md:gap-6 h-full md:h-auto">
                     <Link
                         to="/"
-                        className="font-poppins font-medium text-[16px] leading-[24px] mr-8 p-4 md:p-0"
+                        className="font-poppins font-semibold text-sm leading-[24px] p-4 md:p-0"
                     >
                         Home
                     </Link>
                     <Link
                         to="/createwedding"
-                        className="font-poppins font-medium text-[16px] leading-[24px] mr-8 p-4 md:p-0"
+                        className="font-poppins font-semibold text-sm leading-[24px] p-4 md:p-0"
                     >
                         Create a Wedding
                     </Link>
-                    <div className="relative font-poppins font-medium text-[16px] leading-[24px] mr-8 p-4 md:p-0">
+                    <div className="relative font-poppins font-semibold text-sm leading-[24px] p-4 md:p-0">
                         <button
                             ref={servicesButtonRef}
                             onClick={toggleServicesDropdown}
@@ -111,9 +111,9 @@ const Navbar = () => {
                         >
                             Services{" "}
                             {isServicesDropdownOpen ? (
-                                <FaCaretUp className="ml-2 text-[#CF166F]" />
+                                <FaCaretUp className="text-[#CF166F]" />
                             ) : (
-                                <FaCaretDown className="ml-2 text-[#CF166F]" />
+                                <FaCaretDown className="text-[#CF166F]" />
                             )}
                         </button>
                         {isServicesDropdownOpen && (
@@ -186,20 +186,20 @@ const Navbar = () => {
                     </div>
                     <Link
                         to="/plans"
-                        className="font-poppins font-medium text-[16px] leading-[24px] mr-8 p-4 md:p-0"
+                        className="font-poppins font-semibold text-sm leading-[24px] p-4 md:p-0"
                     >
                         Our Plans
                     </Link>
                     <Link
                         to="/contactus"
-                        className="font-poppins font-medium text-[16px] leading-[24px] mr-8 p-4 md:p-0"
+                        className="font-poppins font-semibold text-sm leading-[24px] p-4 md:p-0"
                     >
                         Contact Us
                     </Link>
                     {!user ? (
                         <div className="relative p-4 md:p-0">
                             <div
-                                className="bg-gradient-to-r from-[#5C0340] to-[#CF166F] text-white px-5 py-1 cursor-pointer w-fit rounded-full font-extrabold text-lg"
+                                className="bg-gradient-to-r from-[#5C0340] to-[#CF166F] text-white px-3 py-1 cursor-pointer w-fit rounded-full font-extrabold text-sm"
                                 onClick={() => navigate("/login")}
                             >
                                 Log in

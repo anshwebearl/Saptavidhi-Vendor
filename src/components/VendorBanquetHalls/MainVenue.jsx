@@ -103,27 +103,29 @@ const MainVenue = ({ handleNavigation }) => {
 
     return (
         <div className="custom-container w-full flex flex-col font-poppins">
-            <Filter
-                roomCount={roomCount}
-                guestCount={guestCount}
-                platePrice={platePrice}
-                venueType={venueType}
-                setRoomCount={setRoomCount}
-                setGuestCount={setGuestCount}
-                setPlatePrice={setPlatePrice}
-                setVenueType={setVenueType}
-                space={space}
-                setSpace={setSpace}
-                totalCount={totalCount}
-            />
+            <div className="w-full mx-auto">
+                <Filter
+                    roomCount={roomCount}
+                    guestCount={guestCount}
+                    platePrice={platePrice}
+                    venueType={venueType}
+                    setRoomCount={setRoomCount}
+                    setGuestCount={setGuestCount}
+                    setPlatePrice={setPlatePrice}
+                    setVenueType={setVenueType}
+                    space={space}
+                    setSpace={setSpace}
+                    totalCount={totalCount}
+                />
+            </div>
 
-            <div className="flex w-full justify-center mb-4">
+            <div className="flex w-full justify-center mb-4 ml-4">
                 {loading ? (
                     <div>
                         <div className="border-gray-300 h-10 w-10 md:h-16 md:w-16 animate-spin rounded-full border-2 md:border-8 border-t-[#CF166F]" />
                     </div>
                 ) : (
-                    <div className="flex flex-row flex-wrap md:px-5 gap-5 w-[85%]">
+                    <div className="flex flex-row flex-wrap mx-auto md:px-5 gap-5 w-[85%]">
                         {banquets.map((banquet, id) => (
                             <BanquetCard
                                 key={banquet._id}

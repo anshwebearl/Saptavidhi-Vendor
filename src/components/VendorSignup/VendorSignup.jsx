@@ -174,17 +174,17 @@ const VendorSignup = () => {
                 pauseOnHover
                 theme="light"
             />
-            <div className="custom-container flex flex-col items-center gap-9 mt-3 md:mt-6 max-w-[350px] md:max-w-[700px] mx-auto">
-                <p className="font-[600] text-xl md:text-3xl">
+            <div className="custom-container flex flex-col items-center mx-5 md:mx-auto gap-4 md:gap-9 mt-0 md:mt-6 max-w-[350px] md:max-w-[700px]">
+                <p className="font-[600] text-lg md:text-2xl">
                     SignUp as Vendor
                 </p>
-                <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 sm:p-8 md:p-12 flex flex-col justify-center items-center gap-5 md:gap-9 w-full sm:w-auto">
-                    <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12 w-full flex-wrap">
-                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[48%]">
+                <div className="border-[#FD3E42] border-[1px] rounded-3xl px-6 py-5 md:p-6 flex flex-col justify-center items-center gap-5 md:gap-9 w-full sm:w-auto">
+                    <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-0 w-full flex-wrap">
+                        <div className="flex flex-col gap-4 md:gap-8 md:w-[48%]">
                             <div>
                                 <input
                                     type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Brand Name"
                                     value={brandName}
                                     onChange={handleInputChange(
@@ -201,7 +201,7 @@ const VendorSignup = () => {
                             <div>
                                 <select
                                     onChange={handleStateChange}
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                 >
                                     <option
                                         className="text-slate-400"
@@ -235,7 +235,7 @@ const VendorSignup = () => {
                                             city: "",
                                         }));
                                     }}
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                 >
                                     <option
                                         className="text-slate-400"
@@ -262,7 +262,7 @@ const VendorSignup = () => {
                             <div>
                                 <input
                                     type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Pincode"
                                     value={pincode}
                                     onChange={handlePincodeChange}
@@ -277,7 +277,7 @@ const VendorSignup = () => {
                             <div>
                                 <input
                                     type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Mobile Number"
                                     value={mobile}
                                     onChange={handleMobileChange}
@@ -290,11 +290,11 @@ const VendorSignup = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-8 md:gap-12 flex-grow md:max-w-[48%]">
+                        <div className="flex flex-col gap-4 md:gap-8 md:w-[48%]">
                             <div>
                                 <input
                                     type="text"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Contact Person Name"
                                     value={contactPersonName}
                                     onChange={handleInputChange(
@@ -319,7 +319,7 @@ const VendorSignup = () => {
                                         }));
                                     }}
                                     name="vendor_type"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                 >
                                     <option
                                         className=""
@@ -344,7 +344,7 @@ const VendorSignup = () => {
                             <div>
                                 <input
                                     type="email"
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Email"
                                     value={email}
                                     onChange={handleInputChange(
@@ -361,7 +361,7 @@ const VendorSignup = () => {
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Password"
                                     value={password}
                                     onChange={handleInputChange(
@@ -394,7 +394,7 @@ const VendorSignup = () => {
                                             ? "text"
                                             : "password"
                                     }
-                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                                    className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                                     placeholder="Confirm Password"
                                     value={confirmPassword}
                                     onChange={handleInputChange(
@@ -432,7 +432,7 @@ const VendorSignup = () => {
                     <div className="w-full">
                         <input
                             type="text"
-                            className="border-b-[1px] focus:outline-none border-[#FD3E42] text-sm md:text-base bg-transparent pb-2 sm:pb-4 w-full"
+                            className="border-b-[1px] focus:outline-none border-[#FD3E42] text-xs md:text-sm bg-transparent pb-1 md:pb-2 w-full"
                             placeholder="Address"
                             value={address}
                             onChange={handleInputChange(setAddress, "address")}
@@ -445,11 +445,11 @@ const VendorSignup = () => {
                     </div>
                     <div
                         onClick={handleSignup}
-                        className="font-[700] text-sm sm:text-xl py-2 sm:py-3 px-4 w-fit self-center sm:px-8 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"
+                        className="font-[700] text-sm sm:text-base py-2 sm:py-2 px-4 w-fit self-center sm:px-5 rounded-full bg-gradient-to-r from-[#F97096] to-[#FD0707CC] text-white cursor-pointer"
                     >
                         Register
                     </div>
-                    <div className="font-[600] text-xs md:text-base cursor-pointer w-fit self-center">
+                    <div className="font-[600] text-xs md:text-sm cursor-pointer w-fit self-center">
                         Already have an account?{" "}
                         <span
                             className="text-[#FD3E42] underline cursor-pointer"

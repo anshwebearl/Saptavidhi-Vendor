@@ -37,10 +37,10 @@ const BanquetCard = ({
             <div className="pr-4 md:pr-5 w-full py-2 md:py-3 flex flex-col gap-2">
                 <div className="flex justify-between">
                     <div>
-                        <h2 className="text-sm md:text-lg font-semibold flex-grow">
+                        <h2 className="text-sm md:text-base font-semibold flex-grow">
                             {title}
                         </h2>
-                        <p className="text-gray-600 text-[10px] md:text-xs">
+                        <p className="text-gray-600 text-[10px] md:text-[10px]">
                             {banquet_type}
                         </p>
                     </div>
@@ -62,7 +62,7 @@ const BanquetCard = ({
                     </div>
                 </div>
 
-                <p className="text-gray-600 flex items-center text-[10px] md:text-sm">
+                <p className="text-gray-600 flex items-center text-[10px] md:text-xs">
                     <img
                         src={locationicon}
                         className="text-gray-600 mr-1 h-3 md:h-4"
@@ -70,8 +70,8 @@ const BanquetCard = ({
                     {location}
                 </p>
                 <div className="border-b-[1px] border-gray-400" />
-                <div className="flex justify-start items-center flex-wrap gap-1">
-                <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
+                {/* <div className="flex justify-start items-center flex-wrap gap-1">
+                    <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
                         {parking_capacity} Parking
                     </span>
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
@@ -80,26 +80,26 @@ const BanquetCard = ({
                     <span className="border-[1px] border-gray-400 rounded text-gray-700 text-[8px] md:text-[10px] px-[4px] md:px-[6px] py-[2px] md:py-[3px]">
                         {room_count} Rooms
                     </span>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-4">
                     <div className="flex gap-1 items-center">
                         <img
                             src={vegIcon}
                             alt="red"
-                            className="w-3 h-3 md:w-4 md:h-4"
+                            className="w-3 h-3 md:w-3 md:h-3"
                         />
-                        <span className="text-black-500 font-semibold text-[12px] md:text-lg">
-                            ₹{veg_price}
+                        <span className="text-black-500 font-semibold text-[12px] md:text-base">
+                            ₹ {veg_price}
                         </span>
                     </div>
                     <div className="flex gap-1 items-center">
                         <img
                             src={nonVegIcon}
                             alt="green"
-                            className="w-3 h-3 md:w-42md:h-4"
+                            className="w-3 h-3 md:w-3 md:h-3"
                         />
-                        <span className="text-black-500 font-semibold text-[12px] md:text-lg">
-                            ₹{nonveg_price}
+                        <span className="text-black-500 font-semibold text-[12px] md:text-base">
+                            ₹ {nonveg_price}
                         </span>
                     </div>
                 </div>

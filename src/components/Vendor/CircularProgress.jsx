@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
 const CircularProgress = ({ percentage }) => {
-    const radius = window.screen.width > 768 ? 85 : 60;
-    const stroke = window.screen.width > 768 ? 15 : 8;
+    const radius = window.screen.width > 768 ? 70 : 60;
+    const stroke = window.screen.width > 768 ? 10 : 8;
     const normalizedRadius = radius - stroke * 2;
     const circumference = normalizedRadius * 2 * Math.PI;
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
@@ -36,7 +36,7 @@ const CircularProgress = ({ percentage }) => {
                 />
             </svg>
             <div className="absolute flex-col items-center justify-center">
-                <p className="text-xl md:text-3xl font-[600] text-center">
+                <p className="text-base md:text-xl font-[600] text-center">
                     {percentage || 0}%
                 </p>
                 <p className="text-xs md:text-sm">Complete</p>
