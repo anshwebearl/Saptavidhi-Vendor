@@ -5,16 +5,16 @@ import hotel from "../../../assets/images/ProductDetailsImages/hotel.png"; // ad
 function AvailableAreas({ available_spaces }) {
     return (
         <>
-            <div className="border-2  rounded-[20px] px-5 py-3 md:px-5 shadow-md md:py-5 flex flex-col gap-2 md:gap-3 flex-grow h-fit">
+            <div className="border-2  rounded-[20px] px-5 py-3 md:px-5 shadow-md md:py-5 flex flex-col gap-2 md:gap-3 flex-grow h-full">
                 <h1 className="md:text-lg text-base font-semibold">
                     Available Areas
                 </h1>
                 <hr className="border-gray-300 " />
-                <div className="flex flex-col md:justify-center md:flex-row w-full md:flex-wrap gap-3 h-fit overflow-y-scroll">
+                <div className="flex flex-col md:justify-center md:flex-row w-full md:flex-wrap gap-3 h-fit overflow-scroll custom-scrollbar">
                     {available_spaces?.map((item) => (
                         <div
                             key={item.space_name}
-                            className="flex items-start gap-10 md:gap-2 md:w-[45%] flex-grow"
+                            className="flex items-start gap-6 md:gap-2 md:w-[45%] flex-grow"
                         >
                             <div className="flex flex-col items-center w-[50px] md:w-[60px] text-center">
                                 <img
@@ -30,7 +30,7 @@ function AvailableAreas({ available_spaces }) {
                                 <div className="text-base md:text-[13px] font-semibold">
                                     {item.fixed_capacity} Seating | {item.max_capacity} Floating
                                 </div>
-                                <div className="text-sm md:text-base">
+                                <div className="text-sm md:text-sm">
                                     {item.space_name}
                                 </div>
                             </div>

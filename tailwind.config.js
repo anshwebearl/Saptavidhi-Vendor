@@ -17,5 +17,31 @@ export default {
             },
         },
     },
-    plugins: [require("@tailwindcss/typography")],
+    plugins: [
+        require("@tailwindcss/typography"),
+        function ({ addBase, config }) {
+            addBase({
+                ".custom-scrollbar": {
+                    /* Firefox */
+                    scrollbarColor: "#CF166F #fff",
+                    scrollbarWidth: "normal",
+                    /* Chrome, Edge, and Safari */
+                    "&::-webkit-scrollbar": {
+                        width: "8px",
+                        height: "8px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: "#CF166F",
+                        borderRadius: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                        backgroundColor: "#fff",
+                    },
+                    "&::-webkit-scrollbar-button": {
+                        display: "none",
+                    },
+                },
+            });
+        },
+    ],
 };

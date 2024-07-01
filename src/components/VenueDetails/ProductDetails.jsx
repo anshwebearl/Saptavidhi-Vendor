@@ -143,14 +143,18 @@ function ProductDetails() {
                     ref={window.screen.width > 768 ? chargesRef : null}
                     className="flex flex-col sm:flex-row-reverse lg:flex-col gap-6 w-full md:w-2/5"
                 >
-                    <Charges
-                        veg_price={banquet?.veg_price}
-                        nonveg_price={banquet?.nonveg_price}
-                        price_per_room={banquet?.price_per_room}
-                    />
-                    <AvailableAreas
-                        available_spaces={banquet?.available_spaces}
-                    />
+                    <div className="md:h-[40%]">
+                        <Charges
+                            veg_price={banquet?.veg_price}
+                            nonveg_price={banquet?.nonveg_price}
+                            price_per_room={banquet?.price_per_room}
+                        />
+                    </div>
+                    <div className="md:h-[55%]">
+                        <AvailableAreas
+                            available_spaces={banquet?.available_spaces}
+                        />
+                    </div>
                 </div>
                 {/* <div className="w-full md:w-3/5"> */}
                 <ProductDetailsForm
@@ -183,7 +187,10 @@ function ProductDetails() {
             </div>
             <div>
                 {vendor.additional_details && (
-                    <FAQ additional_details={vendor?.additional_details} property_name={banquet?.property_name} />
+                    <FAQ
+                        additional_details={vendor?.additional_details}
+                        property_name={banquet?.property_name}
+                    />
                 )}
             </div>
             <div>

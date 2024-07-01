@@ -79,7 +79,7 @@ const Gallery = ({ vendorProject, galleryRef }) => {
                     Videos ({videos.length})
                 </button>
             </div>
-            <div className="overflow-y-scroll h-[90%] md:h-[95%] pb-5">
+            <div className="overflow-y-scroll h-[90%] md:h-[95%] pb-5 custom-scrollbar">
                 {activeTab === "Portfolios" && (
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-wrap gap-3 md:gap-5">

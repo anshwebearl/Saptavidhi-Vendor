@@ -1,4 +1,31 @@
-.custom-container{
+.custom-container {
     max-width: 1400px;
     margin: auto;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+@media print {
+    body {
+        margin: 0;
+    }
+}
+
+.main-container {
+    font-family: "Poppins";
+    width: 100%;
+}
+
+.ck-content {
+    font-family: "Poppins";
+    line-height: 0.7;
+}
+
+.editor-container {
+    width: 100%;
+}
+
+.editor-container .ck-editor__editable_inline {
+    width: 100%;
+    min-height: 150px;
 }

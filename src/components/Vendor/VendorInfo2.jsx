@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import infoIcon from "../../assets/images/Vector1.png";
 import { UserContext } from "../../context/UserContext";
 
@@ -8,6 +8,31 @@ import Slider from "@mui/material/Slider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+
+import {
+    InlineEditor,
+    AccessibilityHelp,
+    Alignment,
+    Autosave,
+    BlockQuote,
+    Bold,
+    Essentials,
+    GeneralHtmlSupport,
+    Heading,
+    Indent,
+    IndentBlock,
+    Italic,
+    List,
+    Paragraph,
+    SelectAll,
+    Strikethrough,
+    Underline,
+    Undo,
+} from "ckeditor5";
+
+import "ckeditor5/ckeditor5.css";
+
 const VendorInfo2 = () => {
     const token = localStorage.getItem("token");
 
@@ -15,7 +40,7 @@ const VendorInfo2 = () => {
         ? import.meta.env.VITE_API_BASE_URL_DEV
         : import.meta.env.VITE_API_BASE_URL_PROD;
 
-    const { user, getUser, vendorType } = useContext(UserContext);
+    const { user, getUser } = useContext(UserContext);
 
     const [additionalDetails, setAdditionalDetails] = useState([]);
     const [detailState, setDetailState] = useState({});
@@ -53,6 +78,14 @@ const VendorInfo2 = () => {
     };
 
     const handleInputChange = (propertyId, value) => {
+        setDetailState((prevState) => ({
+            ...prevState,
+            [propertyId]: value,
+        }));
+        setIsChanged(true);
+    };
+
+    const handleTextAreaInputChange = (propertyId, value) => {
         setDetailState((prevState) => ({
             ...prevState,
             [propertyId]: value,
@@ -241,11 +274,8 @@ const VendorInfo2 = () => {
                                     label={el.propertyDescription}
                                     bold={true}
                                     value={detailValue}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            el._id,
-                                            e.target.value
-                                        )
+                                    onChange={(data) =>
+                                        handleTextAreaInputChange(el._id, data)
                                     }
                                 />
                             );
@@ -344,17 +374,127 @@ const TextInput = ({
     );
 };
 
-const TextArea = ({
-    label,
-    placeholder,
-    value,
-    onChange,
-    icon,
-    add_label,
-    bold,
-}) => {
+const TextArea = ({ label, value, onChange, icon, add_label, bold }) => {
+    const editorContainerRef = useRef(null);
+    const editorRef = useRef(null);
+    const [isLayoutReady, setIsLayoutReady] = useState(false);
+
+    useEffect(() => {
+        setIsLayoutReady(true);
+
+        return () => setIsLayoutReady(false);
+    }, []);
+
+    const editorConfig = {
+        toolbar: {
+            items: [
+                "undo",
+                "redo",
+                "|",
+                "selectAll",
+                "|",
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "|",
+                "blockQuote",
+                "|",
+                "alignment",
+                "|",
+                "bulletedList",
+                "numberedList",
+                "indent",
+                "outdent",
+                "|",
+                "accessibilityHelp",
+            ],
+            shouldNotGroupWhenFull: false,
+        },
+        plugins: [
+            AccessibilityHelp,
+            Alignment,
+            Autosave,
+            BlockQuote,
+            Bold,
+            Essentials,
+            GeneralHtmlSupport,
+            Heading,
+            Indent,
+            IndentBlock,
+            Italic,
+            List,
+            Paragraph,
+            SelectAll,
+            Strikethrough,
+            Underline,
+            Undo,
+        ],
+        heading: {
+            options: [
+                {
+                    model: "paragraph",
+                    title: "Paragraph",
+                    class: "ck-heading_paragraph",
+                },
+                {
+                    model: "heading1",
+                    view: "h1",
+                    title: "Heading 1",
+                    class: "ck-heading_heading1",
+                },
+                {
+                    model: "heading2",
+                    view: "h2",
+                    title: "Heading 2",
+                    class: "ck-heading_heading2",
+                },
+                {
+                    model: "heading3",
+                    view: "h3",
+                    title: "Heading 3",
+                    class: "ck-heading_heading3",
+                },
+                {
+                    model: "heading4",
+                    view: "h4",
+                    title: "Heading 4",
+                    class: "ck-heading_heading4",
+                },
+                {
+                    model: "heading5",
+                    view: "h5",
+                    title: "Heading 5",
+                    class: "ck-heading_heading5",
+                },
+                {
+                    model: "heading6",
+                    view: "h6",
+                    title: "Heading 6",
+                    class: "ck-heading_heading6",
+                },
+            ],
+        },
+        htmlSupport: {
+            allow: [
+                {
+                    name: /.*/,
+                    attributes: true,
+                    classes: true,
+                    styles: true,
+                },
+            ],
+        },
+        initialData: "",
+        placeholder: "Type or paste your content here!",
+    };
+
+    const [data, setData] = useState(value);
+
     return (
-        <div className="flex flex-col gap-1 md:gap-2 flex-grow">
+        <div className="flex flex-col gap-1 md:gap-2 flex-grow w-full">
             <div className="flex gap-1 items-center">
                 <p
                     className={`text-sm md:text-base ${
@@ -370,7 +510,7 @@ const TextArea = ({
                 )}
                 {icon && <img src={infoIcon} className="w-4 h-4" />}
             </div>
-            <textarea
+            {/* <textarea
                 rows={5}
                 className={`bg-transparent rounded-xl text-sm md:text-sm ${
                     bold && "md:text-base"
@@ -378,7 +518,29 @@ const TextArea = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-            />
+            /> */}
+            <div
+                className="leading-none prose editor-container w-full"
+                ref={editorContainerRef}
+            >
+                <div
+                    ref={editorRef}
+                    className="w-full bg-transparent rounded-xl border-[1px] border-[#FF8DA680] px-3 py-1 md:px-2 md:py-2 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
+                >
+                    {isLayoutReady && (
+                        <CKEditor
+                            editor={InlineEditor}
+                            data={data}
+                            config={editorConfig}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setData(data);
+                                onChange(data);
+                            }}
+                        />
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
