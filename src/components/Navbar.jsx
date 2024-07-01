@@ -140,7 +140,7 @@ const Navbar = () => {
                                     Photographers
                                 </div>
                                 <div
-                                    onClick={() => handleNavigation("/wear")}
+                                    onClick={() => handleNavigation("/vendors/bridal-wears")}
                                     className="mb-4 font-poppins cursor-pointer font-medium text-[16px] leading-[24px]"
                                 >
                                     Bridal Wear

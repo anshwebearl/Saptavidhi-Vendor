@@ -22,10 +22,10 @@ const Filter = ({
     };
     return (
         <div className="w-full lg:px-2 py-5 font-poppins flex flex-col gap-5 mx-auto bg-[#f5f5f5] overflow-hidden">
-            <h2 className="text-2xl font-semibold text-gray-800 mx-3 -my-2 text-left">
+            <h2 className="text-2xl font-semibold text-gray-800 -my-2 text-left">
                 Banquet Halls
             </h2>
-            <p className="text-sm text-gray-500 mx-3 text-left">
+            <p className="text-sm text-gray-500 text-left">
                 Showing {totalCount} results as per your search criteria
             </p>
             <div className="bg-gradient-to-r from-[#FD070780] to-[#5C034080] focus:outline-none p-3 rounded-full mx-3 lg:px-3  md:self-center">

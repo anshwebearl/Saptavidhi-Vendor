@@ -108,7 +108,7 @@ const Sidebar1 = () => {
     ];
 
     return (
-        <div className="flex flex-col md:flex-row h-fit w-fit">
+        <div className="flex flex-col md:flex-row h-fit w-fit sticky top-5">
             <button
                 className="md:hidden p-2 bg-pink-500 text-white rounded-md w-fit"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
