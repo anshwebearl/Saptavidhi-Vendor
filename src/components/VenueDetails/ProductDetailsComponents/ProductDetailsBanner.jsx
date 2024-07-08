@@ -13,7 +13,8 @@ import { PiPhoneDisconnectBold } from "react-icons/pi";
 import { IoLocationSharp } from "react-icons/io5";
 
 const BASE_IMAGE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_IMAGE_URL_DEV
+    ? // ? import.meta.env.VITE_IMAGE_URL_DEV
+      "http://127.0.0.1:8000"
     : import.meta.env.VITE_IMAGE_URL_PROD;
 
 function ProductDetailsBanner({

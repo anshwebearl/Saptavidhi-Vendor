@@ -12,7 +12,8 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext.jsx";
 
 const BASE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_API_BASE_URL_DEV
+    // ? import.meta.env.VITE_API_BASE_URL_DEV
+    ? "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
 function ProductDetails() {

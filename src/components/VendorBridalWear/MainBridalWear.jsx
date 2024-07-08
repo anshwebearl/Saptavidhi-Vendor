@@ -6,11 +6,13 @@ import Filter from "./Filter.jsx";
 let limit = window.screen.width > 768 ? 12 : 6;
 
 const BASE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_API_BASE_URL_DEV
+    // ? import.meta.env.VITE_API_BASE_URL_DEV
+    ? "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
 const BASE_IMAGE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_IMAGE_URL_DEV
+    // ? import.meta.env.VITE_IMAGE_URL_DEV
+    ? "http://127.0.0.1:8000"
     : import.meta.env.VITE_IMAGE_URL_PROD;
 
 const token = localStorage.getItem("token");
@@ -147,7 +149,14 @@ const MainBridalWear = ({ handleNavigation }) => {
 
 export default MainBridalWear;
 
-const Card = ({ src, name, location, id, additional_details,handleNavigation }) => {
+const Card = ({
+    src,
+    name,
+    location,
+    id,
+    additional_details,
+    handleNavigation,
+}) => {
     const [detailsData, setDetailsData] = useState({});
     const [range, setRange] = useState({
         min: 0,
@@ -193,9 +202,11 @@ const Card = ({ src, name, location, id, additional_details,handleNavigation }) 
         }
     }, [additional_details]);
 
-
     return (
-        <div onClick={()=>handleNavigation(`bridal-wear/${id}`)} className="border-[0.5px] border-gray-300 cursor-pointer font-poppins flex-grow relative shadow-md flex-shrink-0 min-w-[150px] max-w-[150px] h-[300px] md:min-w-[220px] md:max-w-[220px] md:h-[380px] overflow-hidden rounded-3xl">
+        <div
+            onClick={() => handleNavigation(`bridal-wear/${id}`)}
+            className="border-[0.5px] border-gray-300 cursor-pointer font-poppins flex-grow relative shadow-md flex-shrink-0 min-w-[150px] max-w-[150px] h-[300px] md:min-w-[220px] md:max-w-[220px] md:h-[380px] overflow-hidden rounded-3xl"
+        >
             <div
                 className="absolute inset-0 bg-cover bg-center bottom-1/4"
                 style={{
@@ -213,7 +224,8 @@ const Card = ({ src, name, location, id, additional_details,handleNavigation }) 
                     {location}
                 </p>
                 <p className="font-[600] text-base md:text-base text-[#CF166F]">
-                    &#8377; {range.min} - &#8377; {range.max}
+                    &#8377; {range.min.toLocaleString("en-IN")} - &#8377;{" "}
+                    {range.max.toLocaleString("en-IN")}
                 </p>
             </div>
         </div>

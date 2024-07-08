@@ -8,7 +8,8 @@ import { UserContext } from "../../../../context/UserContext";
 import { FaPlus } from "react-icons/fa";
 
 const BASE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_API_BASE_URL_DEV
+    // ? import.meta.env.VITE_API_BASE_URL_DEV
+    ? "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
 const AddBanquet = ({ handleNavigate }) => {

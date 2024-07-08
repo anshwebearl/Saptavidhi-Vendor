@@ -119,9 +119,9 @@ const Navbar = () => {
                         {isServicesDropdownOpen && (
                             <div
                                 ref={servicesDropdownRef}
-                                className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
+                                className="absolute top-full mt-2 bg-white border-2 rounded-[30px] p-6 shadow-lg md:w-[800px] z-50 right-0 flex justify-between"
                             >
-                                <div
+                                {/* <div
                                     onClick={() =>
                                         handleNavigation(
                                             "/vendors/venues/all-venues"
@@ -180,6 +180,121 @@ const Navbar = () => {
                                     className="mb-4 font-poppins cursor-pointer font-medium text-[16px] leading-[24px]"
                                 >
                                     E-invites
+                                </div> */}
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col">
+                                        <p
+                                            className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer"
+                                            onClick={() =>
+                                                handleNavigation(
+                                                    "/vendors/venues/all-venues"
+                                                )
+                                            }
+                                        >
+                                            Venues
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Banquet Halls
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Lawns / Farmhouses
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Wedding Resorts
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Small Function / Party Halls
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Destination Wedding Venues
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Kalyana Mandapams
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            4 Star & Above Wedding Hotels
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                            Makeup
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Bridal Makeup
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Family Makeup
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                            Pre Wedding Shoot
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Pre Wedding Shoot
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex flex-col">
+                                        <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                            Bridal Wear
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Bridal Lehengas
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Kanjeevaram / Silk Sarees
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Cocktail Gowns
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Trousseau Sarees
+                                        </p>
+                                        <p className="text-gray-500 text-sm font-light">
+                                            Bridal Lehenga on Rent
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                            Groom Wear
+                                        </p>
+                                    </div>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Bridal Wear
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Groom Wear
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Bridal Wear
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Groom Wear
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
+                                    <p className="text-[#CF166F] text-base hover:text-[#9c3265] cursor-pointer">
+                                        Mehendi
+                                    </p>
                                 </div>
                             </div>
                         )}
@@ -222,7 +337,7 @@ const Navbar = () => {
                             {isDropdownOpen && (
                                 <div
                                     ref={dropdownRef}
-                                    className="absolute top-full mt-2 bg-white rounded-[30px] p-6 shadow-lg w-[200px] z-50 right-0"
+                                    className="absolute top-full mt-2 bg-white rounded-[30px] border-2 p-6 shadow-lg w-[200px] z-50 right-0"
                                 >
                                     <div
                                         onClick={() =>

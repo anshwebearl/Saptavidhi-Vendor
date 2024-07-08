@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
 .custom-container {
     max-width: 1400px;
     margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 @media print {
     body {

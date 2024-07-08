@@ -1,16 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { ImCross } from "react-icons/im";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../context/UserContext";
 
 const BASE_IMAGE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_IMAGE_URL_DEV
+    // ? import.meta.env.VITE_IMAGE_URL_DEV
+    ? "http://127.0.0.1:8000"
     : import.meta.env.VITE_IMAGE_URL_PROD;
 
 const BASE_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_API_BASE_URL_DEV
+    ? // ? import.meta.env.VITE_API_BASE_URL_DEV
+      "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
 const VendorProjectVideos = () => {
