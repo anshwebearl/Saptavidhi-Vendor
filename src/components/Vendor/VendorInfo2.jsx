@@ -37,8 +37,8 @@ const VendorInfo2 = () => {
     const token = localStorage.getItem("token");
 
     const BASE_URL = import.meta.env.DEV
-        // ? import.meta.env.VITE_API_BASE_URL_DEV
-        ? "http://127.0.0.1:8000/api"
+        ? // ? import.meta.env.VITE_API_BASE_URL_DEV
+          "http://127.0.0.1:8000/api"
         : import.meta.env.VITE_API_BASE_URL_PROD;
 
     const { user, getUser } = useContext(UserContext);
@@ -133,6 +133,7 @@ const VendorInfo2 = () => {
                 [Object.keys(detail).find((key) => key !== "_id")]:
                     detailState[detail._id] || "",
             }));
+            console.log(detailState);
             const response = await fetch(
                 `${BASE_URL}/vendor/update-additional-details/${user._id}`,
                 {
@@ -299,7 +300,7 @@ const VendorInfo2 = () => {
                         } else if (el.propertyType === "multiSelectWithText") {
                             return (
                                 <>
-                                    <MultiSelectWithText
+                                    {/* <MultiSelectWithText
                                         key={el._id}
                                         label={el.propertyDescription}
                                         options={el.multiSelectWithTextInputs}
@@ -311,7 +312,7 @@ const VendorInfo2 = () => {
                                                 value
                                             )
                                         }
-                                    />
+                                    /> */}
                                 </>
                             );
                         } else {
@@ -619,20 +620,29 @@ const MultiSelectInput = ({ options, label, values, onChange }) => {
 
 const MultiSelectWithText = ({ options, label, values, onChange }) => {
     const handleCheckboxChange = (subInputVariable) => {
-        const updatedValues = values.filter(
-            (item) => item[subInputVariable] === undefined
+        const isPresent = values.some(
+            (item) => item[subInputVariable] !== undefined
         );
-        if (updatedValues.length === values.length) {
-            // Checkbox is being selected, so add a new entry
-            onChange(subInputVariable, "");
+        let updatedValues;
+
+        if (isPresent) {
+            updatedValues = values.filter(
+                (item) => item[subInputVariable] === undefined
+            );
         } else {
-            // Checkbox is being deselected, so remove the entry
-            onChange(subInputVariable, null);
+            updatedValues = [...values, { [subInputVariable]: "" }];
         }
+
+        onChange(updatedValues);
     };
 
     const handleTextInputChange = (subInputVariable, event) => {
-        onChange(subInputVariable, event.target.value);
+        const updatedValues = values.map((item) =>
+            item[subInputVariable] !== undefined
+                ? { [subInputVariable]: event.target.value }
+                : item
+        );
+        onChange(updatedValues);
     };
 
     return (
@@ -697,7 +707,7 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
     );
 };
 
-const MultiSelectWithRange = ({ options, label, values, onChange }) => {
+const MultiSelectWithRange = ({ options, label, values = [], onChange }) => {
     const [rangeValues, setRangeValues] = useState(
         options.reduce((acc, option) => {
             const existingOption = values.find((item) => item.type === option);
@@ -735,13 +745,24 @@ const MultiSelectWithRange = ({ options, label, values, onChange }) => {
             item.type === option
                 ? {
                       ...item,
-                      min: rangeValues[option][0],
-                      max: rangeValues[option][1],
+                      min: newValue[0],
+                      max: newValue[1],
                   }
                 : item
         );
         onChange(updatedValues);
     };
+
+    useEffect(() => {
+        const newRangeValues = options.reduce((acc, option) => {
+            const existingOption = values.find((item) => item.type === option);
+            acc[option] = existingOption
+                ? [existingOption.min, existingOption.max]
+                : [0, 500000]; // default range values
+            return acc;
+        }, {});
+        setRangeValues(newRangeValues);
+    }, [values, options]);
 
     return (
         <div className="flex flex-col gap-1 md:gap-2 flex-grow">

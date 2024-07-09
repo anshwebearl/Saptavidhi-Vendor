@@ -22,7 +22,7 @@ const BanquetCard = ({
 }) => {
     const BASE_URL = import.meta.env.DEV
         // ? import.meta.env.VITE_IMAGE_URL_DEV
-        ? "http://127.0.0.1:8000/api"
+        ? "http://127.0.0.1:8000"
         : import.meta.env.VITE_IMAGE_URL_PROD;
 
     const navigate = useNavigate();
