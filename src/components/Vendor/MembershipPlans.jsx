@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Packages from "./Packages";
 import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const token = localStorage.getItem("token");
 
@@ -11,8 +12,9 @@ const BASE_URL = import.meta.env.DEV
 
 const MembershipPlans = () => {
     const [plans, setPlans] = useState([]);
-
     const [bookedPlan, setBookedPlan] = useState(null);
+
+    const navigate = useNavigate();
 
     const { user } = useContext(UserContext);
 
@@ -53,6 +55,7 @@ const MembershipPlans = () => {
             const jsonData = await response.json();
             if (jsonData.success) {
                 setBookedPlan(jsonData.data);
+                console.log(jsonData);
             } else {
                 fetchMembershipPlans();
             }
@@ -76,7 +79,62 @@ const MembershipPlans = () => {
             </div>
             <hr className="mb-4" />
             {bookedPlan ? (
-                <div> {bookedPlan.days_remaining} </div>
+                <div>
+                    <div className="flex w-full">
+                        <div className="flex-grow">
+                            <p>
+                                Current Package :{" "}
+                                <span className="text-lg font-[600]">
+                                    {
+                                        bookedPlan?.membership
+                                            ?.membership_category
+                                    }
+                                </span>
+                            </p>
+                            <p>
+                                Purchase Price :{" "}
+                                <span className="text-lg font-[600]">
+                                    {bookedPlan?.booking?.amount.toLocaleString(
+                                        "en-IN"
+                                    )}
+                                </span>
+                            </p>
+                            <div>
+                                <p>Features :</p>
+                                <div className="ml-5 flex flex-col gap-1">
+                                    {bookedPlan?.membership?.features?.map(
+                                        (el) => (
+                                            <li
+                                                key={el?._id}
+                                                className="text-sm text-gray-700"
+                                            >
+                                                {el?.name}
+                                            </li>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="">
+                            <p>
+                                Days Remaining :{" "}
+                                <span className="text-lg font-[600]">
+                                    {bookedPlan?.days_remaining} days
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex w-full justify-end">
+                        <div
+                            onClick={() =>
+                                navigate("/profile/personal-information")
+                            }
+                            className={`cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F] text-white md:px-3 md:py-1 w-fit rounded-full font-bold h-fit md:text-sm text-xs px-3 py-1`}
+                        >
+                            GO TO PROFILE
+                        </div>
+                    </div>
+                </div>
             ) : (
                 <div className="flex flex-row flex-wrap justify-around gap-5 md:gap-12 p-3 md:p-5">
                     {plans &&

@@ -22,7 +22,6 @@ const ConfirmPackage = () => {
 
     const fetchMembershipPlan = async () => {
         const locatorArray = locator.pathname.split("/");
-        console.log(locatorArray);
         try {
             const response = await fetch(
                 `${BASE_URL}/membership-plans/get-membership?membership_id=${locatorArray[3]}`,
@@ -88,8 +87,8 @@ const ConfirmPackage = () => {
                     }),
                 }
             );
-            const data = await response.json();
-            console.log(data);
+            const jsonData = await response.json();
+            window.location.href = jsonData.data.url;
         } catch (error) {
             console.log(error);
         }
@@ -252,6 +251,9 @@ const ConfirmPackage = () => {
             <div className="flex w-full justify-end">
                 {paymentData ? (
                     <div
+                        onClick={() =>
+                            navigate("/profile/personal-information")
+                        }
                         className={`cursor-pointer bg-gradient-to-r from-[#5C0340] to-[#CF166F] text-white md:px-3 md:py-1 w-fit rounded-full font-bold h-fit md:text-sm text-xs px-3 py-1`}
                     >
                         GO TO PROFILE
