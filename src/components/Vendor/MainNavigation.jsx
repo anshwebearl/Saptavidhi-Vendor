@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Sidebar1 from "./Sidebar1";
 import VendorInfo1 from "./VendorInfo1";
 import VendorInfo2 from "./VendorInfo2";
@@ -7,11 +7,12 @@ import ReviewsContainer from "./ReviewsContainer";
 import GoogleMyBusiness from "./GoogleMyBusiness";
 import VendorProjects from "./VendorProjects/VendorProjects";
 import CardGrid from "./Cardgrid";
-import Packages from "./Packages";
 import { UserContext } from "../../context/UserContext";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BanquetNavigator from "./Venues/Banquet/BanquetNavigator";
 import MenuNavigator from "./Venues/Menu/MenuNavigator";
+import MembershipPlans from "./MembershipPlans";
+import ConfirmPackage from "./ConfirmPackage";
 
 const MainNavigation = () => {
     const { getUser, vendorType } = useContext(UserContext);
@@ -41,7 +42,14 @@ const MainNavigation = () => {
                         <Route path="menu/*" element={<MenuNavigator />} />
                     )}
                     <Route path="inquiries" element={<CardGrid />} />
-                    <Route path="membership-plans" element={<Packages />} />
+                    <Route
+                        path="membership-plans"
+                        element={<MembershipPlans />}
+                    />
+                    <Route
+                        path="membership-plans/:id/:merchantTransactionId?"
+                        element={<ConfirmPackage />}
+                    />
                     <Route path="reviews" element={<ReviewsContainer />} />
                     <Route
                         path="google-my-business"
