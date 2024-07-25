@@ -16,7 +16,7 @@ const BASE_URL = import.meta.env.DEV
       "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
-function BridalWearDetails() {
+function GroomWearDetails() {
     const { user } = useContext(UserContext);
 
     const token = localStorage.getItem("token");
@@ -181,4 +181,4 @@ function BridalWearDetails() {
     );
 }
 
-export default BridalWearDetails;
+export default GroomWearDetails;

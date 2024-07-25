@@ -37,8 +37,7 @@ const VendorInfo2 = () => {
     const token = localStorage.getItem("token");
 
     const BASE_URL = import.meta.env.DEV
-        ? // ? import.meta.env.VITE_API_BASE_URL_DEV
-          "http://127.0.0.1:8000/api"
+        ? "http://127.0.0.1:8000/api"
         : import.meta.env.VITE_API_BASE_URL_PROD;
 
     const { user, getUser } = useContext(UserContext);
@@ -62,16 +61,21 @@ const VendorInfo2 = () => {
             const jsonData = await response.json();
             if (jsonData.success) {
                 const properties = jsonData.vendorDetails.categoryProperties;
+                console.log("PROP : ",properties)
                 setAdditionalDetails(properties);
                 const initialDetailState = {};
                 user.additional_details.forEach((detail) => {
                     const key = detail._id;
-                    initialDetailState[key] =
+                    const value =
                         detail[
                             Object.keys(detail).find((key) => key !== "_id")
                         ];
+                    initialDetailState[key] = Array.isArray(value)
+                        ? value
+                        : value || "";
                 });
                 setDetailState(initialDetailState);
+                console.log(initialDetailState)
             }
         } catch (error) {
             console.log(error);
@@ -94,31 +98,11 @@ const VendorInfo2 = () => {
         setIsChanged(true);
     };
 
-    const handleMultiSelectWithTextChange = (propertyId, option, value) => {
-        setDetailState((prevState) => {
-            let updatedValues = prevState[propertyId] || [];
-
-            if (value === null) {
-                updatedValues = updatedValues.filter(
-                    (item) => item[option] === undefined
-                );
-            } else {
-                const optionIndex = updatedValues.findIndex(
-                    (item) => item[option] !== undefined
-                );
-
-                if (optionIndex >= 0) {
-                    updatedValues[optionIndex] = { [option]: value };
-                } else {
-                    updatedValues.push({ [option]: value });
-                }
-            }
-
-            return {
-                ...prevState,
-                [propertyId]: updatedValues,
-            };
-        });
+    const handleMultiSelectWithTextChange = (propertyId, updatedValues) => {
+        setDetailState((prevState) => ({
+            ...prevState,
+            [propertyId]: updatedValues,
+        }));
         setIsChanged(true);
     };
 
@@ -133,7 +117,6 @@ const VendorInfo2 = () => {
                 [Object.keys(detail).find((key) => key !== "_id")]:
                     detailState[detail._id] || "",
             }));
-            console.log(detailState);
             const response = await fetch(
                 `${BASE_URL}/vendor/update-additional-details/${user._id}`,
                 {
@@ -299,21 +282,22 @@ const VendorInfo2 = () => {
                             );
                         } else if (el.propertyType === "multiSelectWithText") {
                             return (
-                                <>
-                                    {/* <MultiSelectWithText
-                                        key={el._id}
-                                        label={el.propertyDescription}
-                                        options={el.multiSelectWithTextInputs}
-                                        values={detailValue}
-                                        onChange={(option, value) =>
-                                            handleMultiSelectWithTextChange(
-                                                el._id,
-                                                option,
-                                                value
-                                            )
-                                        }
-                                    /> */}
-                                </>
+                                <MultiSelectWithText
+                                    key={el._id}
+                                    label={el.propertyDescription}
+                                    options={el.multiSelectWithTextInputs}
+                                    values={
+                                        Array.isArray(detailValue)
+                                            ? detailValue
+                                            : []
+                                    }
+                                    onChange={(updatedValues) =>
+                                        handleMultiSelectWithTextChange(
+                                            el._id,
+                                            updatedValues
+                                        )
+                                    }
+                                />
                             );
                         } else {
                             return (
@@ -646,56 +630,64 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
     };
 
     return (
-        <div className="flex flex-col gap-1 md:gap-2 flex-grow">
-            <p className="text-sm md:text-base font-[500]">{label}</p>
-            <div className="flex flex-col gap-2 md:gap-2 md:text-base flex-wrap">
-                {options.map((option, idx) => {
-                    const checkboxId = `${label}-${option.subInputVariable}-${idx}`;
+        <div className="flex flex-col gap-2 md:gap-3">
+            <p className="text-sm md:text-base font-bold ">{label}</p>
+            <div className="flex flex-col gap-2 md:gap-3">
+                {options.map((option) => {
+                    const subInputVariable = option.subInputVariable;
                     const isChecked = values.some(
-                        (item) => item[option.subInputVariable] !== undefined
+                        (item) => item[subInputVariable] !== undefined
                     );
-                    const textValue =
-                        values.find(
-                            (item) =>
-                                item[option.subInputVariable] !== undefined
-                        )?.[option.subInputVariable] || "";
-
                     return (
-                        <div key={idx} className="flex flex-col gap-2">
+                        <div key={option._id} className="flex flex-col gap-2">
                             <div className="flex gap-2 items-center">
                                 <input
                                     type="checkbox"
-                                    id={checkboxId}
+                                    id={option._id}
+                                    name={option._id}
                                     className="accent-[#CF166F]"
                                     checked={isChecked}
                                     onChange={() =>
-                                        handleCheckboxChange(
-                                            option.subInputVariable
-                                        )
+                                        handleCheckboxChange(subInputVariable)
                                     }
                                 />
                                 <label
-                                    htmlFor={checkboxId}
+                                    htmlFor={option._id}
                                     className="text-sm md:text-sm"
                                 >
                                     {option.subInputName}
                                 </label>
                             </div>
                             {isChecked && (
-                                <div className="flex flex-col gap-1 md:gap-2 ml-6">
+                                <div className="flex flex-col gap-1 md:gap-2 ml-10">
                                     <label className="text-xs md:text-sm text-[#E45270]">
                                         {option.subPropertyDescription}
                                     </label>
                                     <input
                                         type="text"
-                                        className="bg-transparent rounded-xl text-sm md:text-base border-[1px] border-[#FF8DA680] max-w-[150px] md:max-w-[200px] lg:max-w-[250px] px-3 py-1 md:px-4 md:py-1 focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
-                                        value={textValue}
-                                        onChange={(event) =>
+                                        id={`${option._id}-input`}
+                                        name={`${option._id}-input`}
+                                        value={
+                                            values.find(
+                                                (item) =>
+                                                    item[subInputVariable] !==
+                                                    undefined
+                                            )[subInputVariable]
+                                        }
+                                        onChange={(e) =>
                                             handleTextInputChange(
-                                                option.subInputVariable,
-                                                event
+                                                subInputVariable,
+                                                e
                                             )
                                         }
+                                        onInput={(e) =>
+                                            (e.target.value =
+                                                e.target.value.replace(
+                                                    /[^0-9]/g,
+                                                    ""
+                                                ))
+                                        }
+                                        className="bg-transparent rounded-xl text-xs md:text-xs border-[1px] border-[#FF8DA680] max-w-[150px] md:max-w-[200px] lg:max-w-[250px] px-3 py-1 md:px-3 md:py-[px] focus:outline-none focus:border-[#ff7291] focus:border-[1.5px]"
                                     />
                                 </div>
                             )}
@@ -706,7 +698,6 @@ const MultiSelectWithText = ({ options, label, values, onChange }) => {
         </div>
     );
 };
-
 const MultiSelectWithRange = ({ options, label, values = [], onChange }) => {
     const [rangeValues, setRangeValues] = useState(
         options.reduce((acc, option) => {

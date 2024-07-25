@@ -6,14 +6,14 @@ import BanquetCard from "./BanquetCard";
 let limit = window.screen.width > 768 ? 12 : 6;
 
 const BASE_URL = import.meta.env.DEV
-    // ? import.meta.env.VITE_API_BASE_URL_DEV
-    ? "http://127.0.0.1:8000/api"
+    ? // ? import.meta.env.VITE_API_BASE_URL_DEV
+      "http://127.0.0.1:8000/api"
     : import.meta.env.VITE_API_BASE_URL_PROD;
 
 const MainVenue = ({ handleNavigation }) => {
     const bottomRef = useRef(null);
 
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(2);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(1);
 
@@ -32,37 +32,39 @@ const MainVenue = ({ handleNavigation }) => {
     const [banquets, setBanquets] = useState([]);
 
     const getBanquetsPagination = async () => {
-        try {
-            setPaginationLoading(true);
-            const response = await fetch(
-                `${BASE_URL}/vendor/banquets-pagination?page=${currentPage}&limit=${limit}&guest_count=${guestCount}&room_count=${roomCount}&plate_price=${platePrice}&venue_type=${venueType}&space=${space}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
+        if (currentPage <= totalPages) {
+            try {
+                setPaginationLoading(true);
+                const response = await fetch(
+                    `${BASE_URL}/vendor/banquets-pagination?page=${currentPage}&limit=${limit}&guest_count=${guestCount}&room_count=${roomCount}&plate_price=${platePrice}&venue_type=${venueType}&space=${space}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                const jsonData = await response.json();
+                if (jsonData.success) {
+                    if (currentPage === 1) {
+                        setBanquets(jsonData.data.banquets);
+                        setIsFirstPageLoaded(true);
+                    } else {
+                        setBanquets((prevBanquets) => [
+                            ...prevBanquets,
+                            ...jsonData.data.banquets,
+                        ]);
+                    }
+                    setTotalPages(parseInt(jsonData.data.totalPages));
+                    setTotalCount(parseInt(jsonData.data.totalCount));
                 }
-            );
-            const jsonData = await response.json();
-            if (jsonData.success) {
-                if (currentPage === 1) {
-                    setBanquets(jsonData.data.banquets);
-                    setIsFirstPageLoaded(true);
-                } else {
-                    setBanquets((prevBanquets) => [
-                        ...prevBanquets,
-                        ...jsonData.data.banquets,
-                    ]);
-                }
-                setTotalPages(parseInt(jsonData.data.totalPages));
-                setTotalCount(parseInt(jsonData.data.totalCount));
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+                setPaginationLoading(false);
             }
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-            setPaginationLoading(false);
         }
     };
 
@@ -127,7 +129,7 @@ const MainVenue = ({ handleNavigation }) => {
                     </div>
                 ) : (
                     <div className="flex flex-row flex-wrap mx-auto md:px-5 gap-5 w-[85%]">
-                        {banquets.map((banquet, id) => (
+                        {banquets.map((banquet) => (
                             <BanquetCard
                                 key={banquet._id}
                                 id={banquet._id}
